@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Webshop.Common.DAL;
 
 namespace Webshop_Kolb_Nussdorfer.Controllers
 {
@@ -13,7 +14,8 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var dataContext = new WebshopDataContext();
+            return View(dataContext.Produkt.Select(i => i).ToList());
         }
 
         //
@@ -21,7 +23,8 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
 
         public ActionResult Details(int id)
         {
-            return View();
+            var dataContext = new WebshopDataContext();
+            return View(dataContext.Produkt.Select(i => i).Where(i=>i.Produkt_ID == id).ToList());
         }
 
         //

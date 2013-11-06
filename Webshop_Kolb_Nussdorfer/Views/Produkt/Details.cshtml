@@ -1,0 +1,50 @@
+﻿@model Webshop.Common.DAL.Produkt
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Produkt</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Kurzbezeichnung)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Kurzbezeichnung)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Langbezeichnung)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Langbezeichnung)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Steuersatz)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Steuersatz)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Preis_netto)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Preis_netto)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Zutaten)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Zutaten)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Produkt_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
