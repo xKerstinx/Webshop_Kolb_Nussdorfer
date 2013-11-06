@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Webshop" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Webshop" Class="WebshopDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=KERSTIN-PC\SQLEXPRESS;Initial Catalog=Webshop;Integrated Security=True" SettingsObjectName="Webshop.Common.Properties.Settings" SettingsPropertyName="WebshopConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Bestellposition" Member="Bestellposition">
     <Type Name="Bestellposition">
@@ -18,17 +18,6 @@
       <Column Name="User_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Bestellung_Bestellposition" Member="Bestellposition" ThisKey="Bestellung_ID" OtherKey="Bestellung_ID" Type="Bestellposition" />
       <Association Name="User_Bestellung" Member="User" ThisKey="User_ID" OtherKey="User_ID" Type="User" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Produkt" Member="Produkt">
-    <Type Name="Produkt">
-      <Column Name="Produkt_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Kurzbezeichnung" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Langbezeichnung" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
-      <Column Name="Steuersatz" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Preis_netto" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
-      <Column Name="Zutaten" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
-      <Association Name="Produkt_Bestellposition" Member="Bestellposition" ThisKey="Produkt_ID" OtherKey="Produkt_ID" Type="Bestellposition" />
     </Type>
   </Table>
   <Table Name="dbo.[User]" Member="User">
@@ -54,6 +43,17 @@
       <Column Name="Usergruppe_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Usergruppenbezeichnung" Type="System.String" DbType="VarChar(45)" CanBeNull="true" />
       <Association Name="Usergruppe_User" Member="User" ThisKey="Usergruppe_ID" OtherKey="Usergruppe_ID" Type="User" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Produkt" Member="Produkt">
+    <Type Name="Produkt">
+      <Column Name="Produkt_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Kurzbezeichnung" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Langbezeichnung" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
+      <Column Name="Steuersatz" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Preis_netto" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="Zutaten" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
+      <Association Name="Produkt_Bestellposition" Member="Bestellposition" ThisKey="Produkt_ID" OtherKey="Produkt_ID" Type="Bestellposition" />
     </Type>
   </Table>
 </Database>

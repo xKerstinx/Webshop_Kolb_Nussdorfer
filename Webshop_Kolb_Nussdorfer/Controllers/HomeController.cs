@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Webshop.Common.DAL;
 
 namespace Webshop_Kolb_Nussdorfer.Controllers
 {
@@ -10,8 +11,13 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Willkommen im Webshop";
-           
+            var dataContext = new WebshopDataContext();
+            var produkt = dataContext.Produkt.First();
+                         
+            //ViewBag.Message = produkt.Kurzbezeichnung;
+            Console.WriteLine(produkt.Kurzbezeichnung);
+
+            
             return View();
         }
 

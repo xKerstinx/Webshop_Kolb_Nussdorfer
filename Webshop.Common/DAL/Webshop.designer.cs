@@ -23,7 +23,7 @@ namespace Webshop.Common.DAL
 	
 	
 	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Webshop")]
-	public partial class DataClasses1DataContext : System.Data.Linq.DataContext
+	public partial class WebshopDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
@@ -33,42 +33,42 @@ namespace Webshop.Common.DAL
     partial void InsertBestellung(Bestellung instance);
     partial void UpdateBestellung(Bestellung instance);
     partial void DeleteBestellung(Bestellung instance);
-    partial void InsertProdukt(Produkt instance);
-    partial void UpdateProdukt(Produkt instance);
-    partial void DeleteProdukt(Produkt instance);
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
     partial void InsertUsergruppe(Usergruppe instance);
     partial void UpdateUsergruppe(Usergruppe instance);
     partial void DeleteUsergruppe(Usergruppe instance);
+    partial void InsertProdukt(Produkt instance);
+    partial void UpdateProdukt(Produkt instance);
+    partial void DeleteProdukt(Produkt instance);
     #endregion
 		
-		public DataClasses1DataContext() : 
+		public WebshopDataContext() : 
 				base(global::Webshop.Common.Properties.Settings.Default.WebshopConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(string connection) : 
+		public WebshopDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(System.Data.IDbConnection connection) : 
+		public WebshopDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public WebshopDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public WebshopDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
@@ -90,14 +90,6 @@ namespace Webshop.Common.DAL
 			}
 		}
 		
-		public System.Data.Linq.Table<Produkt> Produkt
-		{
-			get
-			{
-				return this.GetTable<Produkt>();
-			}
-		}
-		
 		public System.Data.Linq.Table<User> User
 		{
 			get
@@ -111,6 +103,14 @@ namespace Webshop.Common.DAL
 			get
 			{
 				return this.GetTable<Usergruppe>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Produkt> Produkt
+		{
+			get
+			{
+				return this.GetTable<Produkt>();
 			}
 		}
 	}
@@ -352,188 +352,6 @@ namespace Webshop.Common.DAL
 						this._User_ID = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("User");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Produkt")]
-	public partial class Produkt : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Produkt_ID;
-		
-		private string _Kurzbezeichnung;
-		
-		private string _Langbezeichnung;
-		
-		private System.Nullable<int> _Steuersatz;
-		
-		private System.Nullable<decimal> _Preis_netto;
-		
-		private string _Zutaten;
-		
-    #region Definitionen der Erweiterungsmethoden
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnProdukt_IDChanging(int value);
-    partial void OnProdukt_IDChanged();
-    partial void OnKurzbezeichnungChanging(string value);
-    partial void OnKurzbezeichnungChanged();
-    partial void OnLangbezeichnungChanging(string value);
-    partial void OnLangbezeichnungChanged();
-    partial void OnSteuersatzChanging(System.Nullable<int> value);
-    partial void OnSteuersatzChanged();
-    partial void OnPreis_nettoChanging(System.Nullable<decimal> value);
-    partial void OnPreis_nettoChanged();
-    partial void OnZutatenChanging(string value);
-    partial void OnZutatenChanged();
-    #endregion
-		
-		public Produkt()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Produkt_ID", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Produkt_ID
-		{
-			get
-			{
-				return this._Produkt_ID;
-			}
-			set
-			{
-				if ((this._Produkt_ID != value))
-				{
-					this.OnProdukt_IDChanging(value);
-					this.SendPropertyChanging();
-					this._Produkt_ID = value;
-					this.SendPropertyChanged("Produkt_ID");
-					this.OnProdukt_IDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Kurzbezeichnung", DbType="VarChar(50)")]
-		public string Kurzbezeichnung
-		{
-			get
-			{
-				return this._Kurzbezeichnung;
-			}
-			set
-			{
-				if ((this._Kurzbezeichnung != value))
-				{
-					this.OnKurzbezeichnungChanging(value);
-					this.SendPropertyChanging();
-					this._Kurzbezeichnung = value;
-					this.SendPropertyChanged("Kurzbezeichnung");
-					this.OnKurzbezeichnungChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Langbezeichnung", DbType="VarChar(300)")]
-		public string Langbezeichnung
-		{
-			get
-			{
-				return this._Langbezeichnung;
-			}
-			set
-			{
-				if ((this._Langbezeichnung != value))
-				{
-					this.OnLangbezeichnungChanging(value);
-					this.SendPropertyChanging();
-					this._Langbezeichnung = value;
-					this.SendPropertyChanged("Langbezeichnung");
-					this.OnLangbezeichnungChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Steuersatz", DbType="Int")]
-		public System.Nullable<int> Steuersatz
-		{
-			get
-			{
-				return this._Steuersatz;
-			}
-			set
-			{
-				if ((this._Steuersatz != value))
-				{
-					this.OnSteuersatzChanging(value);
-					this.SendPropertyChanging();
-					this._Steuersatz = value;
-					this.SendPropertyChanged("Steuersatz");
-					this.OnSteuersatzChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Preis_netto", DbType="Decimal(5,2)")]
-		public System.Nullable<decimal> Preis_netto
-		{
-			get
-			{
-				return this._Preis_netto;
-			}
-			set
-			{
-				if ((this._Preis_netto != value))
-				{
-					this.OnPreis_nettoChanging(value);
-					this.SendPropertyChanging();
-					this._Preis_netto = value;
-					this.SendPropertyChanged("Preis_netto");
-					this.OnPreis_nettoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Zutaten", DbType="VarChar(300)")]
-		public string Zutaten
-		{
-			get
-			{
-				return this._Zutaten;
-			}
-			set
-			{
-				if ((this._Zutaten != value))
-				{
-					this.OnZutatenChanging(value);
-					this.SendPropertyChanging();
-					this._Zutaten = value;
-					this.SendPropertyChanged("Zutaten");
-					this.OnZutatenChanged();
 				}
 			}
 		}
@@ -1065,6 +883,188 @@ namespace Webshop.Common.DAL
 		{
 			this.SendPropertyChanging();
 			entity.Usergruppe = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Produkt")]
+	public partial class Produkt : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Produkt_ID;
+		
+		private string _Kurzbezeichnung;
+		
+		private string _Langbezeichnung;
+		
+		private System.Nullable<int> _Steuersatz;
+		
+		private System.Nullable<decimal> _Preis_netto;
+		
+		private string _Zutaten;
+		
+    #region Definitionen der Erweiterungsmethoden
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnProdukt_IDChanging(int value);
+    partial void OnProdukt_IDChanged();
+    partial void OnKurzbezeichnungChanging(string value);
+    partial void OnKurzbezeichnungChanged();
+    partial void OnLangbezeichnungChanging(string value);
+    partial void OnLangbezeichnungChanged();
+    partial void OnSteuersatzChanging(System.Nullable<int> value);
+    partial void OnSteuersatzChanged();
+    partial void OnPreis_nettoChanging(System.Nullable<decimal> value);
+    partial void OnPreis_nettoChanged();
+    partial void OnZutatenChanging(string value);
+    partial void OnZutatenChanged();
+    #endregion
+		
+		public Produkt()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Produkt_ID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int Produkt_ID
+		{
+			get
+			{
+				return this._Produkt_ID;
+			}
+			set
+			{
+				if ((this._Produkt_ID != value))
+				{
+					this.OnProdukt_IDChanging(value);
+					this.SendPropertyChanging();
+					this._Produkt_ID = value;
+					this.SendPropertyChanged("Produkt_ID");
+					this.OnProdukt_IDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Kurzbezeichnung", DbType="VarChar(50)")]
+		public string Kurzbezeichnung
+		{
+			get
+			{
+				return this._Kurzbezeichnung;
+			}
+			set
+			{
+				if ((this._Kurzbezeichnung != value))
+				{
+					this.OnKurzbezeichnungChanging(value);
+					this.SendPropertyChanging();
+					this._Kurzbezeichnung = value;
+					this.SendPropertyChanged("Kurzbezeichnung");
+					this.OnKurzbezeichnungChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Langbezeichnung", DbType="VarChar(300)")]
+		public string Langbezeichnung
+		{
+			get
+			{
+				return this._Langbezeichnung;
+			}
+			set
+			{
+				if ((this._Langbezeichnung != value))
+				{
+					this.OnLangbezeichnungChanging(value);
+					this.SendPropertyChanging();
+					this._Langbezeichnung = value;
+					this.SendPropertyChanged("Langbezeichnung");
+					this.OnLangbezeichnungChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Steuersatz", DbType="Int")]
+		public System.Nullable<int> Steuersatz
+		{
+			get
+			{
+				return this._Steuersatz;
+			}
+			set
+			{
+				if ((this._Steuersatz != value))
+				{
+					this.OnSteuersatzChanging(value);
+					this.SendPropertyChanging();
+					this._Steuersatz = value;
+					this.SendPropertyChanged("Steuersatz");
+					this.OnSteuersatzChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Preis_netto", DbType="Decimal(5,2)")]
+		public System.Nullable<decimal> Preis_netto
+		{
+			get
+			{
+				return this._Preis_netto;
+			}
+			set
+			{
+				if ((this._Preis_netto != value))
+				{
+					this.OnPreis_nettoChanging(value);
+					this.SendPropertyChanging();
+					this._Preis_netto = value;
+					this.SendPropertyChanged("Preis_netto");
+					this.OnPreis_nettoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Zutaten", DbType="VarChar(300)")]
+		public string Zutaten
+		{
+			get
+			{
+				return this._Zutaten;
+			}
+			set
+			{
+				if ((this._Zutaten != value))
+				{
+					this.OnZutatenChanging(value);
+					this.SendPropertyChanging();
+					this._Zutaten = value;
+					this.SendPropertyChanged("Zutaten");
+					this.OnZutatenChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }
