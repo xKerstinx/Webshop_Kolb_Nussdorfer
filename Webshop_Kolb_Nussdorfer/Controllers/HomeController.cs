@@ -11,8 +11,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
         public ActionResult Index()
         {
             ViewBag.Message = "Willkommen im Webshop";
-            // testkommentar
-
+           
             return View();
         }
 
