@@ -49,9 +49,17 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
         //
         // GET: /Produkt/Details/5
 
-        public ActionResult Details(int id)
+        /*public ActionResult Details(int id)
         {
             return View(new ProduktViewModel(_bl.Produkt.GetProdukt(id)));
+        }*/
+
+        //
+        // GET: /Produkt/Details/5
+
+        public ActionResult Details(string kurzbezeichnung)
+        {
+            return View(new ProduktViewModel(_bl.Produkt.GetProdukt(kurzbezeichnung)));
         }
 
         //

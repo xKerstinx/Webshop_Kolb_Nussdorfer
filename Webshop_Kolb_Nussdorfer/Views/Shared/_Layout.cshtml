@@ -19,12 +19,11 @@
             <div id="menucontainer">
                 <ul id="menu">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("User", "Index", "User")</li>
                     <li>@Html.ActionLink("Produkt", "Index", "Produkt")</li>
                     @if (Request.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("My Profile", "Index", "Profile")</li>
+                        <li>@Html.ActionLink("Mein Konto", "Index", "Profile")</li>
                     }
                 </ul>
             </div>

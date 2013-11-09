@@ -70,9 +70,9 @@
             @Html.DisplayFor(modelItem => item.Preis_brutto)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Edit", "Edit", new { id=item.Produkt_ID }) |
+            @Html.ActionLink("Details", "Details", new { kurzbezeichnung=item.Kurzbezeichnung }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Produkt_ID})
         </td>
     </tr>
 }

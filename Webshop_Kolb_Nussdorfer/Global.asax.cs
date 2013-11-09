@@ -27,7 +27,14 @@ namespace Webshop_Kolb_Nussdorfer
             routes.MapRoute( "Default", // Route name 
                 "{controller}/{action}/{id}", // URL with parameters 
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults 
-                ); 
+                );
+
+             routes.MapRoute(
+             "ProductByName",
+             "Produkt/Details/{kurzbezeichnung}",
+              new { controller = "Produkt", action = "Details", kurzbezeichnung=UrlParameter.Optional}
+         );
+
         } 
         
         protected void Application_Start() 

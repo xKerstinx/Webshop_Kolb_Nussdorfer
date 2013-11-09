@@ -10,7 +10,7 @@ namespace Webshop.Common.BL
     {
         IQueryable<Webshop.Common.DAL.Produkt> GetAllProdukte(int startPage);
         Webshop.Common.DAL.Produkt GetProdukt(int id);
-        Webshop.Common.DAL.Produkt GetProdukt(string mail);
+        Webshop.Common.DAL.Produkt GetProdukt(string kurzbezeichnung);
         Webshop.Common.DAL.Produkt CreateProdukt();
         
         //IQueryable<Webshop.Common.DAL.Produkt> GetTopContacts(int id);
