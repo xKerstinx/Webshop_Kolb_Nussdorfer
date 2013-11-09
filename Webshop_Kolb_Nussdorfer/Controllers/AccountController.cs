@@ -106,8 +106,6 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
                     model.Success = true;
                     FormsService.SignIn(model.Username, false /* createPersistentCookie */);
                     return View("RegisterSuccess",model);
-
-
                 }
                 else
                 {
