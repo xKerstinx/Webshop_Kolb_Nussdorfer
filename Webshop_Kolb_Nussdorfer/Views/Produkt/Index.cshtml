@@ -1,16 +1,30 @@
-﻿@model IEnumerable<Webshop.Common.DAL.Produkt>
+﻿@model IEnumerable<Webshop_Kolb_Nussdorfer.Models.ProduktViewModel>
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<script src="~/Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery-ui-1.8.20.min.js" type="text/javascript"></script>
 
 <h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm()){   
+         <p> Title: @Html.TextBox("SearchString")   
+         <input type="submit" value="Filter" /><br />  <br />  </p> 
+        } 
+
+
 <table>
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Produkt_ID)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Kurzbezeichnung)
         </th>
@@ -26,11 +40,17 @@
         <th>
             @Html.DisplayNameFor(model => model.Zutaten)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Preis_brutto)
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Produkt_ID)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Kurzbezeichnung)
         </td>
@@ -47,11 +67,20 @@
             @Html.DisplayFor(modelItem => item.Zutaten)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Produkt_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Produkt_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Produkt_ID })
+            @Html.DisplayFor(modelItem => item.Preis_brutto)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
         </td>
     </tr>
 }
 
 </table>
+
+<script type="text/javascript">
+    $("#SearchString").autocomplete({
+        source: '@Url.Action("AutoComplete")'
+    });
+</script>

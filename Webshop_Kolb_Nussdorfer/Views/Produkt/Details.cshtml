@@ -1,13 +1,21 @@
-﻿@model Webshop.Common.DAL.Produkt
+﻿@model Webshop_Kolb_Nussdorfer.Models.ProduktViewModel
 
 @{
     ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Details</h2>
 
 <fieldset>
-    <legend>Produkt</legend>
+    <legend>ProduktViewModel</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Produkt_ID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Produkt_ID)
+    </div>
 
     <div class="display-label">
          @Html.DisplayNameFor(model => model.Kurzbezeichnung)
@@ -43,8 +51,15 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.Zutaten)
     </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Preis_brutto)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Preis_brutto)
+    </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Produkt_ID }) |
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

@@ -1,6 +1,7 @@
-﻿html {
+﻿
+html {
     background-color: #e2e2e2;
-    margin: 0;
+    margin: 15px;
     padding: 0;
 }
 
@@ -380,6 +381,19 @@ aside {
     display: inline;
 }
 
+/* produkt page */
+.display-label {
+    margin:4px;
+    font-size:1.3em;
+    font-weight:bold;
+}
+
+.display-field {
+    margin-bottom:10px;
+    font-size:1em;
+   
+}
+
 /* contact */
 .contact h3 {
     font-size: 1.2em;
@@ -393,6 +407,8 @@ aside {
     border: 1px solid #333;
     margin: 5px 0 0 10px;
 }
+
+
 
 /* forms */
 fieldset {

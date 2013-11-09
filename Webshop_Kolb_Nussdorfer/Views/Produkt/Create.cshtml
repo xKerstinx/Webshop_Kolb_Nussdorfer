@@ -1,0 +1,65 @@
+﻿@model Webshop_Kolb_Nussdorfer.Models.ProduktViewModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>ProduktViewModel</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Kurzbezeichnung)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Kurzbezeichnung)
+            @Html.ValidationMessageFor(model => model.Kurzbezeichnung)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Langbezeichnung)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Langbezeichnung)
+            @Html.ValidationMessageFor(model => model.Langbezeichnung)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Steuersatz)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Steuersatz)
+            @Html.ValidationMessageFor(model => model.Steuersatz)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Preis_netto)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Preis_netto)
+            @Html.ValidationMessageFor(model => model.Preis_netto)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Zutaten)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Zutaten)
+            @Html.ValidationMessageFor(model => model.Zutaten)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

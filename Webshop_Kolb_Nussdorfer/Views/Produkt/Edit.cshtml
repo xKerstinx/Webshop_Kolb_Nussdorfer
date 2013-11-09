@@ -1,0 +1,71 @@
+﻿@model Webshop_Kolb_Nussdorfer.Models.ProduktViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    <!--Layout = "~/Views/Shared/_Layout.cshtml";-->
+}
+
+<h2>Edit</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"> </script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobstrusive.min.js")" type="text/javascript"> </script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>ProduktViewModel</legend>
+
+        @Html.HiddenFor(model => model.Produkt_ID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Kurzbezeichnung)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Kurzbezeichnung)
+            @Html.ValidationMessageFor(model => model.Kurzbezeichnung)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Langbezeichnung)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Langbezeichnung)
+            @Html.ValidationMessageFor(model => model.Langbezeichnung)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Steuersatz)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Steuersatz)
+            @Html.ValidationMessageFor(model => model.Steuersatz)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Preis_netto)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Preis_netto)
+            @Html.ValidationMessageFor(model => model.Preis_netto)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Zutaten)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Zutaten)
+            @Html.ValidationMessageFor(model => model.Zutaten)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+

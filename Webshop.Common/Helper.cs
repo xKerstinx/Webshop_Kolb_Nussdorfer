@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Webshop.Common
 {
-    public class Class1
+    public class Helper
     {
+        public static int PageSize { get { return 20; } }
     }
 }

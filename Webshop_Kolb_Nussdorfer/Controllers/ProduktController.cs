@@ -3,19 +3,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Webshop.Common.BL;
 using Webshop.Common.DAL;
+using Webshop_Kolb_Nussdorfer.Models;
 
 namespace Webshop_Kolb_Nussdorfer.Controllers
 {
     public class ProduktController : Controller
     {
+        private readonly IBL _bl;
+        public ProduktController(IBL bl)
+        {
+            _bl = bl;
+        }
+
         //
         // GET: /Produkt/
 
-        public ActionResult Index()
+        /*public ActionResult Index()
         {
-            var dataContext = new WebshopDataContext();
-            return View(dataContext.Produkt.Select(i => i).ToList());
+            return View(_bl.Produkt
+                .GetAllProdukte(0)
+                .Select(i => new ProduktViewModel(i)));
+        }*/
+
+        public ActionResult Index(string searchString)
+        {
+            if (String.IsNullOrEmpty(searchString))
+            {
+                return View(_bl.Produkt
+                 .GetAllProdukte(0)
+                 .Select(i => new ProduktViewModel(i)));
+            }
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                return View(_bl.Produkt
+                 .Search(searchString,0)
+                 .Select(i => new ProduktViewModel(i)));
+            }
+
+            return View();
         }
 
         //
@@ -23,8 +51,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
 
         public ActionResult Details(int id)
         {
-            var dataContext = new WebshopDataContext();
-            return View(dataContext.Produkt.Select(i => i).Where(i=>i.Produkt_ID == id).ToList());
+            return View(new ProduktViewModel(_bl.Produkt.GetProdukt(id)));
         }
 
         //
@@ -39,18 +66,20 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
         // POST: /Produkt/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ProduktViewModel produkt)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                var newProdukt = _bl.Produkt.CreateProdukt();
+                produkt.ApplyChanges(newProdukt);
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    _bl.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View(produkt);
         }
 
         //
@@ -58,25 +87,24 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(new ProduktViewModel(_bl.Produkt.GetProdukt(id)));
         }
 
         //
         // POST: /Produkt/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, ProduktViewModel produkt)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
+                var produktToUpdate = _bl.Produkt.GetProdukt(id);
+                produkt.ApplyChanges(produktToUpdate);
+                _bl.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View(produkt);
         }
 
         //
@@ -102,6 +130,21 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+        public ActionResult AutoComplete(string term)
+        {
+            if (!string.IsNullOrEmpty(term) && term.Length >= 3)
+            {
+                var results = _bl.Produkt.Search(term, 0)
+                    .Select(i => new { label = i.Kurzbezeichnung, id = i.Produkt_ID })
+                    .Take(20);
+                return Json(results.ToArray(), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(null);
             }
         }
     }
