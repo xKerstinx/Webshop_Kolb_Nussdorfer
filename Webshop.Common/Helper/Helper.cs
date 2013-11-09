@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Webshop.Common
+namespace Webshop.Common.Helper
 {
     public class Helper
     {

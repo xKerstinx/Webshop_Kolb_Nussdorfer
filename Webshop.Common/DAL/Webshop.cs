@@ -1,6 +1,6 @@
 namespace Webshop.Common.DAL
 {
-    partial class WebshopDataContext: Webshop.Common.DAL.IDAL
+    public partial class WebshopDataContext: Webshop.Common.DAL.IDAL
     {
         partial void OnCreated()
         {

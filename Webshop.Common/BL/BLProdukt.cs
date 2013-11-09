@@ -20,8 +20,8 @@ namespace Webshop.Common.BL
         { 
             return _dal.Produkt
                 // .Where(i => Security Filter) 
-                .Skip(startPage * Helper.PageSize) 
-                .Take(Helper.PageSize) ; 
+                .Skip(startPage * Helper.Helper.PageSize) 
+                .Take(Helper.Helper.PageSize) ; 
         } 
         
         public Produkt GetProdukt(int id) 
@@ -71,8 +71,8 @@ namespace Webshop.Common.BL
         { 
             return _dal.Produkt // .Where(i => Security Filter) 
                 .Where(i => i.Kurzbezeichnung.Contains(search) || i.Langbezeichnung.Contains(search) ||i.Produkt_ID.ToString().Contains(search)) 
-                .Skip(startPage * Helper.PageSize) 
-                .Take(Helper.PageSize) ; 
+                .Skip(startPage * Helper.Helper.PageSize) 
+                .Take(Helper.Helper.PageSize) ; 
         } 
         
       
