@@ -87,17 +87,18 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
 
         //
         // GET: /Warenkorb/Delete/5
-
+       // [HttpPost]
         public ActionResult Delete(int id)
         {
+            // To-DO funktioniert jetzt nicht mehr, seit View eine for Schleife verwendet
             WarenkorbViewModel.Instance.RemoveItem(id);
             return RedirectToAction("Index");
         }
 
         //
         // POST: /Warenkorb/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        
+        /*public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
@@ -109,7 +110,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
             {
                 return View();
             }
-        }
+        }*/
 
       
         public ActionResult Order(int id)
@@ -128,9 +129,11 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
             return RedirectToAction("Index", "Produkt");
         }
 
-        public ActionResult CreateOrder()
+        public ActionResult CreateOrder(List <WarenkorbItemViewModel> results)
         {
-            //TO-DO ist es irgendwie möglich, dass ich alle Items der Liste zurückbekomm?
+            //TO-DO Bestellung erstellen
+            //link for multiple submitbuttons
+        //http://stackoverflow.com/questions/442704/how-do-you-handle-multiple-submit-buttons-in-asp-net-mvc-framework
 
 
             return RedirectToAction("Index", "Produkt");

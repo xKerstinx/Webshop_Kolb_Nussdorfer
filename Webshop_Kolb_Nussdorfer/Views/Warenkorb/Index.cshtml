@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Webshop_Kolb_Nussdorfer.Models.WarenkorbItemViewModel>
+﻿@model List<Webshop_Kolb_Nussdorfer.Models.WarenkorbItemViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -6,58 +6,63 @@
 }
 
 <h2>Warenkorb</h2>
+@using (Html.BeginForm("CreateOrder", 
+                       "Warenkorb", 
+                       FormMethod.Post))
+{
+    if (Model.Count()!=0) {
+        <table>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].Produkt.Produkt_ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].Produkt.Kurzbezeichnung)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].Menge)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].Preis_brutto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].Gesamtpreis_brutto)
+                </th>
+                <th></th>
+            </tr>
 
-@if (Model.Count()!=0) {
-    <table>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Produkt.Produkt_ID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Produkt.Kurzbezeichnung)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Menge)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Preis_brutto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gesamtpreis_brutto)
-            </th>
-            <th></th>
-        </tr>
-
-    @foreach (var item in Model) {
-        <tr>
-             <td>
-                @Html.DisplayFor(modelItem => item.Produkt.Produkt_ID)
-            </td>
-             <td>
-                @Html.DisplayFor(modelItem => item.Produkt.Kurzbezeichnung)
-            </td>
-            <td>
-                @Html.EditorFor(modelItem => item.Menge)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Preis_brutto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gesamtpreis_brutto)
-            </td>
-            <td>|
-                @Html.ActionLink("Delete", "Delete", new {id=item.Produkt.Produkt_ID })
-            </td>
-        </tr>
-    }
+        @for(int i=0; i<Model.Count();i++){
+            <tr>
+                 <td>
+                    @Html.DisplayFor(modelItem => modelItem[i].Produkt.Produkt_ID)
+                </td>
+                 <td>
+                    @Html.DisplayFor(modelItem => modelItem[i].Produkt.Kurzbezeichnung)
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => modelItem[i].Menge)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem[i].Preis_brutto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem[i].Gesamtpreis_brutto)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { Model[i].Produkt.Produkt_ID })
+                </td>
+            </tr>
+        }
     
-    </table>
-    <br />
-    @Html.ActionLink("Aktualisieren", "Update")
-    @Html.ActionLink("Bestellung abschließen", "CreateOrder")
+        </table>
+        <br />
+        <input type="submit" value="Bestellung abschließen" />
+        @Html.ActionLink("Aktualisieren", "Update", Model)
+        @Html.ActionLink("Bestellung abschließen", "CreateOrder")
 
-}
-else{
-    <br /> <p>Es befinden sich keine Produkte in Ihrem Warenkorb.</p>
+    }
+    else{
+        <br /> <p>Es befinden sich keine Produkte in Ihrem Warenkorb.</p>
+    }
 }
    
