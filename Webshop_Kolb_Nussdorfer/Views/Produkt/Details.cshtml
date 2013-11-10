@@ -58,6 +58,12 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.Preis_brutto)
     </div>
+    <div>
+        @if (Request.IsAuthenticated)
+        {
+            @Html.ActionLink("Bestellen", "Order", new { id = Model.Produkt_ID})
+        }
+    </div>
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |

@@ -43,7 +43,8 @@
         <th>
             @Html.DisplayNameFor(model => model.Preis_brutto)
         </th>
-        <th></th>
+        <th>Bestellen</th>
+        <th>Bearbeiten</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -68,6 +69,13 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Preis_brutto)
+        </td>
+        <td>
+             @if (Request.IsAuthenticated)
+                    {
+                        @Html.ActionLink("Bestellen", "Order","Warenkorb", new { id=item.Produkt_ID})
+                    }
+
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Produkt_ID }) |

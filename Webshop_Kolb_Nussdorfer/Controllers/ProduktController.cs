@@ -155,5 +155,11 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
                 return Json(null);
             }
         }
+
+        public ActionResult Order(int id)
+        {
+            //To-Do Warenkorb & Co
+            return View();
+        }
     }
 }

@@ -94,17 +94,19 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
                 // Versuch, den Benutzer zu registrieren
-                MembershipCreateStatus createStatus = MembershipService.CreateUser(model.Username, model.Password, model.Email, "Kunde");
+                //MembershipCreateStatus createStatus = MembershipService.CreateUser(model.Username, model.Password, model.Email, "Kunde");
+                MembershipCreateStatus createStatus = MembershipService.CreateUser(model, "Kunde");
+
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     model.Success = true;
-                    FormsService.SignIn(model.Username, false /* createPersistentCookie */);
+                    FormsService.SignIn(model.Benutzername, false /* createPersistentCookie */);
                     return View("RegisterSuccess",model);
                 }
                 else
@@ -128,7 +130,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
         }
 
         [HttpPost]
-        public ActionResult ForgotPassword(ForgotPasswordModel model)
+        public ActionResult ForgotPassword(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -145,7 +147,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
                 }
             }
 
-            return View(model);
+            return View("ForgotPasswordSuccess");
         }
     }
 

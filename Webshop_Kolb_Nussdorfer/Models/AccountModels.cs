@@ -13,7 +13,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
 {
     #region Modelle
     [PropertiesMustMatch("NewPassword", "ConfirmPassword", ErrorMessage = "Das neue Kennwort entspricht nicht dem Bestätigungskennwort.")]
-    public class ChangePasswordModel
+    public class ChangePasswordViewModel
     {
         [Required]
         [DataType(DataType.Password)]
@@ -76,11 +76,11 @@ namespace Webshop_Kolb_Nussdorfer.Models
     }
 
     [PropertiesMustMatch("Password", "ConfirmPassword", ErrorMessage = "Das Kennwort entspricht nicht dem Bestätigungskennwort.")]
-    public class RegisterModel
+    public class RegisterViewModel
     {
         [Required]
         [DisplayName("Benutzername")]
-        public string Username { get; set; }
+        public string Benutzername { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]
@@ -88,6 +88,29 @@ namespace Webshop_Kolb_Nussdorfer.Models
         public string Email { get; set; }
 
         [Required]
+        [DisplayName("Vorname")]
+        public string Vorname { get; set; }
+
+        [Required]
+        [DisplayName("Nachname")]
+        public string Nachname { get; set; }
+
+        
+        [DisplayName("Adresse")]
+        public string Adresse { get; set; }
+
+        [DisplayName("Ort")]
+        public string Ort { get; set; }
+
+        [DisplayName("PLZ")]
+        public int? Plz { get; set; }
+
+        [DisplayName("Land")]
+        public string Land { get; set; }
+
+        [DisplayName("Telefonnummer")]
+        public string Telefonnummer { get; set; }
+
         [ValidatePasswordLength]
         [DataType(DataType.Password)]
         [DisplayName("Kennwort")]
@@ -101,7 +124,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
         public bool Success = false;
     }
 
-    public class ForgotPasswordModel
+    public class ForgotPasswordViewModel
     {
         [Required]
         [DisplayName("Benutzername")]
@@ -127,7 +150,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
         int MinPasswordLength { get; }
 
         bool ValidateUser(string userName, string password);
-        MembershipCreateStatus CreateUser(string userName, string password, string email, string usertype);
+        MembershipCreateStatus CreateUser(RegisterViewModel user, string usertype);
         MembershipCreateStatus ForgotPassword(string username, string email);
     }
 
@@ -161,14 +184,15 @@ namespace Webshop_Kolb_Nussdorfer.Models
             return _provider.ValidateUser(userName, password);
         }
 
-        public MembershipCreateStatus CreateUser(string username, string passwort, string email, string usergruppe)
+        public MembershipCreateStatus CreateUser(RegisterViewModel model, string usergruppe)
         {
-            if (String.IsNullOrEmpty(username)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "userName");
-            if (String.IsNullOrEmpty(passwort)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "password");
-            if (String.IsNullOrEmpty(email)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "email");
+            if (String.IsNullOrEmpty(model.Benutzername)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "userName");
+            if (String.IsNullOrEmpty(model.Password)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "password");
+            if (String.IsNullOrEmpty(model.Email)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "email");
+            if (String.IsNullOrEmpty(model.Vorname)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "userName");
+            if (String.IsNullOrEmpty(model.Nachname)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "password");
+            
 
-
-           
             WebshopDataContext dataContext = new WebshopDataContext();
             
 
@@ -176,9 +200,17 @@ namespace Webshop_Kolb_Nussdorfer.Models
             try
             {
                 User newuser = new User();
-                newuser.Benutzername = username;
-                newuser.Passwort = Webshop.Common.Helper.StringHelper.MD5(passwort);
-                newuser.EMail = email;
+                newuser.Benutzername = model.Benutzername;
+                newuser.Passwort = Webshop.Common.Helper.StringHelper.MD5(model.Password);
+                newuser.EMail = model.Email;
+                newuser.Vorname = model.Vorname;
+                newuser.Nachname = model.Nachname;
+                newuser.Ort = model.Ort;
+                newuser.Adresse = model.Adresse;
+                newuser.PLZ = model.Plz;
+                newuser.Land = model.Land;
+                newuser.Telefonnummer = model.Telefonnummer;
+               
                 newuser.Usergruppe =dataContext
                                         .Usergruppe
                                         .Where(i => i.Usergruppenbezeichnung.Equals(usergruppe))
@@ -188,7 +220,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
                 dataContext.SubmitChanges();
                 status = MembershipCreateStatus.Success;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO: Status ist nicht immer ProdiverError
                 
@@ -212,7 +244,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
                                 .Where(i => i.Benutzername.Equals(username) && i.EMail.Equals(email))
                                 .FirstOrDefault();
                     
-                user.Passwort = "default";
+                user.Passwort = "1default2";
 
                 dataContext.SubmitChanges();
                 status = MembershipCreateStatus.Success;

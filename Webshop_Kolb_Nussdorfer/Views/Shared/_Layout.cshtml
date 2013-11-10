@@ -25,6 +25,10 @@
                     {
                         <li>@Html.ActionLink("Mein Konto", "Index", "Profile")</li>
                     }
+                     @if (Request.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Warenkorb", "Index", "Warenkorb")</li>
+                    }
                 </ul>
             </div>
         </div>
