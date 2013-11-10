@@ -15,13 +15,13 @@ namespace Webshop_Kolb_Nussdorfer.Models
         public string Kurzbezeichnung { get; set; }
         public string Langbezeichnung { get; set; }
         [Required]
-        public System.Nullable<int> Steuersatz { get; set; }
+        public int Steuersatz { get; set; }
         [Required]
-        public System.Nullable<decimal> Preis_netto { get; set; }
+        public decimal Preis_netto { get; set; }
         public string Zutaten { get; set; }
         
 
-        public System.Nullable<decimal> Preis_brutto
+        public decimal Preis_brutto
         {
             get
             {

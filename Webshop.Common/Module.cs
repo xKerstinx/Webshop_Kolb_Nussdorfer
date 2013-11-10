@@ -24,6 +24,11 @@ namespace Webshop.Common
                 .As<BL.IBLProdukt>()
                 .InstancePerLifetimeScope();
 
+            builder
+                .RegisterType<BL.BLBestellung>()
+                .As<BL.IBLBestellung>()
+                .InstancePerLifetimeScope();
+
             /*builder
                 .RegisterType<BL.BLUser>()
                 .As<BL.IBLUser>()
@@ -39,6 +44,9 @@ namespace Webshop.Common
                 .RegisterType<DAL.WebshopDataContext>()
                 .As<IDAL>()
                 .InstancePerLifetimeScope();
+
+           
+
 
         }
     }

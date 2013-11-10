@@ -3,17 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Webshop_Kolb_Nussdorfer.Models;
 
 namespace Webshop_Kolb_Nussdorfer.Controllers
 {
     public class WarenkorbController : Controller
     {
+        //WarenkorbViewModel warenkorb;
+
+        // WarenkorbController()
+        //{
+          // this.warenkorb = new WarenkorbViewModel();
+       //}
+         
         //
         // GET: /Warenkorb/
 
         public ActionResult Index()
         {
-            return View();
+            return View(WarenkorbViewModel.Instance.Items);
+
         }
 
         //
@@ -81,12 +90,12 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
 
         public ActionResult Delete(int id)
         {
-            return View();
+            WarenkorbViewModel.Instance.RemoveItem(id);
+            return RedirectToAction("Index");
         }
 
         //
         // POST: /Warenkorb/Delete/5
-
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
@@ -100,6 +109,31 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
             {
                 return View();
             }
+        }
+
+      
+        public ActionResult Order(int id)
+        {
+            WarenkorbViewModel.Instance.AddItem(id);
+            //HttpContext.Session["Warenkorb"] = warenkorb;
+            return RedirectToAction("Index", "Produkt");
+        }
+
+        public ActionResult Update(ICollection<WarenkorbItemViewModel> results)
+        {
+            //TO-DO ist es irgendwie möglich, dass ich alle Items der Liste zurückbekomm?
+            
+            //WarenkorbViewModel.Instance.AddItem(id);
+            //HttpContext.Session["Warenkorb"] = warenkorb;
+            return RedirectToAction("Index", "Produkt");
+        }
+
+        public ActionResult CreateOrder()
+        {
+            //TO-DO ist es irgendwie möglich, dass ich alle Items der Liste zurückbekomm?
+
+
+            return RedirectToAction("Index", "Produkt");
         }
     }
 }

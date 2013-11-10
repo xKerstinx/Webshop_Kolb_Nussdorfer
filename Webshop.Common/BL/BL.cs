@@ -7,7 +7,7 @@ using Webshop.Common.DAL;
 
 namespace Webshop.Common.BL
 {
-    class BL: Webshop.Common.BL.IBL
+    public class BL: Webshop.Common.BL.IBL
     {
         private readonly IDAL _dal;
         private readonly IBLProdukt _blProdukt;

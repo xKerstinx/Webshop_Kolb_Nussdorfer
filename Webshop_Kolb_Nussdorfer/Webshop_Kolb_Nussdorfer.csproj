@@ -178,6 +178,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\ProduktViewModel.cs" />
+    <Compile Include="Models\WarenkorbItemViewModel.cs" />
     <Compile Include="Models\WarenkorbViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -299,6 +300,7 @@
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordSuccess.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Warenkorb\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

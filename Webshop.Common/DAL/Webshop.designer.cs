@@ -30,6 +30,9 @@ namespace Webshop.Common.DAL
 		
     #region Definitionen der Erweiterungsmethoden
     partial void OnCreated();
+    partial void InsertBestellposition(Bestellposition instance);
+    partial void UpdateBestellposition(Bestellposition instance);
+    partial void DeleteBestellposition(Bestellposition instance);
     partial void InsertUsergruppe(Usergruppe instance);
     partial void UpdateUsergruppe(Usergruppe instance);
     partial void DeleteUsergruppe(Usergruppe instance);
@@ -116,20 +119,41 @@ namespace Webshop.Common.DAL
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Bestellposition")]
-	public partial class Bestellposition
+	public partial class Bestellposition : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _Produkt_ID;
 		
 		private int _Bestellung_ID;
 		
-		private System.Nullable<int> _Menge;
+		private int _Menge;
+		
+		private EntityRef<Bestellung> _Bestellung;
+		
+		private EntityRef<Produkt> _Produkt;
+		
+    #region Definitionen der Erweiterungsmethoden
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnProdukt_IDChanging(int value);
+    partial void OnProdukt_IDChanged();
+    partial void OnBestellung_IDChanging(int value);
+    partial void OnBestellung_IDChanged();
+    partial void OnMengeChanging(int value);
+    partial void OnMengeChanged();
+    #endregion
 		
 		public Bestellposition()
 		{
+			this._Bestellung = default(EntityRef<Bestellung>);
+			this._Produkt = default(EntityRef<Produkt>);
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Produkt_ID", DbType="Int NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Produkt_ID", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int Produkt_ID
 		{
 			get
@@ -140,12 +164,20 @@ namespace Webshop.Common.DAL
 			{
 				if ((this._Produkt_ID != value))
 				{
+					if (this._Produkt.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProdukt_IDChanging(value);
+					this.SendPropertyChanging();
 					this._Produkt_ID = value;
+					this.SendPropertyChanged("Produkt_ID");
+					this.OnProdukt_IDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Bestellung_ID", DbType="Int NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Bestellung_ID", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int Bestellung_ID
 		{
 			get
@@ -156,13 +188,21 @@ namespace Webshop.Common.DAL
 			{
 				if ((this._Bestellung_ID != value))
 				{
+					if (this._Bestellung.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnBestellung_IDChanging(value);
+					this.SendPropertyChanging();
 					this._Bestellung_ID = value;
+					this.SendPropertyChanged("Bestellung_ID");
+					this.OnBestellung_IDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Menge", DbType="Int")]
-		public System.Nullable<int> Menge
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Menge", DbType="Int NOT NULL")]
+		public int Menge
 		{
 			get
 			{
@@ -172,8 +212,100 @@ namespace Webshop.Common.DAL
 			{
 				if ((this._Menge != value))
 				{
+					this.OnMengeChanging(value);
+					this.SendPropertyChanging();
 					this._Menge = value;
+					this.SendPropertyChanged("Menge");
+					this.OnMengeChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Bestellung_Bestellposition", Storage="_Bestellung", ThisKey="Bestellung_ID", OtherKey="Bestellung_ID", IsForeignKey=true)]
+		public Bestellung Bestellung
+		{
+			get
+			{
+				return this._Bestellung.Entity;
+			}
+			set
+			{
+				Bestellung previousValue = this._Bestellung.Entity;
+				if (((previousValue != value) 
+							|| (this._Bestellung.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Bestellung.Entity = null;
+						previousValue.Bestellposition.Remove(this);
+					}
+					this._Bestellung.Entity = value;
+					if ((value != null))
+					{
+						value.Bestellposition.Add(this);
+						this._Bestellung_ID = value.Bestellung_ID;
+					}
+					else
+					{
+						this._Bestellung_ID = default(int);
+					}
+					this.SendPropertyChanged("Bestellung");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Produkt_Bestellposition", Storage="_Produkt", ThisKey="Produkt_ID", OtherKey="Produkt_ID", IsForeignKey=true)]
+		public Produkt Produkt
+		{
+			get
+			{
+				return this._Produkt.Entity;
+			}
+			set
+			{
+				Produkt previousValue = this._Produkt.Entity;
+				if (((previousValue != value) 
+							|| (this._Produkt.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Produkt.Entity = null;
+						previousValue.Bestellposition.Remove(this);
+					}
+					this._Produkt.Entity = value;
+					if ((value != null))
+					{
+						value.Bestellposition.Add(this);
+						this._Produkt_ID = value.Produkt_ID;
+					}
+					else
+					{
+						this._Produkt_ID = default(int);
+					}
+					this.SendPropertyChanged("Produkt");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -226,7 +358,7 @@ namespace Webshop.Common.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usergruppenbezeichnung", DbType="VarChar(45)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usergruppenbezeichnung", DbType="VarChar(45) NOT NULL", CanBeNull=false)]
 		public string Usergruppenbezeichnung
 		{
 			get
@@ -300,13 +432,15 @@ namespace Webshop.Common.DAL
 		
 		private int _Bestellung_ID;
 		
-		private System.Nullable<System.DateTime> _Bestelldatum;
+		private System.DateTime _Bestelldatum;
 		
 		private System.Nullable<decimal> _Versandkosten;
 		
 		private System.Nullable<decimal> _Rechnungsbetrag;
 		
-		private System.Nullable<int> _User_ID;
+		private int _User_ID;
+		
+		private EntitySet<Bestellposition> _Bestellposition;
 		
 		private EntityRef<User> _User;
 		
@@ -316,18 +450,19 @@ namespace Webshop.Common.DAL
     partial void OnCreated();
     partial void OnBestellung_IDChanging(int value);
     partial void OnBestellung_IDChanged();
-    partial void OnBestelldatumChanging(System.Nullable<System.DateTime> value);
+    partial void OnBestelldatumChanging(System.DateTime value);
     partial void OnBestelldatumChanged();
     partial void OnVersandkostenChanging(System.Nullable<decimal> value);
     partial void OnVersandkostenChanged();
     partial void OnRechnungsbetragChanging(System.Nullable<decimal> value);
     partial void OnRechnungsbetragChanged();
-    partial void OnUser_IDChanging(System.Nullable<int> value);
+    partial void OnUser_IDChanging(int value);
     partial void OnUser_IDChanged();
     #endregion
 		
 		public Bestellung()
 		{
+			this._Bestellposition = new EntitySet<Bestellposition>(new Action<Bestellposition>(this.attach_Bestellposition), new Action<Bestellposition>(this.detach_Bestellposition));
 			this._User = default(EntityRef<User>);
 			OnCreated();
 		}
@@ -352,8 +487,8 @@ namespace Webshop.Common.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Bestelldatum", DbType="DateTime")]
-		public System.Nullable<System.DateTime> Bestelldatum
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Bestelldatum", DbType="DateTime NOT NULL")]
+		public System.DateTime Bestelldatum
 		{
 			get
 			{
@@ -412,8 +547,8 @@ namespace Webshop.Common.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_ID", DbType="Int")]
-		public System.Nullable<int> User_ID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_ID", DbType="Int NOT NULL")]
+		public int User_ID
 		{
 			get
 			{
@@ -433,6 +568,19 @@ namespace Webshop.Common.DAL
 					this.SendPropertyChanged("User_ID");
 					this.OnUser_IDChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Bestellung_Bestellposition", Storage="_Bestellposition", ThisKey="Bestellung_ID", OtherKey="Bestellung_ID")]
+		public EntitySet<Bestellposition> Bestellposition
+		{
+			get
+			{
+				return this._Bestellposition;
+			}
+			set
+			{
+				this._Bestellposition.Assign(value);
 			}
 		}
 		
@@ -463,7 +611,7 @@ namespace Webshop.Common.DAL
 					}
 					else
 					{
-						this._User_ID = default(Nullable<int>);
+						this._User_ID = default(int);
 					}
 					this.SendPropertyChanged("User");
 				}
@@ -489,6 +637,18 @@ namespace Webshop.Common.DAL
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void attach_Bestellposition(Bestellposition entity)
+		{
+			this.SendPropertyChanging();
+			entity.Bestellung = this;
+		}
+		
+		private void detach_Bestellposition(Bestellposition entity)
+		{
+			this.SendPropertyChanging();
+			entity.Bestellung = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Produkt")]
@@ -503,11 +663,13 @@ namespace Webshop.Common.DAL
 		
 		private string _Langbezeichnung;
 		
-		private System.Nullable<int> _Steuersatz;
+		private int _Steuersatz;
 		
-		private System.Nullable<decimal> _Preis_netto;
+		private decimal _Preis_netto;
 		
 		private string _Zutaten;
+		
+		private EntitySet<Bestellposition> _Bestellposition;
 		
     #region Definitionen der Erweiterungsmethoden
     partial void OnLoaded();
@@ -519,9 +681,9 @@ namespace Webshop.Common.DAL
     partial void OnKurzbezeichnungChanged();
     partial void OnLangbezeichnungChanging(string value);
     partial void OnLangbezeichnungChanged();
-    partial void OnSteuersatzChanging(System.Nullable<int> value);
+    partial void OnSteuersatzChanging(int value);
     partial void OnSteuersatzChanged();
-    partial void OnPreis_nettoChanging(System.Nullable<decimal> value);
+    partial void OnPreis_nettoChanging(decimal value);
     partial void OnPreis_nettoChanged();
     partial void OnZutatenChanging(string value);
     partial void OnZutatenChanged();
@@ -529,6 +691,7 @@ namespace Webshop.Common.DAL
 		
 		public Produkt()
 		{
+			this._Bestellposition = new EntitySet<Bestellposition>(new Action<Bestellposition>(this.attach_Bestellposition), new Action<Bestellposition>(this.detach_Bestellposition));
 			OnCreated();
 		}
 		
@@ -552,7 +715,7 @@ namespace Webshop.Common.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Kurzbezeichnung", DbType="VarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Kurzbezeichnung", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
 		public string Kurzbezeichnung
 		{
 			get
@@ -592,8 +755,8 @@ namespace Webshop.Common.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Steuersatz", DbType="Int")]
-		public System.Nullable<int> Steuersatz
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Steuersatz", DbType="Int NOT NULL")]
+		public int Steuersatz
 		{
 			get
 			{
@@ -612,8 +775,8 @@ namespace Webshop.Common.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Preis_netto", DbType="Decimal(5,2)")]
-		public System.Nullable<decimal> Preis_netto
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Preis_netto", DbType="Decimal(5,2) NOT NULL")]
+		public decimal Preis_netto
 		{
 			get
 			{
@@ -652,6 +815,19 @@ namespace Webshop.Common.DAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Produkt_Bestellposition", Storage="_Bestellposition", ThisKey="Produkt_ID", OtherKey="Produkt_ID")]
+		public EntitySet<Bestellposition> Bestellposition
+		{
+			get
+			{
+				return this._Bestellposition;
+			}
+			set
+			{
+				this._Bestellposition.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -670,6 +846,18 @@ namespace Webshop.Common.DAL
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Bestellposition(Bestellposition entity)
+		{
+			this.SendPropertyChanging();
+			entity.Produkt = this;
+		}
+		
+		private void detach_Bestellposition(Bestellposition entity)
+		{
+			this.SendPropertyChanging();
+			entity.Produkt = null;
 		}
 	}
 	
@@ -884,7 +1072,7 @@ namespace Webshop.Common.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EMail", DbType="VarChar(45)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EMail", DbType="VarChar(45) NOT NULL", CanBeNull=false)]
 		public string EMail
 		{
 			get
@@ -924,7 +1112,7 @@ namespace Webshop.Common.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Benutzername", DbType="VarChar(45)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Benutzername", DbType="VarChar(45) NOT NULL", CanBeNull=false)]
 		public string Benutzername
 		{
 			get
@@ -944,7 +1132,7 @@ namespace Webshop.Common.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Passwort", DbType="VarChar(45)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Passwort", DbType="VarChar(45) NOT NULL", CanBeNull=false)]
 		public string Passwort
 		{
 			get

@@ -39,6 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,9 +48,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BL\BL.cs" />
+    <Compile Include="BL\BLBestellung.cs" />
     <Compile Include="BL\BLProdukt.cs" />
+    <Compile Include="BL\BLWarenkorb.cs" />
     <Compile Include="BL\IBL.cs" />
+    <Compile Include="BL\IBLBestellung.cs" />
     <Compile Include="BL\IBLProdukt.cs" />
+    <Compile Include="BL\IBLWarenkorb.cs" />
     <Compile Include="DAL\IDAL.cs" />
     <Compile Include="DAL\Webshop.cs">
       <DependentUpon>Webshop.dbml</DependentUpon>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Webshop_Kolb_Nussdorfer.Models.WarenkorbItemViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Warenkorb</h2>
+
+@if (Model.Count()!=0) {
+    <table>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Produkt.Produkt_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produkt.Kurzbezeichnung)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Menge)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Preis_brutto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gesamtpreis_brutto)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+             <td>
+                @Html.DisplayFor(modelItem => item.Produkt.Produkt_ID)
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.Produkt.Kurzbezeichnung)
+            </td>
+            <td>
+                @Html.EditorFor(modelItem => item.Menge)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Preis_brutto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gesamtpreis_brutto)
+            </td>
+            <td>|
+                @Html.ActionLink("Delete", "Delete", new {id=item.Produkt.Produkt_ID })
+            </td>
+        </tr>
+    }
+    
+    </table>
+    <br />
+    @Html.ActionLink("Aktualisieren", "Update")
+    @Html.ActionLink("Bestellung abschließen", "CreateOrder")
+
+}
+else{
+    <br /> <p>Es befinden sich keine Produkte in Ihrem Warenkorb.</p>
+}
+   
