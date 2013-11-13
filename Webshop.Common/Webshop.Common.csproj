@@ -50,10 +50,12 @@
     <Compile Include="BL\BL.cs" />
     <Compile Include="BL\BLBestellung.cs" />
     <Compile Include="BL\BLProdukt.cs" />
+    <Compile Include="BL\BLUser.cs" />
     <Compile Include="BL\BLWarenkorb.cs" />
     <Compile Include="BL\IBL.cs" />
     <Compile Include="BL\IBLBestellung.cs" />
     <Compile Include="BL\IBLProdukt.cs" />
+    <Compile Include="BL\IBLUser.cs" />
     <Compile Include="BL\IBLWarenkorb.cs" />
     <Compile Include="DAL\IDAL.cs" />
     <Compile Include="DAL\Webshop.cs">

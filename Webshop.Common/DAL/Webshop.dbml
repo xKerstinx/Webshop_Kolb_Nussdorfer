@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Webshop" Class="WebshopDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=KERSTIN-PC\SQLEXPRESS;Initial Catalog=Webshop;Integrated Security=True" SettingsObjectName="Webshop.Common.Properties.Settings" SettingsPropertyName="WebshopConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=NUSSI-PC\SQLEXPRESS;Initial Catalog=Webshop;Integrated Security=True" SettingsObjectName="Webshop.Common.Properties.Settings" SettingsPropertyName="WebshopConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Bestellposition" Member="Bestellposition">
     <Type Name="Bestellposition">
       <Column Name="Produkt_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -7,13 +7,6 @@
       <Column Name="Menge" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Bestellung_Bestellposition" Member="Bestellung" ThisKey="Bestellung_ID" OtherKey="Bestellung_ID" Type="Bestellung" IsForeignKey="true" />
       <Association Name="Produkt_Bestellposition" Member="Produkt" ThisKey="Produkt_ID" OtherKey="Produkt_ID" Type="Produkt" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Usergruppe" Member="Usergruppe">
-    <Type Name="Usergruppe">
-      <Column Name="Usergruppe_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Usergruppenbezeichnung" Type="System.String" DbType="VarChar(45) NOT NULL" CanBeNull="false" />
-      <Association Name="Usergruppe_User" Member="User" ThisKey="Usergruppe_ID" OtherKey="Usergruppe_ID" Type="User" />
     </Type>
   </Table>
   <Table Name="dbo.Bestellung" Member="Bestellung">
@@ -41,12 +34,12 @@
   <Table Name="dbo.[User]" Member="User">
     <Type Name="User">
       <Column Name="User_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Vorname" Type="System.String" DbType="VarChar(45)" CanBeNull="true" />
-      <Column Name="Nachname" Type="System.String" DbType="VarChar(45)" CanBeNull="true" />
-      <Column Name="Adresse" Type="System.String" DbType="VarChar(45)" CanBeNull="true" />
-      <Column Name="PLZ" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Ort" Type="System.String" DbType="VarChar(45)" CanBeNull="true" />
-      <Column Name="Land" Type="System.String" DbType="VarChar(45)" CanBeNull="true" />
+      <Column Name="Vorname" Type="System.String" DbType="VarChar(45) NOT NULL" CanBeNull="false" />
+      <Column Name="Nachname" Type="System.String" DbType="VarChar(45) NOT NULL" CanBeNull="false" />
+      <Column Name="Adresse" Type="System.String" DbType="VarChar(45) NOT NULL" CanBeNull="false" />
+      <Column Name="PLZ" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Ort" Type="System.String" DbType="VarChar(45) NOT NULL" CanBeNull="false" />
+      <Column Name="Land" Type="System.String" DbType="VarChar(45) NOT NULL" CanBeNull="false" />
       <Column Name="EMail" Type="System.String" DbType="VarChar(45) NOT NULL" CanBeNull="false" />
       <Column Name="Telefonnummer" Type="System.String" DbType="VarChar(45)" CanBeNull="true" />
       <Column Name="Benutzername" Type="System.String" DbType="VarChar(45) NOT NULL" CanBeNull="false" />
@@ -54,6 +47,13 @@
       <Column Name="Usergruppe_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="User_Bestellung" Member="Bestellung" ThisKey="User_ID" OtherKey="User_ID" Type="Bestellung" />
       <Association Name="Usergruppe_User" Member="Usergruppe" ThisKey="Usergruppe_ID" OtherKey="Usergruppe_ID" Type="Usergruppe" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Usergruppe" Member="Usergruppe">
+    <Type Name="Usergruppe">
+      <Column Name="Usergruppe_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Usergruppenbezeichnung" Type="System.String" DbType="VarChar(45) NOT NULL" CanBeNull="false" />
+      <Association Name="Usergruppe_User" Member="User" ThisKey="Usergruppe_ID" OtherKey="Usergruppe_ID" Type="User" />
     </Type>
   </Table>
 </Database>

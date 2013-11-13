@@ -33,9 +33,6 @@ namespace Webshop.Common.DAL
     partial void InsertBestellposition(Bestellposition instance);
     partial void UpdateBestellposition(Bestellposition instance);
     partial void DeleteBestellposition(Bestellposition instance);
-    partial void InsertUsergruppe(Usergruppe instance);
-    partial void UpdateUsergruppe(Usergruppe instance);
-    partial void DeleteUsergruppe(Usergruppe instance);
     partial void InsertBestellung(Bestellung instance);
     partial void UpdateBestellung(Bestellung instance);
     partial void DeleteBestellung(Bestellung instance);
@@ -45,10 +42,13 @@ namespace Webshop.Common.DAL
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
+    partial void InsertUsergruppe(Usergruppe instance);
+    partial void UpdateUsergruppe(Usergruppe instance);
+    partial void DeleteUsergruppe(Usergruppe instance);
     #endregion
 		
 		public WebshopDataContext() : 
-				base(global::Webshop.Common.Properties.Settings.Default.WebshopConnectionString, mappingSource)
+				base(global::Webshop.Common.Properties.Settings.Default.WebshopConnectionString1, mappingSource)
 		{
 			OnCreated();
 		}
@@ -85,14 +85,6 @@ namespace Webshop.Common.DAL
 			}
 		}
 		
-		public System.Data.Linq.Table<Usergruppe> Usergruppe
-		{
-			get
-			{
-				return this.GetTable<Usergruppe>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Bestellung> Bestellung
 		{
 			get
@@ -114,6 +106,14 @@ namespace Webshop.Common.DAL
 			get
 			{
 				return this.GetTable<User>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Usergruppe> Usergruppe
+		{
+			get
+			{
+				return this.GetTable<Usergruppe>();
 			}
 		}
 	}
@@ -307,120 +307,6 @@ namespace Webshop.Common.DAL
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Usergruppe")]
-	public partial class Usergruppe : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Usergruppe_ID;
-		
-		private string _Usergruppenbezeichnung;
-		
-		private EntitySet<User> _User;
-		
-    #region Definitionen der Erweiterungsmethoden
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnUsergruppe_IDChanging(int value);
-    partial void OnUsergruppe_IDChanged();
-    partial void OnUsergruppenbezeichnungChanging(string value);
-    partial void OnUsergruppenbezeichnungChanged();
-    #endregion
-		
-		public Usergruppe()
-		{
-			this._User = new EntitySet<User>(new Action<User>(this.attach_User), new Action<User>(this.detach_User));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usergruppe_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Usergruppe_ID
-		{
-			get
-			{
-				return this._Usergruppe_ID;
-			}
-			set
-			{
-				if ((this._Usergruppe_ID != value))
-				{
-					this.OnUsergruppe_IDChanging(value);
-					this.SendPropertyChanging();
-					this._Usergruppe_ID = value;
-					this.SendPropertyChanged("Usergruppe_ID");
-					this.OnUsergruppe_IDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usergruppenbezeichnung", DbType="VarChar(45) NOT NULL", CanBeNull=false)]
-		public string Usergruppenbezeichnung
-		{
-			get
-			{
-				return this._Usergruppenbezeichnung;
-			}
-			set
-			{
-				if ((this._Usergruppenbezeichnung != value))
-				{
-					this.OnUsergruppenbezeichnungChanging(value);
-					this.SendPropertyChanging();
-					this._Usergruppenbezeichnung = value;
-					this.SendPropertyChanged("Usergruppenbezeichnung");
-					this.OnUsergruppenbezeichnungChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usergruppe_User", Storage="_User", ThisKey="Usergruppe_ID", OtherKey="Usergruppe_ID")]
-		public EntitySet<User> User
-		{
-			get
-			{
-				return this._User;
-			}
-			set
-			{
-				this._User.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_User(User entity)
-		{
-			this.SendPropertyChanging();
-			entity.Usergruppe = this;
-		}
-		
-		private void detach_User(User entity)
-		{
-			this.SendPropertyChanging();
-			entity.Usergruppe = null;
 		}
 	}
 	
@@ -875,7 +761,7 @@ namespace Webshop.Common.DAL
 		
 		private string _Adresse;
 		
-		private System.Nullable<int> _PLZ;
+		private int _PLZ;
 		
 		private string _Ort;
 		
@@ -907,7 +793,7 @@ namespace Webshop.Common.DAL
     partial void OnNachnameChanged();
     partial void OnAdresseChanging(string value);
     partial void OnAdresseChanged();
-    partial void OnPLZChanging(System.Nullable<int> value);
+    partial void OnPLZChanging(int value);
     partial void OnPLZChanged();
     partial void OnOrtChanging(string value);
     partial void OnOrtChanged();
@@ -952,7 +838,7 @@ namespace Webshop.Common.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Vorname", DbType="VarChar(45)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Vorname", DbType="VarChar(45) NOT NULL", CanBeNull=false)]
 		public string Vorname
 		{
 			get
@@ -972,7 +858,7 @@ namespace Webshop.Common.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nachname", DbType="VarChar(45)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nachname", DbType="VarChar(45) NOT NULL", CanBeNull=false)]
 		public string Nachname
 		{
 			get
@@ -992,7 +878,7 @@ namespace Webshop.Common.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Adresse", DbType="VarChar(45)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Adresse", DbType="VarChar(45) NOT NULL", CanBeNull=false)]
 		public string Adresse
 		{
 			get
@@ -1012,8 +898,8 @@ namespace Webshop.Common.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PLZ", DbType="Int")]
-		public System.Nullable<int> PLZ
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PLZ", DbType="Int NOT NULL")]
+		public int PLZ
 		{
 			get
 			{
@@ -1032,7 +918,7 @@ namespace Webshop.Common.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ort", DbType="VarChar(45)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ort", DbType="VarChar(45) NOT NULL", CanBeNull=false)]
 		public string Ort
 		{
 			get
@@ -1052,7 +938,7 @@ namespace Webshop.Common.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Land", DbType="VarChar(45)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Land", DbType="VarChar(45) NOT NULL", CanBeNull=false)]
 		public string Land
 		{
 			get
@@ -1253,6 +1139,120 @@ namespace Webshop.Common.DAL
 		{
 			this.SendPropertyChanging();
 			entity.User = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Usergruppe")]
+	public partial class Usergruppe : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Usergruppe_ID;
+		
+		private string _Usergruppenbezeichnung;
+		
+		private EntitySet<User> _User;
+		
+    #region Definitionen der Erweiterungsmethoden
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUsergruppe_IDChanging(int value);
+    partial void OnUsergruppe_IDChanged();
+    partial void OnUsergruppenbezeichnungChanging(string value);
+    partial void OnUsergruppenbezeichnungChanged();
+    #endregion
+		
+		public Usergruppe()
+		{
+			this._User = new EntitySet<User>(new Action<User>(this.attach_User), new Action<User>(this.detach_User));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usergruppe_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Usergruppe_ID
+		{
+			get
+			{
+				return this._Usergruppe_ID;
+			}
+			set
+			{
+				if ((this._Usergruppe_ID != value))
+				{
+					this.OnUsergruppe_IDChanging(value);
+					this.SendPropertyChanging();
+					this._Usergruppe_ID = value;
+					this.SendPropertyChanged("Usergruppe_ID");
+					this.OnUsergruppe_IDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usergruppenbezeichnung", DbType="VarChar(45) NOT NULL", CanBeNull=false)]
+		public string Usergruppenbezeichnung
+		{
+			get
+			{
+				return this._Usergruppenbezeichnung;
+			}
+			set
+			{
+				if ((this._Usergruppenbezeichnung != value))
+				{
+					this.OnUsergruppenbezeichnungChanging(value);
+					this.SendPropertyChanging();
+					this._Usergruppenbezeichnung = value;
+					this.SendPropertyChanged("Usergruppenbezeichnung");
+					this.OnUsergruppenbezeichnungChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usergruppe_User", Storage="_User", ThisKey="Usergruppe_ID", OtherKey="Usergruppe_ID")]
+		public EntitySet<User> User
+		{
+			get
+			{
+				return this._User;
+			}
+			set
+			{
+				this._User.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_User(User entity)
+		{
+			this.SendPropertyChanging();
+			entity.Usergruppe = this;
+		}
+		
+		private void detach_User(User entity)
+		{
+			this.SendPropertyChanging();
+			entity.Usergruppe = null;
 		}
 	}
 }

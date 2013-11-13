@@ -11,8 +11,11 @@ namespace Webshop.Common.BL
         IBLProdukt Produkt { get; }
         //brauch ma dann später noch
         //IBLAuthentication Auth {get;}
-        //IBLUser User {get;}
+        IBLUser User {get;}
         void SaveChanges();
+
+
+
 
     }
 }
