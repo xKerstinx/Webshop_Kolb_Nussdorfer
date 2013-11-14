@@ -29,12 +29,12 @@ namespace Webshop.Common
                 .As<BL.IBLBestellung>()
                 .InstancePerLifetimeScope();
 
-            /*builder
+            builder
                 .RegisterType<BL.BLUser>()
                 .As<BL.IBLUser>()
                 .InstancePerLifetimeScope();
              
-             builder
+            /* builder
                 .RegisterType<BL.BLAuthentication>()
                 .As<BL.IBLAuthentication>()
                 .InstancePerLifetimeScope();
