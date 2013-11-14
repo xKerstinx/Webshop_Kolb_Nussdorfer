@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Webshop.Common.DAL;
 
 namespace Webshop_Kolb_Nussdorfer.Models
 {
@@ -100,6 +101,23 @@ namespace Webshop_Kolb_Nussdorfer.Models
                 subTotal += (decimal)item.Preis_brutto;
 
             return subTotal;
+        }
+       
+        public List<Bestellposition> CreateBestellpositionen (List<WarenkorbItemViewModel> warenkorbItems){
+	        List<Bestellposition> bestellposList= new List<Bestellposition>();
+	        foreach(var item in warenkorbItems){
+                WebshopDataContext dataContext= new WebshopDataContext();
+                ProduktViewModel produkt = (ProduktViewModel)dataContext.Produkt.Where(i => i.Produkt_ID == item.Produkt.Produkt_ID);
+		        var bestellpos= new Bestellposition();
+		        bestellpos.Produkt_ID=item.Produkt.Produkt_ID;
+                //bestellpos.Produkt = produkt;
+		        bestellpos.Menge=item.Menge;
+		        bestellposList.Add(bestellpos);
+	        }
+
+	        //Warenkorb löschen
+	        Items=new List<WarenkorbItemViewModel>();
+	        return bestellposList;
         }
         #endregion 
     }

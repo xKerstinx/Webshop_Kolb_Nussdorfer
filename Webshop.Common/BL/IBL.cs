@@ -9,6 +9,7 @@ namespace Webshop.Common.BL
     public interface IBL
     {
         IBLProdukt Produkt { get; }
+        IBLBestellung Bestellung { get; }
         //brauch ma dann später noch
         //IBLAuthentication Auth {get;}
         IBLUser User {get;}

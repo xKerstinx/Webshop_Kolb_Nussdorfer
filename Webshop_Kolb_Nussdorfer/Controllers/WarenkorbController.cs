@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Webshop.Common.BL;
 using Webshop_Kolb_Nussdorfer.Models;
 
 namespace Webshop_Kolb_Nussdorfer.Controllers
 {
     public class WarenkorbController : Controller
     {
-        //WarenkorbViewModel warenkorb;
-
-        // WarenkorbController()
-        //{
-          // this.warenkorb = new WarenkorbViewModel();
-       //}
+        private readonly IBL _bl;
+        public WarenkorbController(IBL bl)
+        {
+            _bl = bl;
+        }
          
         //
         // GET: /Warenkorb/
@@ -130,12 +130,9 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
         }
 
         public ActionResult CreateOrder(List <WarenkorbItemViewModel> results)
+        //public ActionResult CreateOrder(FormCollection results)
         {
-            //TO-DO Bestellung erstellen
-            //link for multiple submitbuttons
-        //http://stackoverflow.com/questions/442704/how-do-you-handle-multiple-submit-buttons-in-asp-net-mvc-framework
-
-
+            _bl.Bestellung.createOrder(WarenkorbViewModel.Instance.CreateBestellpositionen(results));
             return RedirectToAction("Index", "Produkt");
         }
     }

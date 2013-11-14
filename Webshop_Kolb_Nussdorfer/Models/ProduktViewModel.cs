@@ -10,7 +10,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
     public class ProduktViewModel
     {
         #region Properties
-        public int Produkt_ID { get; private set; }
+        public int Produkt_ID { get; set; }
         [Required]
         public string Kurzbezeichnung { get; set; }
         public string Langbezeichnung { get; set; }
@@ -47,7 +47,6 @@ namespace Webshop_Kolb_Nussdorfer.Models
             this.Zutaten = produkt.Zutaten;
         }
 
-      
 
         public void ApplyChanges(Produkt produkt)
         {

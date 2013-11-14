@@ -6,11 +6,11 @@
 }
 
 <h2>Warenkorb</h2>
-@using (Html.BeginForm("CreateOrder", 
-                       "Warenkorb", 
-                       FormMethod.Post))
+Zum L&ouml;schen eines Artikel, bitte die Menge auf 0 setzen!
+@using (Html.BeginForm("CreateOrder", "Warenkorb",  FormMethod.Post))
 {
     if (Model.Count()!=0) {
+        
         <table>
             <tr>
                 <th>
@@ -49,16 +49,20 @@
                     @Html.DisplayFor(modelItem => modelItem[i].Gesamtpreis_brutto)
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "Delete", new { Model[i].Produkt.Produkt_ID })
+                    @*@Html.ActionLink("Delete", "Delete", new { Model[i].Produkt.Produkt_ID })*@
+                    @Html.HiddenFor(model=> model[i].Produkt.Produkt_ID)
                 </td>
             </tr>
         }
     
         </table>
         <br />
+        <input type="submit" value="Aktualisieren" />
         <input type="submit" value="Bestellung abschließen" />
-        @Html.ActionLink("Aktualisieren", "Update", Model)
-        @Html.ActionLink("Bestellung abschließen", "CreateOrder")
+        @*@Html.ActionLink("Aktualisieren", "Update", Model)*@
+        @*@Html.ActionLink("Bestellung abschließen", "CreateOrder")*@
+    
+    @*http://stackoverflow.com/questions/3735400/html-attributes-for-editorfor-in-asp-net-mvc*@
 
     }
     else{

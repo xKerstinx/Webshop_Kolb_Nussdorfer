@@ -103,7 +103,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
         public string Ort { get; set; }
 
         [DisplayName("PLZ")]
-        public int? Plz { get; set; }
+        public string Plz { get; set; }
 
         [DisplayName("Land")]
         public string Land { get; set; }

@@ -10,7 +10,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
     public class WarenkorbItemViewModel : IEquatable<WarenkorbItemViewModel>
     {
         #region Properties
-        public ProduktViewModel Produkt;
+        public ProduktViewModel Produkt {get;set;}
         public int Menge {get;set;}
         
 
@@ -20,6 +20,10 @@ namespace Webshop_Kolb_Nussdorfer.Models
             {
                 return Produkt.Preis_netto / 100 * (100+Produkt.Steuersatz);
             }
+            set
+            {
+                this.Preis_brutto = value;
+            }
         }
 
         public System.Nullable<decimal> Gesamtpreis_brutto
@@ -28,7 +32,13 @@ namespace Webshop_Kolb_Nussdorfer.Models
             {
                 return Preis_brutto*Menge;
             }
+            set
+            {
+                this.Gesamtpreis_brutto = value;
+            }
         }
+
+
 
         #endregion
 
