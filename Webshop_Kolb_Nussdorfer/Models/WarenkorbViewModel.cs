@@ -106,8 +106,8 @@ namespace Webshop_Kolb_Nussdorfer.Models
         public List<Bestellposition> CreateBestellpositionen (List<WarenkorbItemViewModel> warenkorbItems){
 	        List<Bestellposition> bestellposList= new List<Bestellposition>();
 	        foreach(var item in warenkorbItems){
-                WebshopDataContext dataContext= new WebshopDataContext();
-                ProduktViewModel produkt = (ProduktViewModel)dataContext.Produkt.Where(i => i.Produkt_ID == item.Produkt.Produkt_ID);
+                //WebshopDataContext dataContext= new WebshopDataContext();
+                //ProduktViewModel produkt = (ProduktViewModel)dataContext.Produkt.Where(i => i.Produkt_ID == item.Produkt.Produkt_ID);
 		        var bestellpos= new Bestellposition();
 		        bestellpos.Produkt_ID=item.Produkt.Produkt_ID;
                 //bestellpos.Produkt = produkt;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Webshop;
 using Webshop.Common.BL;
 using Webshop_Kolb_Nussdorfer.Models;
 
@@ -25,66 +26,8 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
 
         }
 
-        //
-        // GET: /Warenkorb/Details/5
 
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        //
-        // GET: /Warenkorb/Create
-
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Warenkorb/Create
-
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //
-        // GET: /Warenkorb/Edit/5
-
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /Warenkorb/Edit/5
-
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
+        
         //
         // GET: /Warenkorb/Delete/5
        // [HttpPost]
@@ -120,20 +63,24 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
             return RedirectToAction("Index", "Produkt");
         }
 
-        public ActionResult Update(ICollection<WarenkorbItemViewModel> results)
+        [HttpPost]
+        [HttpParamAction(Name = "action", Argument = "Update")]
+        public ActionResult Update(List<WarenkorbItemViewModel> results)
         {
-            //TO-DO ist es irgendwie möglich, dass ich alle Items der Liste zurückbekomm?
+            foreach (var item in results)
+            {
+                WarenkorbViewModel.Instance.SetItemQuantity(item.Produkt.Produkt_ID, item.Menge);
+            }
             
-            //WarenkorbViewModel.Instance.AddItem(id);
-            //HttpContext.Session["Warenkorb"] = warenkorb;
-            return RedirectToAction("Index", "Produkt");
+            return RedirectToAction("Index", "Warenkorb");
         }
 
+        [HttpPost]
+        [HttpParamAction(Name = "action", Argument = "CreateOrder")]
         public ActionResult CreateOrder(List <WarenkorbItemViewModel> results)
-        //public ActionResult CreateOrder(FormCollection results)
         {
             _bl.Bestellung.createOrder(WarenkorbViewModel.Instance.CreateBestellpositionen(results));
-            return RedirectToAction("Index", "Produkt");
+            return RedirectToAction("Index", "Warenkorb");
         }
     }
 }

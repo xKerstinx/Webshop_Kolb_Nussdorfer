@@ -177,6 +177,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HttpParamActionAttribute.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\ProduktViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />

@@ -7,7 +7,7 @@
 
 <h2>Warenkorb</h2>
 Zum L&ouml;schen eines Artikel, bitte die Menge auf 0 setzen!
-@using (Html.BeginForm("CreateOrder", "Warenkorb",  FormMethod.Post))
+@using (Html.BeginForm())
 {
     if (Model.Count()!=0) {
         
@@ -57,8 +57,8 @@ Zum L&ouml;schen eines Artikel, bitte die Menge auf 0 setzen!
     
         </table>
         <br />
-        <input type="submit" value="Aktualisieren" />
-        <input type="submit" value="Bestellung abschließen" />
+        <input id="update" type="submit" value="Aktualisieren" name="action:Update" />
+        <input id="createOrder" type="submit" value="Bestellung abschließen" name="action:CreateOrder" />
         @*@Html.ActionLink("Aktualisieren", "Update", Model)*@
         @*@Html.ActionLink("Bestellung abschließen", "CreateOrder")*@
     
@@ -69,4 +69,18 @@ Zum L&ouml;schen eines Artikel, bitte die Menge auf 0 setzen!
         <br /> <p>Es befinden sich keine Produkte in Ihrem Warenkorb.</p>
     }
 }
+
+<script type="text/javascript">
+      $("button#update").click(function() {
+          var form = $("form#myForm");
+          form.attr("action", "/WarenkorbController/Update");
+          form.submit();
+      });
+
+      $("button#createOrder").click(function() {
+          var form = $("form#myForm");
+          form.attr("action", "/WarenkorbController/CreateOrder");
+          form.submit();
+      });
+</script>
    

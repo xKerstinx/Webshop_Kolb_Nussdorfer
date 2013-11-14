@@ -29,12 +29,20 @@ namespace Webshop.Common.BL
             decimal rechnungssumme=0;
             foreach (var item in orderItems)
             {
-                rechnungssumme += (item.Menge * (item.Produkt.Preis_netto/100*(item.Produkt.Preis_netto+item.Produkt.Steuersatz)));
+                var produkt=_dal.Produkt
+                                .Where (i=>i.Produkt_ID == item.Produkt_ID)
+                                .First();
+                rechnungssumme += (item.Menge * (produkt.Preis_netto/100*(100+produkt.Steuersatz)));
             }
             neueBestellung.Rechnungsbetrag = rechnungssumme;
             neueBestellung.Bestellposition.AddRange(orderItems);
             _dal.Bestellung.InsertOnSubmit(neueBestellung);
+            _dal.SaveChanges();
             return null;
+        }
+
+        public void updateRechnungsbetrag()
+        {
         }
 
     }
