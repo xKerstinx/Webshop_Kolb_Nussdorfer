@@ -19,7 +19,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
         [Required]
         public string Adresse { get; set; }
         [Required]
-        public int PLZ { get; set; }
+        public string PLZ { get; set; }
         [Required]
         public string Ort { get; set; }
         [Required]

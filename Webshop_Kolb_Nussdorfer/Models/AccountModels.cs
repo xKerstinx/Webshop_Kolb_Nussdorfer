@@ -194,7 +194,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
             if (String.IsNullOrEmpty(model.Adresse)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "adress");
             if (String.IsNullOrEmpty(model.Ort)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "location");
             if (String.IsNullOrEmpty(model.Land)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "country");
-            if (String.IsNullOrEmpty(Convert.ToString(model.Plz))) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "zipcode");
+            if (String.IsNullOrEmpty(model.Plz)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "zipcode");
 
 
             WebshopDataContext dataContext = new WebshopDataContext();
@@ -211,7 +211,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
                 newuser.Nachname = model.Nachname;
                 newuser.Ort = model.Ort;
                 newuser.Adresse = model.Adresse;
-                newuser.PLZ = Convert.ToInt32(model.Plz);
+                newuser.PLZ = model.Plz;
                 newuser.Land = model.Land;
                 newuser.Telefonnummer = model.Telefonnummer;
                

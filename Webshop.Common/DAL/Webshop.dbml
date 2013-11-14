@@ -37,7 +37,7 @@
       <Column Name="Vorname" Type="System.String" DbType="VarChar(45) NOT NULL" CanBeNull="false" />
       <Column Name="Nachname" Type="System.String" DbType="VarChar(45) NOT NULL" CanBeNull="false" />
       <Column Name="Adresse" Type="System.String" DbType="VarChar(45) NOT NULL" CanBeNull="false" />
-      <Column Name="PLZ" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PLZ" Type="System.String" DbType="VarChar(6) NOT NULL" CanBeNull="false" />
       <Column Name="Ort" Type="System.String" DbType="VarChar(45) NOT NULL" CanBeNull="false" />
       <Column Name="Land" Type="System.String" DbType="VarChar(45) NOT NULL" CanBeNull="false" />
       <Column Name="EMail" Type="System.String" DbType="VarChar(45) NOT NULL" CanBeNull="false" />

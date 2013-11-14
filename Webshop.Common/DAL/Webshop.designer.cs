@@ -761,7 +761,7 @@ namespace Webshop.Common.DAL
 		
 		private string _Adresse;
 		
-		private int _PLZ;
+		private string _PLZ;
 		
 		private string _Ort;
 		
@@ -793,7 +793,7 @@ namespace Webshop.Common.DAL
     partial void OnNachnameChanged();
     partial void OnAdresseChanging(string value);
     partial void OnAdresseChanged();
-    partial void OnPLZChanging(int value);
+    partial void OnPLZChanging(string value);
     partial void OnPLZChanged();
     partial void OnOrtChanging(string value);
     partial void OnOrtChanged();
@@ -898,8 +898,8 @@ namespace Webshop.Common.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PLZ", DbType="Int NOT NULL")]
-		public int PLZ
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PLZ", DbType="VarChar(6) NOT NULL", CanBeNull=false)]
+		public string PLZ
 		{
 			get
 			{
