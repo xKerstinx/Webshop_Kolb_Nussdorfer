@@ -10,9 +10,11 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (Webshop_Kolb_Nussdorfer.Models.AccountMembershipService.IsAdmin(HttpContext.Current.User.Identity.Name)) { 
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
 
 @using (Html.BeginForm()){   
          <p> Title: @Html.TextBox("SearchString")   
@@ -44,7 +46,10 @@
             @Html.DisplayNameFor(model => model.Preis_brutto)
         </th>
         <th>Bestellen</th>
-        <th>Bearbeiten</th>
+        <th>Details</th>
+        @if (Webshop_Kolb_Nussdorfer.Models.AccountMembershipService.IsAdmin(HttpContext.Current.User.Identity.Name)) { 
+            <th>Bearbeiten</th>
+        }
     </tr>
 
 @foreach (var item in Model) {
@@ -79,10 +84,13 @@
 
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Produkt_ID }) |
-            @Html.ActionLink("Details", "Details", new { kurzbezeichnung=item.Kurzbezeichnung }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Produkt_ID})
+            @Html.ActionLink("Details", "Details", new { kurzbezeichnung=item.Kurzbezeichnung }) 
         </td>
+        @if (Webshop_Kolb_Nussdorfer.Models.AccountMembershipService.IsAdmin(HttpContext.Current.User.Identity.Name)) { 
+            <td>@Html.ActionLink("Edit", "Edit", new { id=item.Produkt_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Produkt_ID})
+            </td>
+        }
     </tr>
 }
 

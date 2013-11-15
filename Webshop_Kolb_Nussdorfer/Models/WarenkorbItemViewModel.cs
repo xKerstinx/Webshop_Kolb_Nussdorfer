@@ -4,6 +4,7 @@ using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 using Webshop.Common.DAL;
+using System.ComponentModel;
 
 namespace Webshop_Kolb_Nussdorfer.Models
 {
@@ -14,7 +15,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
         public int Menge {get;set;}
         
 
-        public System.Nullable<decimal> Preis_brutto
+        /*public System.Nullable<decimal> Preis_brutto
         {
             get
             {
@@ -24,13 +25,14 @@ namespace Webshop_Kolb_Nussdorfer.Models
             {
                 this.Preis_brutto = value;
             }
-        }
+        }*/
 
+        [DisplayName("Bruttogesamtpreis")]
         public System.Nullable<decimal> Gesamtpreis_brutto
         {
             get
             {
-                return Preis_brutto*Menge;
+                return Produkt.Preis_brutto*Menge;
             }
             set
             {

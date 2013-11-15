@@ -306,6 +306,7 @@
     <Content Include="Views\Account\ForgotPasswordSuccess.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Warenkorb\Index.cshtml" />
+    <Content Include="Views\Warenkorb\BestellungSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

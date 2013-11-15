@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Webshop;
 using Webshop.Common.BL;
+using Webshop.Common.DAL;
 using Webshop_Kolb_Nussdorfer.Models;
 
 namespace Webshop_Kolb_Nussdorfer.Controllers
@@ -79,8 +80,8 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
         [HttpParamAction(Name = "action", Argument = "CreateOrder")]
         public ActionResult CreateOrder(List <WarenkorbItemViewModel> results)
         {
-            _bl.Bestellung.createOrder(WarenkorbViewModel.Instance.CreateBestellpositionen(results));
-            return RedirectToAction("Index", "Warenkorb");
+            Bestellung newOrder=_bl.Bestellung.createOrder(WarenkorbViewModel.Instance.CreateBestellpositionen(results));
+            return View("BestellungSuccess", newOrder);
         }
     }
 }

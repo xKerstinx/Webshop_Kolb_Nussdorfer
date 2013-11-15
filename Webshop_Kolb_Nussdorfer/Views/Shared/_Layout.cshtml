@@ -23,10 +23,10 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("User", "Index", "User")</li>
                     <li>@Html.ActionLink("Produkt", "Index", "Produkt")</li>
-                    @if (Request.IsAuthenticated)
+                    @*if (Request.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Mein Konto", "Index", "Profile")</li>
-                    }
+                    }*@
                      @if (Request.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Warenkorb", "Index", "Warenkorb")</li>

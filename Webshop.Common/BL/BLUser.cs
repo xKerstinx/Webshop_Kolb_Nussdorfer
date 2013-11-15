@@ -51,7 +51,5 @@ namespace Webshop.Common.BL
                 .Skip(startPage * Helper.Helper.PageSize)
                 .Take(Helper.Helper.PageSize);
         }
-
-
     }
 }

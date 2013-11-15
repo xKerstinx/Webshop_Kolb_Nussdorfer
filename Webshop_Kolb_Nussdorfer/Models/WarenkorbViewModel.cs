@@ -98,7 +98,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
         {
             decimal subTotal = 0;
             foreach (WarenkorbItemViewModel item in Items)
-                subTotal += (decimal)item.Preis_brutto;
+                subTotal += (decimal)item.Produkt.Preis_brutto;
 
             return subTotal;
         }

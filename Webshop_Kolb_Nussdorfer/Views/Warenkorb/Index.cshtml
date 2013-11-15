@@ -6,11 +6,12 @@
 }
 
 <h2>Warenkorb</h2>
-Zum L&ouml;schen eines Artikel, bitte die Menge auf 0 setzen!
+
 @using (Html.BeginForm())
 {
     if (Model.Count()!=0) {
-        
+        <p>Zum L&ouml;schen eines Artikel, bitte die Menge auf 0 setzen! </p>
+            <br />
         <table>
             <tr>
                 <th>
@@ -23,7 +24,7 @@ Zum L&ouml;schen eines Artikel, bitte die Menge auf 0 setzen!
                     @Html.DisplayNameFor(model => model[0].Menge)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model[0].Preis_brutto)
+                    @Html.DisplayNameFor(model => model[0].Produkt.Preis_brutto)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model[0].Gesamtpreis_brutto)
@@ -43,7 +44,7 @@ Zum L&ouml;schen eines Artikel, bitte die Menge auf 0 setzen!
                     @Html.EditorFor(modelItem => modelItem[i].Menge)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => modelItem[i].Preis_brutto)
+                    @Html.DisplayFor(modelItem => modelItem[i].Produkt.Preis_brutto)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => modelItem[i].Gesamtpreis_brutto)

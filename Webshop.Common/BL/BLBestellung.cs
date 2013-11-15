@@ -38,7 +38,7 @@ namespace Webshop.Common.BL
             neueBestellung.Bestellposition.AddRange(orderItems);
             _dal.Bestellung.InsertOnSubmit(neueBestellung);
             _dal.SaveChanges();
-            return null;
+            return neueBestellung;
         }
 
         public void updateRechnungsbetrag()

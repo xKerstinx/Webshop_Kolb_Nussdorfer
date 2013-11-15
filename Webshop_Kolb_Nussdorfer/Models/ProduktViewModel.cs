@@ -4,12 +4,14 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using Webshop.Common.DAL;
+using System.ComponentModel;
 
 namespace Webshop_Kolb_Nussdorfer.Models
 {
     public class ProduktViewModel
     {
         #region Properties
+        [DisplayName("Artikelnummer")]
         public int Produkt_ID { get; set; }
         [Required]
         public string Kurzbezeichnung { get; set; }
@@ -17,10 +19,11 @@ namespace Webshop_Kolb_Nussdorfer.Models
         [Required]
         public int Steuersatz { get; set; }
         [Required]
+        [DisplayName("Nettopreis")]
         public decimal Preis_netto { get; set; }
         public string Zutaten { get; set; }
-        
 
+        [DisplayName("Bruttopreis")]
         public decimal Preis_brutto
         {
             get

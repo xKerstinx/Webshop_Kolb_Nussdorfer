@@ -248,7 +248,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
                                 .Where(i => i.Benutzername.Equals(username) && i.EMail.Equals(email))
                                 .FirstOrDefault();
                     
-                user.Passwort = "1default2";
+                user.Passwort = Webshop.Common.Helper.StringHelper.MD5("1default2");
 
                 dataContext.SubmitChanges();
                 status = MembershipCreateStatus.Success;
@@ -260,6 +260,31 @@ namespace Webshop_Kolb_Nussdorfer.Models
             }
             return status;
         }
+
+        public static bool IsAdmin(string username)
+        {
+            string userGruppe = "";
+            WebshopDataContext dataContext = new WebshopDataContext();
+            try
+            {
+                userGruppe = dataContext.User
+                   .Where(i => i.Benutzername == username)
+                   .Select(i => i.Usergruppe.Usergruppenbezeichnung)
+                   .FirstOrDefault();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            if (userGruppe.Equals("Admin"))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
     }
 
     public interface IFormsAuthenticationService
