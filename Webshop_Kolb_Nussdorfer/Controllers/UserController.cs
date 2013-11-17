@@ -49,18 +49,18 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
         //
         // GET: /User/Details/5
 
-        /*public ActionResult Details(int id)
+        public ActionResult Details(int id)
         {
             return View(new UserViewModel(_bl.User.GetUser(id)));
-        }*/
+        }
 
         //
         // GET: /User/Details/5
 
-        public ActionResult Details(string nachname)
+        /*public ActionResult Details(string benutzername)
         {
-            return View(new UserViewModel(_bl.User.GetUser(nachname)));
-        }
+            return View(new UserViewModel(_bl.User.GetUser(benutzername)));
+        }*/
 
         //
         // GET: /User/Create

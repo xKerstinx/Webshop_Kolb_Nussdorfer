@@ -29,12 +29,13 @@ namespace Webshop.Common.BL
             return obj;
         }
 
-        public User GetUser(string nachname)
+       public User GetUser(string benutzername)
         {
-            var obj = _dal.User.Single(i => i.Nachname.ToLower() == nachname.ToLower()); // check access rights 
+            var obj = _dal.User.Single(i => i.Benutzername.ToLower() == benutzername.ToLower()); // check access rights 
             return obj;
         }
-
+       
+        
         public User CreateUser()
         {
             var obj = new User();
