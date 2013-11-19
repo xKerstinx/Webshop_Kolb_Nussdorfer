@@ -17,15 +17,6 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
             _bl = bl;
         }
 
-        //
-        // GET: /User/
-
-        /*public ActionResult Index()
-        {
-            return View(_bl.User
-                .GetAllUsers(0)
-                .Select(i => new UserViewModel(i)));
-        }*/
 
         public ActionResult Index(string searchString)
         {
@@ -54,13 +45,6 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
             return View(new UserViewModel(_bl.User.GetUser(id)));
         }
 
-        //
-        // GET: /User/Details/5
-
-        /*public ActionResult Details(string benutzername)
-        {
-            return View(new UserViewModel(_bl.User.GetUser(benutzername)));
-        }*/
 
         //
         // GET: /User/Create
@@ -133,6 +117,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
             }
             catch
             {
+                TempData["Msg"] = "User kann nicht gelöscht werden, da eine zugehörige Bestellung vorhanden ist";
                 return RedirectToAction("Index");
             }
         }
