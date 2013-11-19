@@ -1,0 +1,95 @@
+﻿@model Webshop_Kolb_Nussdorfer.Models.UserViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>ProduktViewModel</legend>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.User_ID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User_ID)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Vorname)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Vorname)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Nachname)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nachname)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Benutzername)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Benutzername)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Adresse)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Adresse)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.PLZ)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PLZ)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Ort)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ort)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Land)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Land)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.EMail)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EMail)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Telefonnummer)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telefonnummer)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Usergruppe_ID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Usergruppe_ID)
+    </div>
+
+    </fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.User_ID }) |
+    @Html.ActionLink("Back to List", "Index") | 
+    @Html.ActionLink("Delete", "Delete", new { id=Model.User_ID })
+</p>
