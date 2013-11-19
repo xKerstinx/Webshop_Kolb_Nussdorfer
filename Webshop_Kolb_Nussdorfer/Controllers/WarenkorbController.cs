@@ -61,6 +61,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
         {
             WarenkorbViewModel.Instance.AddItem(id);
             //HttpContext.Session["Warenkorb"] = warenkorb;
+            TempData["Msg"] = "Produkt wurde erfolgreich dem Warenkorb hinzugefügt";
             return RedirectToAction("Index", "Produkt");
         }
 

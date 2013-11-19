@@ -15,7 +15,7 @@
 <script src="~/Scripts/jquery-ui-1.8.20.min.js" type="text/javascript"></script>
 
 <h2>Index</h2>
-<p>@Html.Raw(ViewBag.error)</p>
+<p class="fontColorRed">@TempData["Msg"]</p>
 
 @if (Webshop_Kolb_Nussdorfer.Models.AccountMembershipService.IsAdmin(HttpContext.Current.User.Identity.Name)) { 
     <p>
@@ -91,7 +91,7 @@
 
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { kurzbezeichnung=item.Kurzbezeichnung }) 
+            @Html.ActionLink("Details", "Details", new { id=item.Produkt_ID,kurzbezeichnung=item.Kurzbezeichnung }) 
         </td>
         @if (Webshop_Kolb_Nussdorfer.Models.AccountMembershipService.IsAdmin(HttpContext.Current.User.Identity.Name)) { 
             <td>@Html.ActionLink("Edit", "Edit", new { id=item.Produkt_ID }) |

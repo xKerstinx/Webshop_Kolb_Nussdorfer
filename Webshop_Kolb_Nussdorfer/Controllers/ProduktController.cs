@@ -29,6 +29,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
 
         public ActionResult Index(string searchString)
         {
+            //ViewBag.Error = "Produkt kann nicht gelöscht werden, da eine zugehörige Bestellung vorhanden ist";
             if (String.IsNullOrEmpty(searchString))
             {
                 return View(_bl.Produkt
@@ -58,9 +59,9 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
         //
         // GET: /Produkt/Details/5
 
-        public ActionResult Details(string kurzbezeichnung)
+        public ActionResult Details(int id)
         {
-            return View(new ProduktViewModel(_bl.Produkt.GetProdukt(kurzbezeichnung)));
+            return View(new ProduktViewModel(_bl.Produkt.GetProdukt(id)));
         }
 
         //
@@ -130,7 +131,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
             }
             catch
             {
-                ViewBag.error = "Produkt kann nicht gelöscht werden, da eine zugehörige Bestellung vorhanden ist";
+                TempData["Msg"]="Produkt kann nicht gelöscht werden, da eine zugehörige Bestellung vorhanden ist";
                 return RedirectToAction("Index");
             }
         }
@@ -148,12 +149,6 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
             {
                 return Json(null);
             }
-        }
-
-        public ActionResult Order(int id)
-        {
-            //To-Do Warenkorb & Co
-            return View();
         }
     }
 }
