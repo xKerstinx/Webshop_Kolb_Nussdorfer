@@ -277,7 +277,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
                 return false;
             }
 
-            if (userGruppe.Equals("Admin"))
+            if (userGruppe!=null && userGruppe.Equals("Admin"))
             {
                 return true;
             }
