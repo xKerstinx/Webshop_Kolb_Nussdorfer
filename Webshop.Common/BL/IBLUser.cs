@@ -12,6 +12,7 @@ namespace Webshop.Common.BL
         Webshop.Common.DAL.User GetUser(int id);
         Webshop.Common.DAL.User GetUser(string nachname);
         Webshop.Common.DAL.User CreateUser();
+        void DeleteUser(int id);
 
         IQueryable<Webshop.Common.DAL.User> Search(string search, int startPage);
 
