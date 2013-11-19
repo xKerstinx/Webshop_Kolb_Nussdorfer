@@ -43,6 +43,13 @@ namespace Webshop.Common.BL
             return obj;
         }
 
+        public void DeleteUser(int id)
+        {
+            _dal.User.DeleteOnSubmit(_dal.User.Where(i => i.User_ID == id).FirstOrDefault());
+            _dal.SaveChanges();
+
+        }
+
         
 
         public IQueryable<User> Search(string search, int startPage)

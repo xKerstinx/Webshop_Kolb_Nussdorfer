@@ -120,33 +120,24 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
             return View(user);
         }
 
-        //
-        // GET: /User/Delete/5
-
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
         //
         // POST: /User/Delete/5
 
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                _bl.User.DeleteUser(id);
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index");
             }
         }
 
-
+ 
         public ActionResult AutoComplete(string term)
         {
             if (!string.IsNullOrEmpty(term) && term.Length >= 3)
