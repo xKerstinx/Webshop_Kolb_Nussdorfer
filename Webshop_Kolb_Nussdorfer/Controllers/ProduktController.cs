@@ -130,7 +130,8 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
             }
             catch
             {
-                return View();
+                ViewBag.error = "Produkt kann nicht gelöscht werden, da eine zugehörige Bestellung vorhanden ist";
+                return RedirectToAction("Index");
             }
         }
 
