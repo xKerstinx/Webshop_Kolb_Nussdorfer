@@ -4,12 +4,13 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using Webshop.Common.DAL;
+using System.Web.Mvc;
 
 namespace Webshop_Kolb_Nussdorfer.Models
 {
     public class UserViewModel
     {
-       #region Properties
+        #region Properties
 
         public int User_ID { get; private set; }
         [Required]
@@ -29,9 +30,21 @@ namespace Webshop_Kolb_Nussdorfer.Models
         public string Telefonnummer { get; set; }
         [Required]
         public string Benutzername { get; set; }
-        [Required]
         public string Passwort { get; set; }
-        public int Usergruppe_ID { get; private set; }
+        public int Usergruppe_ID { get; set; }
+
+
+        public IEnumerable<SelectListItem> Usergruppen
+        {
+            get
+            {
+                return new[]{
+                    new SelectListItem(), 
+                    new SelectListItem() {Text = "Administrator", Value = "1"}, 
+                    new SelectListItem() {Text = "Kunde", Value = "2"},
+                };
+            }
+        }
 
         public User user = null;
         #endregion
@@ -61,17 +74,20 @@ namespace Webshop_Kolb_Nussdorfer.Models
         // TODO Passwort raus aus Apply Chances
         public void ApplyChanges(User user)
         {
-            this.Vorname = user.Vorname;
-            this.Nachname = user.Nachname;
-            this.Adresse = user.Adresse;
-            this.PLZ = user.PLZ;
-            this.Ort = user.Ort;
-            this.Land = user.Land;
-            this.EMail = user.EMail;
-            this.Telefonnummer = user.Telefonnummer;
-            this.Benutzername = user.Benutzername;
-            this.Passwort = user.Passwort;
-
+            user.Vorname = this.Vorname;
+            user.Nachname = this.Nachname;
+            user.Adresse = this.Adresse;
+            user.PLZ = this.PLZ;
+            user.Ort = this.Ort;
+            user.Land = this.Land;
+            user.EMail = this.EMail;
+            user.Telefonnummer = this.Telefonnummer;
+            user.Benutzername = this.Benutzername;
+            if (!string.IsNullOrEmpty(this.Passwort))
+            {
+                user.Passwort = this.Passwort;
+            }
+            user.Usergruppe_ID = this.Usergruppe_ID;
         }
     }
 }

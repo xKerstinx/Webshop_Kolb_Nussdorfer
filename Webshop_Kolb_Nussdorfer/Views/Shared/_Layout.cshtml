@@ -21,9 +21,9 @@
             <div id="menucontainer">
                 <ul id="menu">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                  @*  @if (Webshop_Kolb_Nussdorfer.Models.AccountMembershipService.IsAdmin(HttpContext.Current.User.Identity.Name)) {
-                    <li>@Html.ActionLink("User", "Index", "User")</li> } *@
-                    <li>@Html.ActionLink("User", "Index", "User")</li>
+                    @if (Webshop_Kolb_Nussdorfer.Models.AccountMembershipService.IsAdmin(HttpContext.Current.User.Identity.Name)) {
+                    <li>@Html.ActionLink("User", "Index", "User")</li> } 
+                 
                     <li>@Html.ActionLink("Produkt", "Index", "Produkt")</li>
                     @*if (Request.IsAuthenticated)
                     {

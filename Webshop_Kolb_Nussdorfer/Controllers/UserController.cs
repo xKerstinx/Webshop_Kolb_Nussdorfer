@@ -81,6 +81,11 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
                 var newUser = _bl.User.CreateUser();
                 user.ApplyChanges(newUser);
 
+                if (string.IsNullOrEmpty(user.Passwort))
+                {
+                    ModelState.AddModelError("password", "Password cannot be empty");
+                }
+
                 if (ModelState.IsValid)
                 {
                     _bl.SaveChanges();
