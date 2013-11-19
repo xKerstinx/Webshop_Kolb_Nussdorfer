@@ -12,6 +12,7 @@ namespace Webshop.Common.BL
         Webshop.Common.DAL.Produkt GetProdukt(int id);
         Webshop.Common.DAL.Produkt GetProdukt(string kurzbezeichnung);
         Webshop.Common.DAL.Produkt CreateProdukt();
+        void DeleteProdukt(int id);
         
         //IQueryable<Webshop.Common.DAL.Produkt> GetTopContacts(int id);
         //IQueryable<Webshop.Common.DAL.Produkt> GetTopPosts(int id);

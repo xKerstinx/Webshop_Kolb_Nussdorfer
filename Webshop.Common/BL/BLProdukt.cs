@@ -41,7 +41,14 @@ namespace Webshop.Common.BL
             var obj = new Produkt(); 
             _dal.Produkt.InsertOnSubmit(obj); 
             return obj; 
-        } 
+        }
+
+        public void DeleteProdukt(int id)
+        {
+            _dal.Produkt.DeleteOnSubmit(_dal.Produkt.Where(i => i.Produkt_ID==id).FirstOrDefault());
+            _dal.SaveChanges();
+
+        }
         
         /*public IQueryable<Produkt> GetTopContacts(int id) 
         { return _dal.Contacts 

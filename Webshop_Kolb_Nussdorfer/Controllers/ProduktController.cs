@@ -116,24 +116,16 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
             return View(produkt);
         }
 
-        //
-        // GET: /Produkt/Delete/5
-
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+       
 
         //
         // POST: /Produkt/Delete/5
 
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                _bl.Produkt.DeleteProdukt(id);
                 return RedirectToAction("Index");
             }
             catch
