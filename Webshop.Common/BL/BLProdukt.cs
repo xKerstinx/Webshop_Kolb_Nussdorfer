@@ -17,7 +17,7 @@ namespace Webshop.Common.BL
         } 
         
         public IQueryable<Produkt> GetAllProdukte(int startPage) 
-        { 
+        {
             return _dal.Produkt
                 // .Where(i => Security Filter) 
                 .Skip(startPage * Helper.Helper.PageSize) 

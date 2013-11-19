@@ -33,7 +33,8 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
             {
                 return View(_bl.Produkt
                  .GetAllProdukte(0)
-                 .Select(i => new ProduktViewModel(i)));
+                 .Select(i => new ProduktViewModel(i))
+                 );
             }
 
             if (!String.IsNullOrEmpty(searchString))

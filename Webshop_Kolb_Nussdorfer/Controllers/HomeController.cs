@@ -11,13 +11,6 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
     {
         public ActionResult Index()
         {
-            var dataContext = new WebshopDataContext();
-            var produkt = dataContext.Produkt.First();
-                         
-            //ViewBag.Message = produkt.Kurzbezeichnung;
-            Console.WriteLine(produkt.Kurzbezeichnung);
-
-            
             return View();
         }
 

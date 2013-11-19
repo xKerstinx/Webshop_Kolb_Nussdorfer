@@ -95,16 +95,19 @@ namespace Webshop_Kolb_Nussdorfer.Models
         [DisplayName("Nachname")]
         public string Nachname { get; set; }
 
-        
+        [Required]
         [DisplayName("Adresse")]
         public string Adresse { get; set; }
 
+        [Required]
         [DisplayName("Ort")]
         public string Ort { get; set; }
 
+        [Required]
         [DisplayName("PLZ")]
         public string Plz { get; set; }
 
+        [Required]
         [DisplayName("Land")]
         public string Land { get; set; }
 
