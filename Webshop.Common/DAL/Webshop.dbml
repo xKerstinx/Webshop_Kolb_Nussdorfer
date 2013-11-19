@@ -9,13 +9,6 @@
       <Association Name="Produkt_Bestellposition" Member="Produkt" ThisKey="Produkt_ID" OtherKey="Produkt_ID" Type="Produkt" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Usergruppe" Member="Usergruppe">
-    <Type Name="Usergruppe">
-      <Column Name="Usergruppe_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Usergruppenbezeichnung" Type="System.String" DbType="VarChar(45) NOT NULL" CanBeNull="false" />
-      <Association Name="Usergruppe_User" Member="User" ThisKey="Usergruppe_ID" OtherKey="Usergruppe_ID" Type="User" />
-    </Type>
-  </Table>
   <Table Name="dbo.Bestellung" Member="Bestellung">
     <Type Name="Bestellung">
       <Column Name="Bestellung_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -54,6 +47,13 @@
       <Column Name="Usergruppe_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="User_Bestellung" Member="Bestellung" ThisKey="User_ID" OtherKey="User_ID" Type="Bestellung" />
       <Association Name="Usergruppe_User" Member="Usergruppe" ThisKey="Usergruppe_ID" OtherKey="Usergruppe_ID" Type="Usergruppe" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Usergruppe" Member="Usergruppe">
+    <Type Name="Usergruppe">
+      <Column Name="Usergruppe_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Usergruppenbezeichnung" Type="System.String" DbType="VarChar(45) NOT NULL" CanBeNull="false" />
+      <Association Name="Usergruppe_User" Member="User" ThisKey="Usergruppe_ID" OtherKey="Usergruppe_ID" Type="User" />
     </Type>
   </Table>
 </Database>
