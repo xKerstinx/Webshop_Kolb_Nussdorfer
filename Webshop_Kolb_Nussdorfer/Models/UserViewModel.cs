@@ -5,6 +5,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using Webshop.Common.DAL;
 using System.Web.Mvc;
+using System.ComponentModel;
 
 namespace Webshop_Kolb_Nussdorfer.Models
 {
@@ -14,23 +15,43 @@ namespace Webshop_Kolb_Nussdorfer.Models
 
         public int User_ID { get; private set; }
         [Required]
+        [DisplayName("Vorname")]
         public string Vorname { get; set; }
+
         [Required]
+        [DisplayName("Nachname")]
         public string Nachname { get; set; }
+
         [Required]
+        [DisplayName("Adresse")]
         public string Adresse { get; set; }
+
         [Required]
+        [DisplayName("PLZ")]
         public string PLZ { get; set; }
+
         [Required]
+        [DisplayName("Ort")]
         public string Ort { get; set; }
+
         [Required]
+        [DisplayName("Land")]
         public string Land { get; set; }
+
         [Required]
+        [DisplayName("E-Mail-Adresse")]
         public string EMail { get; set; }
+
+        [DisplayName("Telefonnummer")]
         public string Telefonnummer { get; set; }
+
         [Required]
+        [DisplayName("Benutzername")]
         public string Benutzername { get; set; }
+
+        [DisplayName("Kennwort")]
         public string Passwort { get; set; }
+
         public int Usergruppe_ID { get; set; }
 
 

@@ -46,7 +46,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
         [DisplayName("Speichern?")]
         public bool RememberMe { get; set; }
 
-        public bool userExists()
+        /*public bool userExists()
         {
             try
             {
@@ -72,13 +72,13 @@ namespace Webshop_Kolb_Nussdorfer.Models
             {
                 return false;
             }
-        }
+        }*/
     }
 
     [PropertiesMustMatch("Password", "ConfirmPassword", ErrorMessage = "Das Kennwort entspricht nicht dem Bestätigungskennwort.")]
     public class RegisterViewModel
     {
-        [Required]
+       /* [Required]
         [DisplayName("Benutzername")]
         public string Benutzername { get; set; }
 
@@ -117,7 +117,9 @@ namespace Webshop_Kolb_Nussdorfer.Models
         [ValidatePasswordLength]
         [DataType(DataType.Password)]
         [DisplayName("Kennwort")]
-        public string Password { get; set; }
+        public string Password { get; set; }*/
+
+        public UserViewModel User {get;set;}
 
         [Required]
         [DataType(DataType.Password)]
@@ -125,6 +127,15 @@ namespace Webshop_Kolb_Nussdorfer.Models
         public string ConfirmPassword { get; set; }
 
         public bool Success = false;
+
+
+        public void ApplyChanges(User newUser)
+        {
+            User.ApplyChanges(newUser);
+        }
+
+
+
     }
 
     public class ForgotPasswordViewModel
@@ -189,15 +200,15 @@ namespace Webshop_Kolb_Nussdorfer.Models
 
         public MembershipCreateStatus CreateUser(RegisterViewModel model, string usergruppe)
         {
-            if (String.IsNullOrEmpty(model.Benutzername)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "userName");
-            if (String.IsNullOrEmpty(model.Password)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "password");
-            if (String.IsNullOrEmpty(model.Email)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "email");
-            if (String.IsNullOrEmpty(model.Vorname)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "userName");
-            if (String.IsNullOrEmpty(model.Nachname)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "password");
-            if (String.IsNullOrEmpty(model.Adresse)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "adress");
-            if (String.IsNullOrEmpty(model.Ort)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "location");
-            if (String.IsNullOrEmpty(model.Land)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "country");
-            if (String.IsNullOrEmpty(model.Plz)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "zipcode");
+            if (String.IsNullOrEmpty(model.User.Benutzername)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "userName");
+            if (String.IsNullOrEmpty(model.User.Passwort)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "password");
+            if (String.IsNullOrEmpty(model.User.EMail)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "email");
+            if (String.IsNullOrEmpty(model.User.Vorname)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "userName");
+            if (String.IsNullOrEmpty(model.User.Nachname)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "password");
+            if (String.IsNullOrEmpty(model.User.Adresse)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "adress");
+            if (String.IsNullOrEmpty(model.User.Ort)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "location");
+            if (String.IsNullOrEmpty(model.User.Land)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "country");
+            if (String.IsNullOrEmpty(model.User.PLZ)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "zipcode");
 
 
             WebshopDataContext dataContext = new WebshopDataContext();
@@ -207,16 +218,16 @@ namespace Webshop_Kolb_Nussdorfer.Models
             try
             {
                 User newuser = new User();
-                newuser.Benutzername = model.Benutzername;
-                newuser.Passwort = Webshop.Common.Helper.StringHelper.MD5(model.Password);
-                newuser.EMail = model.Email;
-                newuser.Vorname = model.Vorname;
-                newuser.Nachname = model.Nachname;
-                newuser.Ort = model.Ort;
-                newuser.Adresse = model.Adresse;
-                newuser.PLZ = model.Plz;
-                newuser.Land = model.Land;
-                newuser.Telefonnummer = model.Telefonnummer;
+                newuser.Benutzername = model.User.Benutzername;
+                newuser.Passwort = Webshop.Common.Helper.StringHelper.MD5(model.User.Passwort);
+                newuser.EMail = model.User.EMail;
+                newuser.Vorname = model.User.Vorname;
+                newuser.Nachname = model.User.Nachname;
+                newuser.Ort = model.User.Ort;
+                newuser.Adresse = model.User.Adresse;
+                newuser.PLZ = model.User.PLZ;
+                newuser.Land = model.User.Land;
+                newuser.Telefonnummer = model.User.Telefonnummer;
                
                 newuser.Usergruppe =dataContext
                                         .Usergruppe

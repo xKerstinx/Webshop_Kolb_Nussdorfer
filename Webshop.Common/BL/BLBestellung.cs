@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Webshop.Common.BL
 {
-    class BLBestellung : IBLBestellung
+    public class BLBestellung : IBLBestellung
     {
         private readonly IDAL _dal; 
         public BLBestellung(IDAL dal)

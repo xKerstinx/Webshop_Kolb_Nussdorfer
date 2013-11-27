@@ -12,15 +12,21 @@ using WebMatrix.WebData;
 using Webshop_Kolb_Nussdorfer.Filters;
 using Webshop_Kolb_Nussdorfer.Models;
 using Webshop.Common.DAL;
+using Webshop.Common.BL;
 
 namespace Webshop_Kolb_Nussdorfer.Controllers
 {
     [HandleError]
     public class AccountController : Controller
     {
-
+        private readonly IBL _bl;
         public IFormsAuthenticationService FormsService { get; set; }
         public IMembershipService MembershipService { get; set; }
+
+        public AccountController(IBL bl)
+        {
+            _bl = bl;
+        }
 
         protected override void Initialize(RequestContext requestContext)
         {
@@ -44,7 +50,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (model.userExists())
+                if (_bl.Authentication.userExists(model.Username,model.Password))
                 {
                     // Wenn man bereits eingeloggt ist, zuerst ausloggen
                     if (HttpContext.User.Identity.IsAuthenticated)
@@ -79,7 +85,6 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
         public ActionResult LogOff()
         {
             FormsService.SignOut();
-
             return RedirectToAction("Index", "Home");
         }
 
@@ -99,14 +104,16 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
             if (ModelState.IsValid)
             {
                 // Versuch, den Benutzer zu registrieren
-                //MembershipCreateStatus createStatus = MembershipService.CreateUser(model.Username, model.Password, model.Email, "Kunde");
+                var newProdukt=_bl.Authentication.CreateUser();
+                
+                
                 MembershipCreateStatus createStatus = MembershipService.CreateUser(model, "Kunde");
 
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     model.Success = true;
-                    FormsService.SignIn(model.Benutzername, false /* createPersistentCookie */);
+                    FormsService.SignIn(model.User.Benutzername, false /* createPersistentCookie */);
                     return View("RegisterSuccess",model);
                 }
                 else

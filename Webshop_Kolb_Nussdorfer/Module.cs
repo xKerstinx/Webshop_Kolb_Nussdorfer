@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Webshop.Common.DAL;
+using Webshop_Kolb_Nussdorfer.BL;
 
 namespace Webshop.Common
 {
@@ -33,12 +34,17 @@ namespace Webshop.Common
                 .RegisterType<BL.BLUser>()
                 .As<BL.IBLUser>()
                 .InstancePerLifetimeScope();
+
+            builder
+                .RegisterType<WarenkorbService>()
+                .As<IWarenkorbService>()
+                .InstancePerLifetimeScope();
              
-            /* builder
+             builder
                 .RegisterType<BL.BLAuthentication>()
                 .As<BL.IBLAuthentication>()
                 .InstancePerLifetimeScope();
-             */
+             
 
             builder
                 .RegisterType<DAL.WebshopDataContext>()
