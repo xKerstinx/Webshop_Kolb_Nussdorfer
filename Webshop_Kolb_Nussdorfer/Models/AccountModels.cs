@@ -8,12 +8,13 @@ using System.Web.Security;
 using Webshop.Common.DAL;
 using System.ComponentModel;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace Webshop_Kolb_Nussdorfer.Models
 {
     #region Modelle
     [PropertiesMustMatch("NewPassword", "ConfirmPassword", ErrorMessage = "Das neue Kennwort entspricht nicht dem Bestätigungskennwort.")]
-    public class ChangePasswordViewModel
+    public class ChangePasswordViewModel 
     {
         [Required]
         [DataType(DataType.Password)]
@@ -32,7 +33,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class LogOnModel
+    public class LogOnViewModel
     {
         [Required]
         [DisplayName("Benutzername")]
@@ -45,39 +46,13 @@ namespace Webshop_Kolb_Nussdorfer.Models
 
         [DisplayName("Speichern?")]
         public bool RememberMe { get; set; }
-
-        /*public bool userExists()
-        {
-            try
-            {
-                var dataContext = new WebshopDataContext();
-
-
-                int usersCount = dataContext
-                                    .User
-                                    .Where(i => i.Benutzername == this.Username && i.Passwort == Webshop.Common.Helper.StringHelper.MD5(this.Password))
-                                    .Count();
-                   
-
-                if (usersCount == 1)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }*/
     }
 
     [PropertiesMustMatch("Password", "ConfirmPassword", ErrorMessage = "Das Kennwort entspricht nicht dem Bestätigungskennwort.")]
-    public class RegisterViewModel
+    public class RegisterViewModel 
     {
+        private readonly IDAL _dal;
+
        /* [Required]
         [DisplayName("Benutzername")]
         public string Benutzername { get; set; }
@@ -134,12 +109,33 @@ namespace Webshop_Kolb_Nussdorfer.Models
 
         public bool Success = false;
 
-
-        public void ApplyChanges(User newUser)
+        public RegisterViewModel(IDAL dal)
         {
+            _dal = dal;
+        }
+
+
+        public void ApplyChanges(User newUser, ModelStateDictionary modelState)
+        {
+            MembershipCreateStatus createStatus;
             // ist nur notwendig, weil ich zusätzliches Password property hab, 
             //weil ich nicht weiß wie ich in das Password Property vom User komm für Properties must match
             User.Passwort = this.Password;
+
+            //check ob Benutzername schon vorhanden
+            if (_dal.User.Where(i => i.Benutzername.Equals(this.User.Benutzername)).Count() != 0)
+            {
+                createStatus = MembershipCreateStatus.DuplicateUserName;
+                modelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus));
+            }
+            //Check ob EMail Adresse schon vorhanden
+            if (_dal.User.Where(i => i.EMail.Equals(this.User.EMail)).Count()!=0)
+            {
+                createStatus = MembershipCreateStatus.DuplicateEmail;
+                modelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus));
+            }
+
+
             User.ApplyChanges(newUser);
         }
 
@@ -192,7 +188,6 @@ namespace Webshop_Kolb_Nussdorfer.Models
 
     }
 
-
     #region Validation
     public static class AccountValidation
     {
@@ -213,15 +208,6 @@ namespace Webshop_Kolb_Nussdorfer.Models
 
                 case MembershipCreateStatus.InvalidEmail:
                     return "Die angegebene E-Mail-Adresse ist ungültig. Überprüfen Sie den Wert, und wiederholen Sie den Vorgang.";
-
-                case MembershipCreateStatus.InvalidAnswer:
-                    return "Die angegebene Kennwortabrufantwort ist ungültig. Überprüfen Sie den Wert, und wiederholen Sie den Vorgang.";
-
-                case MembershipCreateStatus.InvalidQuestion:
-                    return "Die angegebene Kennwortabruffrage ist ungültig. Überprüfen Sie den Wert, und wiederholen Sie den Vorgang.";
-
-                case MembershipCreateStatus.InvalidUserName:
-                    return "Der angegebene Benutzername ist ungültig. Überprüfen Sie den Wert, und wiederholen Sie den Vorgang.";
 
                 case MembershipCreateStatus.ProviderError:
                     return "Unbekannter Fehler. Überprüfen Sie die Eingabe, und wiederholen Sie den Vorgang. Sollte das Problem weiterhin bestehen, wenden Sie sich an den zuständigen Systemadministrator.";

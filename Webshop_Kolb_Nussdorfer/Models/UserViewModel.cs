@@ -9,7 +9,7 @@ using System.ComponentModel;
 
 namespace Webshop_Kolb_Nussdorfer.Models
 {
-    public class UserViewModel
+    public class UserViewModel 
     {
         #region Properties
 

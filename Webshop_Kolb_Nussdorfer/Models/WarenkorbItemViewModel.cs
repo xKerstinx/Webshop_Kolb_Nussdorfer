@@ -8,7 +8,7 @@ using System.ComponentModel;
 
 namespace Webshop_Kolb_Nussdorfer.Models
 {
-    public class WarenkorbItemViewModel : IEquatable<WarenkorbItemViewModel>
+    public class WarenkorbItemViewModel : IEquatable<WarenkorbItemViewModel> 
     {
         #region Properties
         public ProduktViewModel Produkt {get;set;}

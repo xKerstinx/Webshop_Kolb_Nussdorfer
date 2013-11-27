@@ -6,7 +6,7 @@ using Webshop.Common.DAL;
 
 namespace Webshop_Kolb_Nussdorfer.Models
 {
-    public class WarenkorbViewModel
+    public class WarenkorbViewModel 
     {
         public List<WarenkorbItemViewModel> Items { get; set; }
 

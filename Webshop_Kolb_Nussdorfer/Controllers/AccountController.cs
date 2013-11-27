@@ -45,7 +45,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
         }
 
         [HttpPost]
-        public ActionResult LogOn(LogOnModel model, string returnUrl)
+        public ActionResult LogOn(LogOnViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -107,7 +107,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
                try{
                     // Versuch, den Benutzer zu registrieren
                     var newUser=_bl.Authentication.CreateUser();
-                    model.ApplyChanges(newUser);
+                    model.ApplyChanges(newUser, ModelState);
                     _bl.SaveChanges();
 
                     createStatus = MembershipCreateStatus.Success;

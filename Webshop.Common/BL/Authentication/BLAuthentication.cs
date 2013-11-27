@@ -49,6 +49,21 @@ namespace Webshop.Common.BL
 
         public User CreateUser()
         {
+            //if (_dal.Users.SingleOrDefault(i => i.Mail.ToLower() == username.ToLower()) != null) return false;
+
+
+
+            //var obj = new User();
+            //_dal.User.InsertOnSubmit(obj);
+           /* obj.Mail = username;
+            obj.Password = GetHash(password);
+            obj.FirstName = string.Empty;
+            obj.LastName = string.Empty;
+            _dal.SaveChanges();*/
+
+            //return true;
+
+
             var obj = new User();
             _dal.User.InsertOnSubmit(obj);
             return obj;
