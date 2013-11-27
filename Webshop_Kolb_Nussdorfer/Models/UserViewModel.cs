@@ -106,7 +106,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
             user.Benutzername = this.Benutzername;
             if (!string.IsNullOrEmpty(this.Passwort))
             {
-                user.Passwort = this.Passwort;
+                user.Passwort = Webshop.Common.Helper.StringHelper.MD5(this.Passwort);
             }
             user.Usergruppe_ID = this.Usergruppe_ID;
         }

@@ -37,6 +37,7 @@
       <HintPath>..\packages\Autofac.Mvc4.3.1.0\lib\net40\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Web" />
@@ -49,13 +50,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BL\BL.cs" />
-    <Compile Include="BL\BLAuthentication.cs" />
+    <Compile Include="BL\Authentication\BLAuthentication.cs" />
     <Compile Include="BL\BLBestellung.cs" />
     <Compile Include="BL\BLProdukt.cs" />
     <Compile Include="BL\BLUser.cs" />
     <Compile Include="BL\BLWarenkorb.cs" />
     <Compile Include="BL\IBL.cs" />
-    <Compile Include="BL\IBLAuthentication.cs" />
+    <Compile Include="BL\Authentication\IBLAuthentication.cs" />
     <Compile Include="BL\IBLBestellung.cs" />
     <Compile Include="BL\IBLProdukt.cs" />
     <Compile Include="BL\IBLUser.cs" />

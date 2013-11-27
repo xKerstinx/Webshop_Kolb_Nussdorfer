@@ -13,7 +13,7 @@ namespace Webshop.Common.BL
         int MinPasswordLength { get; }
 
         bool ValidateUser(string userName, string password);
-        MembershipCreateStatus CreateUser(RegisterViewModel user, string usertype);
+        //MembershipCreateStatus CreateUser(RegisterViewModel user, string usertype);
         MembershipCreateStatus ForgotPassword(string username, string email);
     }
 }

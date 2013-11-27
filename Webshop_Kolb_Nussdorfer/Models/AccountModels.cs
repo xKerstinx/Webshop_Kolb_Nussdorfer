@@ -122,6 +122,12 @@ namespace Webshop_Kolb_Nussdorfer.Models
         public UserViewModel User {get;set;}
 
         [Required]
+        [ValidatePasswordLength]
+        [DataType(DataType.Password)]
+        [DisplayName("Kennwort")]
+        public string Password { get; set; }
+
+        [Required]
         [DataType(DataType.Password)]
         [DisplayName("Kennwort bestätigen")]
         public string ConfirmPassword { get; set; }
@@ -131,6 +137,9 @@ namespace Webshop_Kolb_Nussdorfer.Models
 
         public void ApplyChanges(User newUser)
         {
+            // ist nur notwendig, weil ich zusätzliches Password property hab, 
+            //weil ich nicht weiß wie ich in das Password Property vom User komm für Properties must match
+            User.Passwort = this.Password;
             User.ApplyChanges(newUser);
         }
 
@@ -140,6 +149,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
 
     public class ForgotPasswordViewModel
     {
+        
         [Required]
         [DisplayName("Benutzername")]
         public string Username { get; set; }
@@ -153,128 +163,9 @@ namespace Webshop_Kolb_Nussdorfer.Models
     }
     #endregion
 
-    #region Services
-    // Der FormsAuthentication-Typ ist versiegelt und enthält statische Member, weshalb
-    // Komponententests des Codes, von dem die Member aufgerufen werden, nicht ganz einfach sind. Von der Schnittstellen- und Helper-Klasse weiter unten wird veranschaulicht,
-    // wie ein abstrakter Wrapper für einen solchen Typ erstellt wird, um dafür zu sorgen, dass für den AccountController-
-    // Code Komponententests ausgeführt werden können.
 
-    public interface IMembershipService
+    public class AccountMembershipService 
     {
-        int MinPasswordLength { get; }
-
-        bool ValidateUser(string userName, string password);
-        MembershipCreateStatus CreateUser(RegisterViewModel user, string usertype);
-        MembershipCreateStatus ForgotPassword(string username, string email);
-    }
-
-    public class AccountMembershipService : IMembershipService
-    {
-        private readonly MembershipProvider _provider;
-
-        public AccountMembershipService()
-            : this(null)
-        {
-        }
-
-        public AccountMembershipService(MembershipProvider provider)
-        {
-            _provider = provider ?? Membership.Provider;
-        }
-
-        public int MinPasswordLength
-        {
-            get
-            {
-                return _provider.MinRequiredPasswordLength;
-            }
-        }
-
-        public bool ValidateUser(string userName, string password)
-        {
-            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "userName");
-            if (String.IsNullOrEmpty(password)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "password");
-
-            return _provider.ValidateUser(userName, password);
-        }
-
-        public MembershipCreateStatus CreateUser(RegisterViewModel model, string usergruppe)
-        {
-            if (String.IsNullOrEmpty(model.User.Benutzername)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "userName");
-            if (String.IsNullOrEmpty(model.User.Passwort)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "password");
-            if (String.IsNullOrEmpty(model.User.EMail)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "email");
-            if (String.IsNullOrEmpty(model.User.Vorname)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "userName");
-            if (String.IsNullOrEmpty(model.User.Nachname)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "password");
-            if (String.IsNullOrEmpty(model.User.Adresse)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "adress");
-            if (String.IsNullOrEmpty(model.User.Ort)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "location");
-            if (String.IsNullOrEmpty(model.User.Land)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "country");
-            if (String.IsNullOrEmpty(model.User.PLZ)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "zipcode");
-
-
-            WebshopDataContext dataContext = new WebshopDataContext();
-            
-
-            MembershipCreateStatus status;
-            try
-            {
-                User newuser = new User();
-                newuser.Benutzername = model.User.Benutzername;
-                newuser.Passwort = Webshop.Common.Helper.StringHelper.MD5(model.User.Passwort);
-                newuser.EMail = model.User.EMail;
-                newuser.Vorname = model.User.Vorname;
-                newuser.Nachname = model.User.Nachname;
-                newuser.Ort = model.User.Ort;
-                newuser.Adresse = model.User.Adresse;
-                newuser.PLZ = model.User.PLZ;
-                newuser.Land = model.User.Land;
-                newuser.Telefonnummer = model.User.Telefonnummer;
-               
-                newuser.Usergruppe =dataContext
-                                        .Usergruppe
-                                        .Where(i => i.Usergruppenbezeichnung.Equals(usergruppe))
-                                        .FirstOrDefault();
-                    
-                dataContext.User.InsertOnSubmit(newuser);
-                dataContext.SubmitChanges();
-                status = MembershipCreateStatus.Success;
-            }
-            catch (Exception)
-            {
-                //TODO: Status ist nicht immer ProdiverError
-                
-                status = MembershipCreateStatus.ProviderError;
-            }
-            return status;
-        }
-
-        public MembershipCreateStatus ForgotPassword(string username, string email)
-        {
-            if (String.IsNullOrEmpty(username)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "userName");
-            if (String.IsNullOrEmpty(email)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "email");
-
-            WebshopDataContext dataContext = new WebshopDataContext();
-
-            MembershipCreateStatus status;
-            try
-            {
-                User user = dataContext
-                                .User
-                                .Where(i => i.Benutzername.Equals(username) && i.EMail.Equals(email))
-                                .FirstOrDefault();
-                    
-                user.Passwort = Webshop.Common.Helper.StringHelper.MD5("1default2");
-
-                dataContext.SubmitChanges();
-                status = MembershipCreateStatus.Success;
-            }
-            catch (Exception)
-            {
-                //TODO: Status ist nicht immer ProdiverError
-                status = MembershipCreateStatus.UserRejected;
-            }
-            return status;
-        }
-
         public static bool IsAdmin(string username)
         {
             string userGruppe = "";
@@ -301,27 +192,6 @@ namespace Webshop_Kolb_Nussdorfer.Models
 
     }
 
-    public interface IFormsAuthenticationService
-    {
-        void SignIn(string userName, bool createPersistentCookie);
-        void SignOut();
-    }
-
-    public class FormsAuthenticationService : IFormsAuthenticationService
-    {
-        public void SignIn(string userName, bool createPersistentCookie)
-        {
-            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "userName");
-
-            FormsAuthentication.SetAuthCookie(userName, createPersistentCookie);
-        }
-
-        public void SignOut()
-        {
-            FormsAuthentication.SignOut();
-        }
-    }
-    #endregion
 
     #region Validation
     public static class AccountValidation
@@ -427,6 +297,6 @@ namespace Webshop_Kolb_Nussdorfer.Models
             return (valueAsString != null && valueAsString.Length >= _minCharacters);
         }
     }
-    #endregion
 
 }
+    #endregion
