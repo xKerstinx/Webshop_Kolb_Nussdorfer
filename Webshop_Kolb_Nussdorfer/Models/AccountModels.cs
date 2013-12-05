@@ -8,12 +8,13 @@ using System.Web.Security;
 using Webshop.Common.DAL;
 using System.ComponentModel;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace Webshop_Kolb_Nussdorfer.Models
 {
     #region Modelle
     [PropertiesMustMatch("NewPassword", "ConfirmPassword", ErrorMessage = "Das neue Kennwort entspricht nicht dem Bestätigungskennwort.")]
-    public class ChangePasswordViewModel
+    public class ChangePasswordViewModel 
     {
         [Required]
         [DataType(DataType.Password)]
@@ -32,7 +33,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class LogOnModel
+    public class LogOnViewModel
     {
         [Required]
         [DisplayName("Benutzername")]
@@ -45,40 +46,14 @@ namespace Webshop_Kolb_Nussdorfer.Models
 
         [DisplayName("Speichern?")]
         public bool RememberMe { get; set; }
-
-        public bool userExists()
-        {
-            try
-            {
-                var dataContext = new WebshopDataContext();
-
-
-                int usersCount = dataContext
-                                    .User
-                                    .Where(i => i.Benutzername == this.Username && i.Passwort == Webshop.Common.Helper.StringHelper.MD5(this.Password))
-                                    .Count();
-                   
-
-                if (usersCount == 1)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
     }
 
     [PropertiesMustMatch("Password", "ConfirmPassword", ErrorMessage = "Das Kennwort entspricht nicht dem Bestätigungskennwort.")]
-    public class RegisterViewModel
+    public class RegisterViewModel 
     {
-        [Required]
+        private readonly IDAL _dal;
+
+       /* [Required]
         [DisplayName("Benutzername")]
         public string Benutzername { get; set; }
 
@@ -117,6 +92,14 @@ namespace Webshop_Kolb_Nussdorfer.Models
         [ValidatePasswordLength]
         [DataType(DataType.Password)]
         [DisplayName("Kennwort")]
+        public string Password { get; set; }*/
+
+        public UserViewModel User {get;set;}
+
+        [Required]
+        [ValidatePasswordLength]
+        [DataType(DataType.Password)]
+        [DisplayName("Kennwort")]
         public string Password { get; set; }
 
         [Required]
@@ -125,10 +108,44 @@ namespace Webshop_Kolb_Nussdorfer.Models
         public string ConfirmPassword { get; set; }
 
         public bool Success = false;
+
+        public RegisterViewModel(IDAL dal)
+        {
+            _dal = dal;
+        }
+
+
+        public void ApplyChanges(User newUser, ModelStateDictionary modelState)
+        {
+            MembershipCreateStatus createStatus;
+            // ist nur notwendig, weil ich zusätzliches Password property hab, 
+            //weil ich nicht weiß wie ich in das Password Property vom User komm für Properties must match
+            User.Passwort = this.Password;
+
+            //check ob Benutzername schon vorhanden
+            if (_dal.User.Where(i => i.Benutzername.Equals(this.User.Benutzername)).Count() != 0)
+            {
+                createStatus = MembershipCreateStatus.DuplicateUserName;
+                modelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus));
+            }
+            //Check ob EMail Adresse schon vorhanden
+            if (_dal.User.Where(i => i.EMail.Equals(this.User.EMail)).Count()!=0)
+            {
+                createStatus = MembershipCreateStatus.DuplicateEmail;
+                modelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus));
+            }
+
+
+            User.ApplyChanges(newUser);
+        }
+
+
+
     }
 
     public class ForgotPasswordViewModel
     {
+        
         [Required]
         [DisplayName("Benutzername")]
         public string Username { get; set; }
@@ -142,128 +159,9 @@ namespace Webshop_Kolb_Nussdorfer.Models
     }
     #endregion
 
-    #region Services
-    // Der FormsAuthentication-Typ ist versiegelt und enthält statische Member, weshalb
-    // Komponententests des Codes, von dem die Member aufgerufen werden, nicht ganz einfach sind. Von der Schnittstellen- und Helper-Klasse weiter unten wird veranschaulicht,
-    // wie ein abstrakter Wrapper für einen solchen Typ erstellt wird, um dafür zu sorgen, dass für den AccountController-
-    // Code Komponententests ausgeführt werden können.
 
-    public interface IMembershipService
+    public class AccountMembershipService 
     {
-        int MinPasswordLength { get; }
-
-        bool ValidateUser(string userName, string password);
-        MembershipCreateStatus CreateUser(RegisterViewModel user, string usertype);
-        MembershipCreateStatus ForgotPassword(string username, string email);
-    }
-
-    public class AccountMembershipService : IMembershipService
-    {
-        private readonly MembershipProvider _provider;
-
-        public AccountMembershipService()
-            : this(null)
-        {
-        }
-
-        public AccountMembershipService(MembershipProvider provider)
-        {
-            _provider = provider ?? Membership.Provider;
-        }
-
-        public int MinPasswordLength
-        {
-            get
-            {
-                return _provider.MinRequiredPasswordLength;
-            }
-        }
-
-        public bool ValidateUser(string userName, string password)
-        {
-            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "userName");
-            if (String.IsNullOrEmpty(password)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "password");
-
-            return _provider.ValidateUser(userName, password);
-        }
-
-        public MembershipCreateStatus CreateUser(RegisterViewModel model, string usergruppe)
-        {
-            if (String.IsNullOrEmpty(model.Benutzername)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "userName");
-            if (String.IsNullOrEmpty(model.Password)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "password");
-            if (String.IsNullOrEmpty(model.Email)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "email");
-            if (String.IsNullOrEmpty(model.Vorname)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "userName");
-            if (String.IsNullOrEmpty(model.Nachname)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "password");
-            if (String.IsNullOrEmpty(model.Adresse)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "adress");
-            if (String.IsNullOrEmpty(model.Ort)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "location");
-            if (String.IsNullOrEmpty(model.Land)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "country");
-            if (String.IsNullOrEmpty(model.Plz)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "zipcode");
-
-
-            WebshopDataContext dataContext = new WebshopDataContext();
-            
-
-            MembershipCreateStatus status;
-            try
-            {
-                User newuser = new User();
-                newuser.Benutzername = model.Benutzername;
-                newuser.Passwort = Webshop.Common.Helper.StringHelper.MD5(model.Password);
-                newuser.EMail = model.Email;
-                newuser.Vorname = model.Vorname;
-                newuser.Nachname = model.Nachname;
-                newuser.Ort = model.Ort;
-                newuser.Adresse = model.Adresse;
-                newuser.PLZ = model.Plz;
-                newuser.Land = model.Land;
-                newuser.Telefonnummer = model.Telefonnummer;
-               
-                newuser.Usergruppe =dataContext
-                                        .Usergruppe
-                                        .Where(i => i.Usergruppenbezeichnung.Equals(usergruppe))
-                                        .FirstOrDefault();
-                    
-                dataContext.User.InsertOnSubmit(newuser);
-                dataContext.SubmitChanges();
-                status = MembershipCreateStatus.Success;
-            }
-            catch (Exception)
-            {
-                //TODO: Status ist nicht immer ProdiverError
-                
-                status = MembershipCreateStatus.ProviderError;
-            }
-            return status;
-        }
-
-        public MembershipCreateStatus ForgotPassword(string username, string email)
-        {
-            if (String.IsNullOrEmpty(username)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "userName");
-            if (String.IsNullOrEmpty(email)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "email");
-
-            WebshopDataContext dataContext = new WebshopDataContext();
-
-            MembershipCreateStatus status;
-            try
-            {
-                User user = dataContext
-                                .User
-                                .Where(i => i.Benutzername.Equals(username) && i.EMail.Equals(email))
-                                .FirstOrDefault();
-                    
-                user.Passwort = Webshop.Common.Helper.StringHelper.MD5("1default2");
-
-                dataContext.SubmitChanges();
-                status = MembershipCreateStatus.Success;
-            }
-            catch (Exception)
-            {
-                //TODO: Status ist nicht immer ProdiverError
-                status = MembershipCreateStatus.UserRejected;
-            }
-            return status;
-        }
-
         public static bool IsAdmin(string username)
         {
             string userGruppe = "";
@@ -290,28 +188,6 @@ namespace Webshop_Kolb_Nussdorfer.Models
 
     }
 
-    public interface IFormsAuthenticationService
-    {
-        void SignIn(string userName, bool createPersistentCookie);
-        void SignOut();
-    }
-
-    public class FormsAuthenticationService : IFormsAuthenticationService
-    {
-        public void SignIn(string userName, bool createPersistentCookie)
-        {
-            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "userName");
-
-            FormsAuthentication.SetAuthCookie(userName, createPersistentCookie);
-        }
-
-        public void SignOut()
-        {
-            FormsAuthentication.SignOut();
-        }
-    }
-    #endregion
-
     #region Validation
     public static class AccountValidation
     {
@@ -332,15 +208,6 @@ namespace Webshop_Kolb_Nussdorfer.Models
 
                 case MembershipCreateStatus.InvalidEmail:
                     return "Die angegebene E-Mail-Adresse ist ungültig. Überprüfen Sie den Wert, und wiederholen Sie den Vorgang.";
-
-                case MembershipCreateStatus.InvalidAnswer:
-                    return "Die angegebene Kennwortabrufantwort ist ungültig. Überprüfen Sie den Wert, und wiederholen Sie den Vorgang.";
-
-                case MembershipCreateStatus.InvalidQuestion:
-                    return "Die angegebene Kennwortabruffrage ist ungültig. Überprüfen Sie den Wert, und wiederholen Sie den Vorgang.";
-
-                case MembershipCreateStatus.InvalidUserName:
-                    return "Der angegebene Benutzername ist ungültig. Überprüfen Sie den Wert, und wiederholen Sie den Vorgang.";
 
                 case MembershipCreateStatus.ProviderError:
                     return "Unbekannter Fehler. Überprüfen Sie die Eingabe, und wiederholen Sie den Vorgang. Sollte das Problem weiterhin bestehen, wenden Sie sich an den zuständigen Systemadministrator.";
@@ -416,6 +283,6 @@ namespace Webshop_Kolb_Nussdorfer.Models
             return (valueAsString != null && valueAsString.Length >= _minCharacters);
         }
     }
-    #endregion
 
 }
+    #endregion

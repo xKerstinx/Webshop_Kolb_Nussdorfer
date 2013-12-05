@@ -8,24 +8,12 @@ using System.ComponentModel;
 
 namespace Webshop_Kolb_Nussdorfer.Models
 {
-    public class WarenkorbItemViewModel : IEquatable<WarenkorbItemViewModel>
+    public class WarenkorbItemViewModel : IEquatable<WarenkorbItemViewModel> 
     {
         #region Properties
         public ProduktViewModel Produkt {get;set;}
         public int Menge {get;set;}
         
-
-        /*public System.Nullable<decimal> Preis_brutto
-        {
-            get
-            {
-                return Produkt.Preis_netto / 100 * (100+Produkt.Steuersatz);
-            }
-            set
-            {
-                this.Preis_brutto = value;
-            }
-        }*/
 
         [DisplayName("Bruttogesamtpreis")]
         public System.Nullable<decimal> Gesamtpreis_brutto
@@ -46,25 +34,15 @@ namespace Webshop_Kolb_Nussdorfer.Models
 
         public WarenkorbItemViewModel()
         {
+
         }
 
-
-        public WarenkorbItemViewModel(ProduktViewModel produkt)
+        public WarenkorbItemViewModel(Produkt produkt)
         {
-            this.Produkt = produkt;
-            
-        }
-
-        public WarenkorbItemViewModel(int produkt_id) 
-        {
-            WebshopDataContext dataContext = new WebshopDataContext();
-            Produkt produkt=dataContext.Produkt
-                .Where(i => i.Produkt_ID == produkt_id).First();
             this.Produkt = new ProduktViewModel(produkt);
             
         }
 
-      
         public bool Equals(WarenkorbItemViewModel item)
         {
             return item.Produkt.Produkt_ID == this.Produkt.Produkt_ID;

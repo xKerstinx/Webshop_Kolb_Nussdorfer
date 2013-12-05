@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Webshop.Common.BL;
 using Webshop.Common.DAL;
+using Webshop_Kolb_Nussdorfer.BL;
 using Webshop_Kolb_Nussdorfer.Models;
 
 namespace Webshop_Kolb_Nussdorfer.Controllers
@@ -12,9 +13,11 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
     public class ProduktController : Controller
     {
         private readonly IBL _bl;
-        public ProduktController(IBL bl)
+        private readonly IWarenkorbService _warenkorb;
+        public ProduktController(IBL bl, IWarenkorbService warenkorb)
         {
             _bl = bl;
+            _warenkorb = warenkorb;
         }
 
         //
@@ -29,7 +32,6 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
 
         public ActionResult Index(string searchString)
         {
-            //ViewBag.Error = "Produkt kann nicht gelöscht werden, da eine zugehörige Bestellung vorhanden ist";
             if (String.IsNullOrEmpty(searchString))
             {
                 return View(_bl.Produkt
@@ -48,17 +50,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
             return View();
         }
 
-        //
-        // GET: /Produkt/Details/5
-
-        /*public ActionResult Details(int id)
-        {
-            return View(new ProduktViewModel(_bl.Produkt.GetProdukt(id)));
-        }*/
-
-        //
-        // GET: /Produkt/Details/5
-
+       
         public ActionResult Details(int id)
         {
             return View(new ProduktViewModel(_bl.Produkt.GetProdukt(id)));

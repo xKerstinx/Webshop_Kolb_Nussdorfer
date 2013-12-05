@@ -48,6 +48,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
             this.Steuersatz = produkt.Steuersatz;
             this.Preis_netto = produkt.Preis_netto;
             this.Zutaten = produkt.Zutaten;
+            this.produkt = produkt;
         }
 
 

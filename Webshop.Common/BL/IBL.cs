@@ -10,8 +10,7 @@ namespace Webshop.Common.BL
     {
         IBLProdukt Produkt { get; }
         IBLBestellung Bestellung { get; }
-        //brauch ma dann später noch
-        //IBLAuthentication Auth {get;}
+        IBLAuthentication Authentication {get;}
         IBLUser User {get;}
         void SaveChanges();
 

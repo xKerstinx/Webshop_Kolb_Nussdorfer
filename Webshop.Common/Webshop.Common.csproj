@@ -37,9 +37,11 @@
       <HintPath>..\packages\Autofac.Mvc4.3.1.0\lib\net40\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,15 +50,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BL\BL.cs" />
-    <Compile Include="BL\BLBestellung.cs" />
-    <Compile Include="BL\BLProdukt.cs" />
-    <Compile Include="BL\BLUser.cs" />
-    <Compile Include="BL\BLWarenkorb.cs" />
+    <Compile Include="BL\Authentication\BLAuthentication.cs" />
+    <Compile Include="BL\Bestellung\BLBestellung.cs" />
+    <Compile Include="BL\Produkt\BLProdukt.cs" />
+    <Compile Include="BL\User\BLUser.cs" />
+    <Compile Include="BL\Warenkorb\BLWarenkorb.cs" />
     <Compile Include="BL\IBL.cs" />
-    <Compile Include="BL\IBLBestellung.cs" />
-    <Compile Include="BL\IBLProdukt.cs" />
-    <Compile Include="BL\IBLUser.cs" />
-    <Compile Include="BL\IBLWarenkorb.cs" />
+    <Compile Include="BL\Authentication\IBLAuthentication.cs" />
+    <Compile Include="BL\Bestellung\IBLBestellung.cs" />
+    <Compile Include="BL\Produkt\IBLProdukt.cs" />
+    <Compile Include="BL\User\IBLUser.cs" />
+    <Compile Include="BL\Warenkorb\IBLWarenkorb.cs" />
     <Compile Include="DAL\IDAL.cs" />
     <Compile Include="DAL\Webshop.cs">
       <DependentUpon>Webshop.dbml</DependentUpon>
@@ -68,7 +72,6 @@
     </Compile>
     <Compile Include="Helper\Helper.cs" />
     <Compile Include="Helper\StringHelper.cs" />
-    <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
