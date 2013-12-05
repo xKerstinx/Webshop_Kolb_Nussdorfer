@@ -8,6 +8,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
+using System.Security.Principal;
 
 namespace Webshop_Kolb_Nussdorfer
 {
@@ -43,7 +44,16 @@ namespace Webshop_Kolb_Nussdorfer
             CreateMasterContainer(); 
             AreaRegistration.RegisterAllAreas(); 
             RegisterGlobalFilters(GlobalFilters.Filters); 
-            RegisterRoutes(RouteTable.Routes); 
+            RegisterRoutes(RouteTable.Routes);
+            this.AuthenticateRequest += MvcApplication_AuthenticateRequest;
+        }
+
+        void MvcApplication_AuthenticateRequest(object sender, EventArgs e)
+        {
+            if (HttpContext.Current.Request.IsAuthenticated)
+            {
+                HttpContext.Current.User = new GenericPrincipal(new GenericIdentity(HttpContext.Current.User.Identity.Name), new[] { "Admin" });
+            }
         } 
         
         private void CreateMasterContainer() 
