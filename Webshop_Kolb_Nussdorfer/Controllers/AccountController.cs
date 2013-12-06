@@ -115,8 +115,9 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
                     _bl.Authentication.SignIn(model.User.Benutzername, false /* createPersistentCookie */);
                     return View("RegisterSuccess",model);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    String stack=e.StackTrace;
                     createStatus = MembershipCreateStatus.ProviderError;
                     ModelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus));
                 }

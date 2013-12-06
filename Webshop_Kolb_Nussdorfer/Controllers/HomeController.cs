@@ -25,8 +25,8 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
 
         public ActionResult Index()
         {
-            String[] userRoles = _bl.User.getUserRoles(HttpContext.User.Identity.Name);
-            HttpContext.User = new GenericPrincipal(new GenericIdentity(HttpContext.User.Identity.Name), userRoles);
+            //String[] userRoles = _bl.User.getUserRoles(HttpContext.User.Identity.Name);
+            //HttpContext.User = new GenericPrincipal(new GenericIdentity(HttpContext.User.Identity.Name), userRoles);
             
             Boolean role = HttpContext.User.IsInRole("Admin");
             return View();

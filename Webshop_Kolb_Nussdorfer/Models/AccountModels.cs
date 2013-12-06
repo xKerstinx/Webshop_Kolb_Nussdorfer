@@ -114,6 +114,11 @@ namespace Webshop_Kolb_Nussdorfer.Models
             _dal = dal;
         }
 
+        public RegisterViewModel()
+        {
+            _dal = new Webshop.Common.DAL.WebshopDataContext();
+        }
+
 
         public void ApplyChanges(User newUser, ModelStateDictionary modelState)
         {

@@ -107,8 +107,8 @@ namespace Webshop.Common.BL
 
             FormsAuthentication.SetAuthCookie(userName, createPersistentCookie);
             // update identity
-            String[] userRoles = _blUser.getUserRoles(HttpContext.Current.User.Identity.Name);
-            HttpContext.Current.User = new GenericPrincipal(new GenericIdentity(HttpContext.Current.User.Identity.Name), userRoles);
+            //String[] userRoles = _blUser.getUserRoles(HttpContext.Current.User.Identity.Name);
+            //HttpContext.Current.User = new GenericPrincipal(new GenericIdentity(HttpContext.Current.User.Identity.Name), userRoles);
             
         }
 

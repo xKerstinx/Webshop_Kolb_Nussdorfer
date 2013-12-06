@@ -66,7 +66,6 @@ namespace Webshop_Kolb_Nussdorfer
                 //HttpContext.Current.User = new GenericPrincipal(new GenericIdentity(HttpContext.Current.User.Identity.Name), userRoles);
                 HttpContext.Current.User = new GenericPrincipal(new GenericIdentity(HttpContext.Current.User.Identity.Name), userRoles);
                 Boolean role = HttpContext.Current.User.IsInRole("Admin");
-                String test="";
                 
             }
         } 
