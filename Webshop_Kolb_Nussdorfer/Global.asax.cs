@@ -9,6 +9,7 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using System.Security.Principal;
+using Webshop.Common.BL;
 
 namespace Webshop_Kolb_Nussdorfer
 {
@@ -37,7 +38,14 @@ namespace Webshop_Kolb_Nussdorfer
 
              
 
-        } 
+        }
+
+        public override void Init()
+        {
+            base.Init();
+
+            this.AuthenticateRequest += new EventHandler(MvcApplication_AuthenticateRequest);
+        }
         
         protected void Application_Start() 
         { 
@@ -45,14 +53,21 @@ namespace Webshop_Kolb_Nussdorfer
             AreaRegistration.RegisterAllAreas(); 
             RegisterGlobalFilters(GlobalFilters.Filters); 
             RegisterRoutes(RouteTable.Routes);
-            this.AuthenticateRequest += MvcApplication_AuthenticateRequest;
+            //this.AuthenticateRequest += new EventHandler(MvcApplication_AuthenticateRequest);
         }
 
         void MvcApplication_AuthenticateRequest(object sender, EventArgs e)
         {
             if (HttpContext.Current.Request.IsAuthenticated)
             {
-                HttpContext.Current.User = new GenericPrincipal(new GenericIdentity(HttpContext.Current.User.Identity.Name), new[] { "Admin" });
+                IBLUser _blUser=DependencyResolver.Current.GetService<IBLUser>();
+                String[] userRoles = DependencyResolver.Current.GetService<IBLUser>().getUserRoles(HttpContext.Current.User.Identity.Name);
+                //String[] userRoles = { "Admin" };
+                //HttpContext.Current.User = new GenericPrincipal(new GenericIdentity(HttpContext.Current.User.Identity.Name), userRoles);
+                HttpContext.Current.User = new GenericPrincipal(new GenericIdentity(HttpContext.Current.User.Identity.Name), userRoles);
+                Boolean role = HttpContext.Current.User.IsInRole("Admin");
+                String test="";
+                
             }
         } 
         

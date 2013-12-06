@@ -59,5 +59,13 @@ namespace Webshop.Common.BL
                 .Skip(startPage * Helper.Helper.PageSize)
                 .Take(Helper.Helper.PageSize);
         }
+
+        public String[] getUserRoles(string benutzername)
+        {
+            var user = _dal.User.FirstOrDefault(i => i.Benutzername.Equals(benutzername));
+            String[] roles = {user.Usergruppe.Usergruppenbezeichnung};
+            return roles;
+        }
+
     }
 }

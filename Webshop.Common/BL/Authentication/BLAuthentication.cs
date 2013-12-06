@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Security;
 using Webshop.Common.DAL;
 
@@ -13,10 +15,12 @@ namespace Webshop.Common.BL
         public int MinPasswordLength { get { return Membership.Provider.MinRequiredPasswordLength; } }
         //private readonly MembershipProvider _provider;
         private readonly IDAL _dal;
+        private readonly IBLUser _blUser;
         
-        public BLAuthentication(IDAL dal)
+        public BLAuthentication(IDAL dal, IBLUser blUser)
         {
             _dal = dal;
+            _blUser = blUser;
         }
 
         public bool userExists(string username, string password)
@@ -102,6 +106,10 @@ namespace Webshop.Common.BL
             if (String.IsNullOrEmpty(userName)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "userName");
 
             FormsAuthentication.SetAuthCookie(userName, createPersistentCookie);
+            // update identity
+            String[] userRoles = _blUser.getUserRoles(HttpContext.Current.User.Identity.Name);
+            HttpContext.Current.User = new GenericPrincipal(new GenericIdentity(HttpContext.Current.User.Identity.Name), userRoles);
+            
         }
 
         public void SignOut()

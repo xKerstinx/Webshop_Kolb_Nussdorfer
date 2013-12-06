@@ -172,6 +172,7 @@
     <Compile Include="BL\WarenkorbService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IPrincial.cs" />
     <Compile Include="Controllers\ProduktController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WarenkorbController.cs" />
@@ -336,7 +337,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>5105</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:52884/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
