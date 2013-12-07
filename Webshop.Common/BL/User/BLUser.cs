@@ -63,8 +63,12 @@ namespace Webshop.Common.BL
         public String[] getUserRoles(string benutzername)
         {
             var user = _dal.User.FirstOrDefault(i => i.Benutzername.Equals(benutzername));
-            String[] roles = {user.Usergruppe.Usergruppenbezeichnung};
-            return roles;
+            if (user != null)
+            {
+                String[] roles = { user.Usergruppe.Usergruppenbezeichnung };
+                return roles;
+            }
+            return null;
         }
 
     }

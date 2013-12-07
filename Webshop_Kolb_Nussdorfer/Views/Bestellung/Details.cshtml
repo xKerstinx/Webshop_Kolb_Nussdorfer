@@ -1,0 +1,68 @@
+﻿@model Webshop_Kolb_Nussdorfer.Models.BestellungViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>BestellungViewModel</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Bestellung_ID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Bestellung_ID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Bestelldatum)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Bestelldatum)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Rechnungsbetrag)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Rechnungsbetrag)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.User_ID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User_ID)
+    </div>
+
+    <table>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.bestellpositionen.First().produkt.Produkt_ID)</th>
+            <th>@Html.DisplayNameFor(model => model.bestellpositionen.First().produkt.Kurzbezeichnung)</th>
+            <th>@Html.DisplayNameFor(model => model.bestellpositionen.First().produkt.Langbezeichnung)</th>
+            <th>@Html.DisplayNameFor(model => model.bestellpositionen.First().Menge)</th>
+        </tr>
+        @foreach (var item in Model.bestellpositionen)
+        {
+            <tr>
+                <td>@Html.DisplayFor(model => model.bestellpositionen.First().produkt.Produkt_ID)</td>
+                <td>@Html.DisplayFor(model => model.bestellpositionen.First().produkt.Kurzbezeichnung)</td>
+                <td>@Html.DisplayFor(model => model.bestellpositionen.First().produkt.Langbezeichnung)</td>
+                <td>@Html.DisplayFor(model => model.bestellpositionen.First().Menge)</td>
+                <td> @Html.ActionLink("Löschen", "DeletePosition",new {  produktID=item.Produkt_ID, bestellID=Model.Bestellung_ID  })</td>
+
+
+            </tr>
+
+        }
+
+
+    </table>
+</fieldset>
+<p>
+   @* @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |*@
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -10,5 +10,10 @@ namespace Webshop.Common.BL
     public interface IBLBestellung
     {
         Bestellung createOrder(List<Bestellposition> orderItems);
+        IQueryable<Bestellung> GetAllBestellungen(int startPage);
+        Bestellung GetBestellung(int id);
+        void DeleteBestellung(int id);
+        void DeleteAllBestellungen();
+        void DeletePosition(int produktID, int bestellID);
     }
 }

@@ -109,11 +109,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
 
         public bool Success = false;
 
-        public RegisterViewModel(IDAL dal)
-        {
-            _dal = dal;
-        }
-
+       
         public RegisterViewModel()
         {
             _dal = new Webshop.Common.DAL.WebshopDataContext();
@@ -164,7 +160,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
     }
     #endregion
 
-
+    /*
     public class AccountMembershipService 
     {
         public static bool IsAdmin(string username)
@@ -191,7 +187,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
             return false;
         }
 
-    }
+    }*/
 
     #region Validation
     public static class AccountValidation

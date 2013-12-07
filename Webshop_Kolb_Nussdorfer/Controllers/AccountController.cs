@@ -113,7 +113,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
                     createStatus = MembershipCreateStatus.Success;
                     model.Success = true;
                     _bl.Authentication.SignIn(model.User.Benutzername, false /* createPersistentCookie */);
-                    return View("RegisterSuccess",model);
+                    return View("RegisterSuccess", model);
                 }
                 catch (Exception e)
                 {
@@ -158,6 +158,11 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
             }
 
             return View("ForgotPasswordSuccess");
+        }
+
+        public ActionResult RegistrationConfirmation()
+        {
+            return View("RegistrationConfirmation");
         }
     }
 

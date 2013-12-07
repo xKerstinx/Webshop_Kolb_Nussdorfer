@@ -45,5 +45,48 @@ namespace Webshop.Common.BL
         {
         }
 
+        public IQueryable<Bestellung> GetAllBestellungen(int startPage)
+        {
+            return _dal.Bestellung
+                // .Where(i => Security Filter) 
+                .Skip(startPage * Helper.Helper.PageSize)
+                .Take(Helper.Helper.PageSize);
+        }
+
+        public Bestellung GetBestellung(int id)
+        {
+            var obj = _dal.Bestellung.Where(i => i.Bestellung_ID == id).FirstOrDefault(); 
+            return obj;
+        }
+
+        public void DeleteBestellung(int id)
+        {
+            _dal.Bestellposition.DeleteAllOnSubmit(_dal.Bestellposition.Where(i => i.Bestellung_ID==id));
+            _dal.Bestellung.DeleteOnSubmit(_dal.Bestellung.Where(i => i.Bestellung_ID == id).FirstOrDefault());
+            _dal.SaveChanges();
+
+        }
+
+        public void DeleteAllBestellungen()
+        {
+            _dal.Bestellposition.DeleteAllOnSubmit(_dal.Bestellposition);
+            _dal.Bestellung.DeleteAllOnSubmit(_dal.Bestellung);
+            _dal.SaveChanges();
+
+        }
+
+        public void DeletePosition(int produktID, int bestellID)
+        {
+            _dal.Bestellposition.DeleteOnSubmit(_dal.Bestellposition.Where(i => i.Produkt_ID == produktID && i.Bestellung_ID==bestellID).FirstOrDefault());
+            IEnumerable<Bestellposition> positionen=_dal.Bestellposition.Where(i => i.Bestellung_ID == bestellID).ToList();
+            // Wenn die gerade behandelte Position die letzte Position zu diser Bestellung ist, dann lösche ganze Bestellung
+            if (positionen.Count()==1 && positionen.First().Produkt_ID==produktID)
+            {
+                _dal.Bestellung.DeleteOnSubmit(_dal.Bestellung.Where(i => i.Bestellung_ID == bestellID).FirstOrDefault());
+            }
+            _dal.SaveChanges();
+
+        }
+
     }
 }

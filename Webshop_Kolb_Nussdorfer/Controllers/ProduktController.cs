@@ -58,7 +58,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
 
         //
         // GET: /Produkt/Create
-
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -68,6 +68,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
         // POST: /Produkt/Create
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(ProduktViewModel produkt)
         {
             if (ModelState.IsValid)
@@ -86,7 +87,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
 
         //
         // GET: /Produkt/Edit/5
-
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             return View(new ProduktViewModel(_bl.Produkt.GetProdukt(id)));
@@ -96,6 +97,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
         // POST: /Produkt/Edit/5
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id, ProduktViewModel produkt)
         {
             if (ModelState.IsValid)
@@ -113,7 +115,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
 
         //
         // POST: /Produkt/Delete/5
-
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             try

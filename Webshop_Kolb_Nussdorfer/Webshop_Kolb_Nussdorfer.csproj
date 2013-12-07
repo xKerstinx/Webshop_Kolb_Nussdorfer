@@ -171,6 +171,7 @@
     <Compile Include="BL\IWarenkorbService.cs" />
     <Compile Include="BL\WarenkorbService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BestellungController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IPrincial.cs" />
     <Compile Include="Controllers\ProduktController.cs" />
@@ -182,6 +183,8 @@
     </Compile>
     <Compile Include="HttpParamActionAttribute.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\BestellpositionViewModel.cs" />
+    <Compile Include="Models\BestellungViewModel.cs" />
     <Compile Include="Models\ProduktViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\WarenkorbItemViewModel.cs" />
@@ -308,6 +311,10 @@
     <Content Include="Views\User\Details.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\Account\RegistrationConfirmation.cshtml" />
+    <Content Include="Views\Bestellung\Index.cshtml" />
+    <Content Include="Views\Bestellung\Details.cshtml" />
+    <Content Include="Views\Bestellung\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Webshop_Kolb_Nussdorfer.Models.BestellungViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Bestell&uuml;bersicht</h2>
+@if (Model.Count()!=0) {
+    <table>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Bestellung_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bestelldatum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rechnungsbetrag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User_ID)
+            </th>
+        
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr class="bestellungHeader">
+            <td>
+                @Html.DisplayFor(modelItem => item.Bestellung_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bestelldatum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rechnungsbetrag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User_ID)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new {  id=item.Bestellung_ID  }) |
+             @*   @Html.ActionLink("Edit", "Edit", new { id=item.Bestellung_ID }) |*@
+                @Html.ActionLink("Löschen", "Delete", new {  id=item.Bestellung_ID })
+            </td>
+        </tr>
+    }
+
+    </table>
+    
+    @Html.ActionLink("Alle löschen", "DeleteAll")
+}
+else{
+    <br /> <p>Es gibt keine Bestellungen</p>
+}
+
+

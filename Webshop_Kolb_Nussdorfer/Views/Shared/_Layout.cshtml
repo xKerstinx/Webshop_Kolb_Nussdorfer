@@ -24,7 +24,8 @@
                    @* @if (Webshop_Kolb_Nussdorfer.Models.AccountMembershipService.IsAdmin(HttpContext.Current.User.Identity.Name)) {*@
                     
                     @if (HttpContext.Current.User.IsInRole("Admin")){
-                    <li>@Html.ActionLink("User", "Index", "User")</li> } 
+                    <li>@Html.ActionLink("User", "Index", "User")</li> 
+                    <li>@Html.ActionLink("Bestellungen", "Index", "Bestellung") </li>} 
                  
                     <li>@Html.ActionLink("Produkt", "Index", "Produkt")</li>
                     @*if (Request.IsAuthenticated)

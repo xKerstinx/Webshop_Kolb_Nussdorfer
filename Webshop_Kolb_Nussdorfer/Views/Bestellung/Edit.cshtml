@@ -1,0 +1,86 @@
+﻿@model Webshop_Kolb_Nussdorfer.Models.BestellungViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>BestellungViewModel</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Bestellung_ID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Bestellung_ID)
+            @Html.ValidationMessageFor(model => model.Bestellung_ID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Bestelldatum)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Bestelldatum)
+            @Html.ValidationMessageFor(model => model.Bestelldatum)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Rechnungsbetrag)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Rechnungsbetrag)
+            @Html.ValidationMessageFor(model => model.Rechnungsbetrag)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.User_ID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.User_ID)
+            @Html.ValidationMessageFor(model => model.User_ID)
+        </div>
+
+        <table>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.bestellpositionen.First().produkt.Produkt_ID)</th>
+            <th>@Html.DisplayNameFor(model => model.bestellpositionen.First().produkt.Kurzbezeichnung)</th>
+            <th>@Html.DisplayNameFor(model => model.bestellpositionen.First().produkt.Langbezeichnung)</th>
+            <th>@Html.DisplayNameFor(model => model.bestellpositionen.First().Menge)</th>
+        </tr>
+        @Html.HiddenFor(model => model.bestellpositionen)
+        @foreach (var item in Model.bestellpositionen)
+        {
+            @Html.HiddenFor(model => item.produkt.Produkt_ID)
+            <tr>
+                <td>@Html.DisplayFor(model => item.produkt.Produkt_ID)</td>
+                <td>@Html.DisplayFor(model => model.bestellpositionen.First().produkt.Kurzbezeichnung)</td>
+                <td>@Html.DisplayFor(model => model.bestellpositionen.First().produkt.Langbezeichnung)</td>
+                <td>@Html.DisplayFor(model => model.bestellpositionen.First().Menge)</td>
+                <td> @Html.ActionLink("Löschen", "DeletePosition",new {  produktID=item.Produkt_ID, bestellID=Model.Bestellung_ID  })</td>
+
+            </tr>
+
+        }
+
+
+    </table>
+
+
+
+
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

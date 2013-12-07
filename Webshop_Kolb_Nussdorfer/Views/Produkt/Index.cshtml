@@ -17,7 +17,7 @@
 <h2>Produkt&uuml;bersicht</h2>
 <p class="fontColorRed">@TempData["Msg"]</p>
 
-@if (Webshop_Kolb_Nussdorfer.Models.AccountMembershipService.IsAdmin(HttpContext.Current.User.Identity.Name)) { 
+@if (HttpContext.Current.User.IsInRole("Admin")){
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>
@@ -54,7 +54,7 @@
         </th>
         <th>Bestellen</th>
         <th>Details</th>
-        @if (Webshop_Kolb_Nussdorfer.Models.AccountMembershipService.IsAdmin(HttpContext.Current.User.Identity.Name)) { 
+        @if (HttpContext.Current.User.IsInRole("Admin")){
             <th>Bearbeiten</th>
         }
     </tr>
@@ -94,8 +94,8 @@
             @Html.ActionLink("Details", "Details", new { id=item.Produkt_ID,kurzbezeichnung=item.Kurzbezeichnung }) 
         </td>
         
-      @*   @if (HttpContext.Current.User.IsInRole("Admin")){*@
-        @if (Webshop_Kolb_Nussdorfer.Models.AccountMembershipService.IsAdmin(HttpContext.Current.User.Identity.Name)) { 
+       @if (HttpContext.Current.User.IsInRole("Admin")){
+      @*    @if (Webshop_Kolb_Nussdorfer.Models.AccountMembershipService.IsAdmin(HttpContext.Current.User.Identity.Name)) { *@
             <td>@Html.ActionLink("Edit", "Edit", new { id=item.Produkt_ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id=item.Produkt_ID})
             </td>
