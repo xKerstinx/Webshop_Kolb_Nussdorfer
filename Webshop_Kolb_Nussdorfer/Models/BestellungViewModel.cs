@@ -15,27 +15,17 @@ namespace Webshop_Kolb_Nussdorfer.Models
 
 		[DisplayName("Bestelldatum")]
         public System.DateTime Bestelldatum { get; set; }
-		
-        [DisplayName("Rechnungsbetrag brutto")]
-        public System.Nullable<decimal> Rechnungsbetrag { 
-            get {
-                System.Nullable<decimal> rechnungssumme=null;
 
-                foreach (var item in bestellpositionen)
-                {
-                    rechnungssumme += (item.Menge * (item.produkt.Preis_netto / 100 * (100 + item.produkt.Steuersatz)));
-                }
-                return rechnungssumme;
-            }
-            set { }
-        }
+        [DisplayName("Rechnungsbetrag brutto")]
+        public System.Nullable<decimal> Rechnungsbetrag { get; set; }
+        
 		
         [DisplayName("Kundennummer")]
         public int User_ID { get; set; }
 
         public IList<BestellpositionViewModel> bestellpositionen = new List<BestellpositionViewModel>();
 
-        public User User { get; set; }
+        public UserViewModel User { get; set; }
 
         #endregion
 
@@ -54,7 +44,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
             foreach (var p in bestellung.Bestellposition){
                 bestellpositionen.Add(new BestellpositionViewModel(p));
             }
-            this.User = bestellung.User;
+            this.User = new UserViewModel(bestellung.User);
         }
 
         public void ApplyChanges (Bestellung bestellung)
@@ -67,8 +57,13 @@ namespace Webshop_Kolb_Nussdorfer.Models
             {
                 bestellpositionen.Where(i => i.Produkt_ID == p.Produkt_ID).FirstOrDefault().ApplyChanges(p);
             }*/
+            System.Nullable<decimal> rechnungssumme = 0;
 
-            bestellung.Rechnungsbetrag = this.Rechnungsbetrag;
+            foreach (var item in bestellpositionen)
+            {
+                rechnungssumme += (item.Menge * (item.produkt.Preis_netto / 100 * (100 + item.produkt.Steuersatz)));
+            }
+            bestellung.Rechnungsbetrag = rechnungssumme;
         }
     }
 }

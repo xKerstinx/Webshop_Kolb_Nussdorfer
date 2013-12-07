@@ -11,6 +11,7 @@ using Webshop_Kolb_Nussdorfer.Models;
 
 namespace Webshop_Kolb_Nussdorfer.Controllers
 {
+    [Authorize(Roles = "Admin,Kunde")]
     public class WarenkorbController : Controller
     {
         private readonly IBL _bl;
@@ -23,25 +24,12 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
          
         //
         // GET: /Warenkorb/
-
         public ActionResult Index()
         {
             return View(_warenkorb.GetItems());
 
         }
 
-        
-        //
-        // GET: /Warenkorb/Delete/5
-       // [HttpPost]
-        public ActionResult Delete(int id)
-        {
-            // To-DO funktioniert jetzt nicht mehr, seit View eine for Schleife verwendet
-            //WarenkorbViewModel.Instance.RemoveItem(id);
-            return RedirectToAction("Index");
-        }
-
-      
         public ActionResult Order(int id)
         {
             _warenkorb.AddItem(_bl.Produkt.GetProdukt(id));

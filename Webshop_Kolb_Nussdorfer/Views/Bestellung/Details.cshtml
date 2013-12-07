@@ -38,20 +38,37 @@
         @Html.DisplayFor(model => model.User_ID)
     </div>
 
+    <div class="display-label">
+           Kunde - Name und Adresse
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.User.FullName)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.User.Adresse)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.User.PlzOrt)
+        </div>
+
     <table>
         <tr>
             <th>@Html.DisplayNameFor(model => model.bestellpositionen.First().produkt.Produkt_ID)</th>
             <th>@Html.DisplayNameFor(model => model.bestellpositionen.First().produkt.Kurzbezeichnung)</th>
             <th>@Html.DisplayNameFor(model => model.bestellpositionen.First().produkt.Langbezeichnung)</th>
+            <th>@Html.DisplayNameFor(model => model.bestellpositionen.First().produkt.Preis_netto)</th>
+            <th>@Html.DisplayNameFor(model => model.bestellpositionen.First().produkt.Preis_brutto)</th>
             <th>@Html.DisplayNameFor(model => model.bestellpositionen.First().Menge)</th>
         </tr>
         @foreach (var item in Model.bestellpositionen)
         {
             <tr>
-                <td>@Html.DisplayFor(model => model.bestellpositionen.First().produkt.Produkt_ID)</td>
-                <td>@Html.DisplayFor(model => model.bestellpositionen.First().produkt.Kurzbezeichnung)</td>
-                <td>@Html.DisplayFor(model => model.bestellpositionen.First().produkt.Langbezeichnung)</td>
-                <td>@Html.DisplayFor(model => model.bestellpositionen.First().Menge)</td>
+                <td>@Html.DisplayFor(ModelItem => item.produkt.Produkt_ID)</td>
+                <td>@Html.DisplayFor(ModelItem => item.produkt.Kurzbezeichnung)</td>
+                <td>@Html.DisplayFor(ModelItem => item.produkt.Langbezeichnung)</td>
+                <td>@Html.DisplayFor(ModelItem => item.produkt.Preis_netto)</td>
+                <td>@Html.DisplayFor(ModelItem => item.produkt.Preis_brutto)</td>
+                <td>@Html.DisplayFor(ModelItem => item.Menge)</td>
                 <td> @Html.ActionLink("Löschen", "DeletePosition",new {  produktID=item.Produkt_ID, bestellID=Model.Bestellung_ID  })</td>
 
 
@@ -64,5 +81,6 @@
 </fieldset>
 <p>
    @* @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |*@
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Zurück zur Übersicht", "Index")
+    @Html.ActionLink("Bestellung löschen", "Delete",new {  id=Model.Bestellung_ID })
 </p>

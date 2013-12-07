@@ -21,18 +21,10 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
     {
         private readonly IBL _bl;
         
-       // public IMembershipService MembershipService { get; set; }
 
         public AccountController(IBL bl)
         {
             _bl = bl;
-        }
-
-        protected override void Initialize(RequestContext requestContext)
-        {
-            //if (MembershipService == null) { MembershipService = new AccountMembershipService(); }
-
-            base.Initialize(requestContext);
         }
 
         // **************************************
@@ -51,7 +43,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
             {
                 if (_bl.Authentication.userExists(model.Username,model.Password))
                 {
-                    // Wenn man bereits eingeloggt ist, zuerst ausloggen
+                    // if already logged in, then log out
                     if (HttpContext.User.Identity.IsAuthenticated)
                     {
                         _bl.Authentication.SignOut();
@@ -73,7 +65,6 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
                 }
             }
 
-            // Wurde dieser Punkt erreicht, ist ein Fehler aufgetreten; Formular erneut anzeigen.
             return View(model);
         }
 
@@ -105,7 +96,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
            if (ModelState.IsValid)
            {
                try{
-                    // Versuch, den Benutzer zu registrieren
+                    // try to register user
                     var newUser=_bl.Authentication.CreateUser();
                     model.ApplyChanges(newUser, ModelState);
                     _bl.SaveChanges();
@@ -123,7 +114,6 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
                 }
             }
 
-            // Wurde dieser Punkt erreicht, ist ein Fehler aufgetreten; Formular erneut anzeigen.
             ViewData["PasswordLength"] = _bl.Authentication.MinPasswordLength;
             return View(model);
         }
@@ -142,7 +132,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Versuch, das Passwort anzupassen
+                // try to reset password
                 MembershipCreateStatus forgotStatus = _bl.Authentication.ForgotPassword(model.Username, model.Email);
              
 

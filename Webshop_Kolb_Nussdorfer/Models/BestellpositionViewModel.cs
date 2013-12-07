@@ -17,7 +17,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
         [DisplayName("Menge")]
         public int Menge { get; set; }
 
-        public Produkt produkt = null;
+        public ProduktViewModel produkt = null;
         #endregion
 
         public BestellpositionViewModel()
@@ -30,7 +30,7 @@ namespace Webshop_Kolb_Nussdorfer.Models
             this.Produkt_ID = position.Produkt_ID;
             this.Bestellung_ID = position.Bestellung_ID;
             this.Menge = position.Menge;
-            this.produkt = position.Produkt;
+            this.produkt = new ProduktViewModel(position.Produkt);
         }
 
         public void ApplyChanges(Bestellposition position)

@@ -54,13 +54,11 @@
     <Compile Include="BL\Bestellung\BLBestellung.cs" />
     <Compile Include="BL\Produkt\BLProdukt.cs" />
     <Compile Include="BL\User\BLUser.cs" />
-    <Compile Include="BL\Warenkorb\BLWarenkorb.cs" />
     <Compile Include="BL\IBL.cs" />
     <Compile Include="BL\Authentication\IBLAuthentication.cs" />
     <Compile Include="BL\Bestellung\IBLBestellung.cs" />
     <Compile Include="BL\Produkt\IBLProdukt.cs" />
     <Compile Include="BL\User\IBLUser.cs" />
-    <Compile Include="BL\Warenkorb\IBLWarenkorb.cs" />
     <Compile Include="DAL\IDAL.cs" />
     <Compile Include="DAL\Webshop.cs">
       <DependentUpon>Webshop.dbml</DependentUpon>

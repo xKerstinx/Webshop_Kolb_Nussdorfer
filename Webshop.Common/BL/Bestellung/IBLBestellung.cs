@@ -15,5 +15,6 @@ namespace Webshop.Common.BL
         void DeleteBestellung(int id);
         void DeleteAllBestellungen();
         void DeletePosition(int produktID, int bestellID);
+        IQueryable<Bestellung> Search(string search, int startPage);
     }
 }

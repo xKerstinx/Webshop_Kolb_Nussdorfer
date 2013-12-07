@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Produktdetails</h2>
 
 <fieldset>
     <legend>ProduktViewModel</legend>
@@ -61,11 +61,11 @@
     <div>
         @if (Request.IsAuthenticated)
         {
-            @Html.ActionLink("Bestellen", "Order", new { id = Model.Produkt_ID})
+            @Html.ActionLink("In den Warenkorb", "Order","Warenkorb", new { id = Model.Produkt_ID},null)
         }
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Bearbeiten", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Zurück zur Übersicht", "Index")
 </p>

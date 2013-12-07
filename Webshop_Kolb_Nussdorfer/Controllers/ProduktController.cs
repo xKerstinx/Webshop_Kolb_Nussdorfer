@@ -22,14 +22,6 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
 
         //
         // GET: /Produkt/
-
-        /*public ActionResult Index()
-        {
-            return View(_bl.Produkt
-                .GetAllProdukte(0)
-                .Select(i => new ProduktViewModel(i)));
-        }*/
-
         public ActionResult Index(string searchString)
         {
             if (String.IsNullOrEmpty(searchString))
@@ -95,7 +87,6 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
 
         //
         // POST: /Produkt/Edit/5
-
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id, ProduktViewModel produkt)

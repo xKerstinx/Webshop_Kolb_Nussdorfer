@@ -54,6 +54,20 @@ namespace Webshop_Kolb_Nussdorfer.Models
 
         public int Usergruppe_ID { get; set; }
 
+        [DisplayName("Name")]
+        public string FullName
+        {
+            get { return Vorname + " " + Nachname; }
+            set { }
+        }
+
+        [DisplayName("Plz+Ort")]
+        public string PlzOrt
+        {
+            get { return PLZ + " " + Ort; }
+            set { }
+        }
+
 
         public IEnumerable<SelectListItem> Usergruppen
         {

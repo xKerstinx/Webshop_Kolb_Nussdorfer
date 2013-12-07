@@ -13,7 +13,6 @@ namespace Webshop.Common.BL
     public class BLAuthentication : IBLAuthentication
     {
         public int MinPasswordLength { get { return Membership.Provider.MinRequiredPasswordLength; } }
-        //private readonly MembershipProvider _provider;
         private readonly IDAL _dal;
         private readonly IBLUser _blUser;
         
@@ -53,21 +52,6 @@ namespace Webshop.Common.BL
 
         public User CreateUser()
         {
-            //if (_dal.Users.SingleOrDefault(i => i.Mail.ToLower() == username.ToLower()) != null) return false;
-
-
-
-            //var obj = new User();
-            //_dal.User.InsertOnSubmit(obj);
-           /* obj.Mail = username;
-            obj.Password = GetHash(password);
-            obj.FirstName = string.Empty;
-            obj.LastName = string.Empty;
-            _dal.SaveChanges();*/
-
-            //return true;
-
-
             var obj = new User();
             _dal.User.InsertOnSubmit(obj);
             return obj;
@@ -95,7 +79,6 @@ namespace Webshop.Common.BL
             }
             catch (Exception)
             {
-                //TODO: Status ist nicht immer ProdiverError
                 status = MembershipCreateStatus.UserRejected;
             }
             return status;
@@ -106,10 +89,6 @@ namespace Webshop.Common.BL
             if (String.IsNullOrEmpty(userName)) throw new ArgumentException("Der Wert darf nicht NULL oder leer sein.", "userName");
 
             FormsAuthentication.SetAuthCookie(userName, createPersistentCookie);
-            // update identity
-            //String[] userRoles = _blUser.getUserRoles(HttpContext.Current.User.Identity.Name);
-            //HttpContext.Current.User = new GenericPrincipal(new GenericIdentity(HttpContext.Current.User.Identity.Name), userRoles);
-            
         }
 
         public void SignOut()

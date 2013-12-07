@@ -24,16 +24,10 @@ namespace Webshop.Common.BL
                                     .User
                                     .Where(i => i.Benutzername.Equals(HttpContext.Current.User.Identity.Name))
                                     .Select(i => i.User_ID)
-                                    .First();
+                                    .FirstOrDefault();
             // Brutto Rechnungssumme
-            decimal rechnungssumme=0;
-            foreach (var item in orderItems)
-            {
-                var produkt=_dal.Produkt
-                                .Where (i=>i.Produkt_ID == item.Produkt_ID)
-                                .First();
-                rechnungssumme += (item.Menge * (produkt.Preis_netto/100*(100+produkt.Steuersatz)));
-            }
+            decimal rechnungssumme=RechnungsbetragBerechnen(orderItems);
+          
             neueBestellung.Rechnungsbetrag = rechnungssumme;
             neueBestellung.Bestellposition.AddRange(orderItems);
             _dal.Bestellung.InsertOnSubmit(neueBestellung);
@@ -48,7 +42,6 @@ namespace Webshop.Common.BL
         public IQueryable<Bestellung> GetAllBestellungen(int startPage)
         {
             return _dal.Bestellung
-                // .Where(i => Security Filter) 
                 .Skip(startPage * Helper.Helper.PageSize)
                 .Take(Helper.Helper.PageSize);
         }
@@ -78,15 +71,38 @@ namespace Webshop.Common.BL
         public void DeletePosition(int produktID, int bestellID)
         {
             _dal.Bestellposition.DeleteOnSubmit(_dal.Bestellposition.Where(i => i.Produkt_ID == produktID && i.Bestellung_ID==bestellID).FirstOrDefault());
-            IEnumerable<Bestellposition> positionen=_dal.Bestellposition.Where(i => i.Bestellung_ID == bestellID).ToList();
-            // Wenn die gerade behandelte Position die letzte Position zu diser Bestellung ist, dann lösche ganze Bestellung
-            if (positionen.Count()==1 && positionen.First().Produkt_ID==produktID)
+            IEnumerable<Bestellposition> positionen=_dal.Bestellposition.Where(i => i.Bestellung_ID == bestellID && i.Produkt_ID!=produktID).ToList();
+            // if actual position is the one and only for this order, dann delete order
+            if (positionen.Count()==0)
             {
                 _dal.Bestellung.DeleteOnSubmit(_dal.Bestellung.Where(i => i.Bestellung_ID == bestellID).FirstOrDefault());
             }
+            //update ordersum
+            decimal rechnungssumme = RechnungsbetragBerechnen(positionen);
+            Bestellung bestellung = _dal.Bestellung.Where(i => i.Bestellung_ID == bestellID).FirstOrDefault();
+            if (bestellung!=null)
+            {
+                bestellung.Rechnungsbetrag=rechnungssumme;
+            }
             _dal.SaveChanges();
-
         }
 
+        public decimal RechnungsbetragBerechnen(IEnumerable<Bestellposition> positionen)
+        {
+            decimal rechnungssumme = 0;
+            foreach (var p in positionen)
+            {
+                rechnungssumme += (p.Menge * (p.Produkt.Preis_netto / 100 * (100 + p.Produkt.Steuersatz)));
+            }
+            return rechnungssumme;
+        }
+
+        public IQueryable<Bestellung> Search(string search, int startPage)
+        {
+            return _dal.Bestellung
+                .Where(i => i.Bestellung_ID.ToString().StartsWith(search) || i.User.User_ID.ToString().StartsWith(search))
+                .Skip(startPage * Helper.Helper.PageSize)
+                .Take(Helper.Helper.PageSize);
+        } 
     }
 }

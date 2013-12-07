@@ -20,13 +20,24 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
         
         //
         // GET: /Bestellung/
-
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            return View(_bl.Bestellung
+            if (String.IsNullOrEmpty(searchString))
+            {
+                return View(_bl.Bestellung
                  .GetAllBestellungen(0)
                  .Select(i => new BestellungViewModel(i))
-                );
+                 );
+            }
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                return View(_bl.Bestellung
+                 .Search(searchString, 0)
+                 .Select(i => new BestellungViewModel(i)));
+            }
+
+            return View();
         }
 
         //
@@ -64,7 +75,6 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
 
         //
         // GET: /Bestellung/Delete/5
-
         public ActionResult Delete(int id)
         {
             _bl.Bestellung.DeleteBestellung(id);
@@ -73,8 +83,6 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
 
         //
         // POST: /Bestellung/Delete/5
-
-       
         public ActionResult DeleteAll()
         {
             _bl.Bestellung.DeleteAllBestellungen();
@@ -89,7 +97,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
             {
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("Edit", new { id = bestellID });
+            return RedirectToAction("Details", new { id = bestellID });
             
         }
     }

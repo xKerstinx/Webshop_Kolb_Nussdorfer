@@ -29,7 +29,7 @@ namespace Webshop_Kolb_Nussdorfer.BL
         }
 
         /** 
-    * AddItem() - Adds an item to the shopping  
+    * AddItem() - Adds an item to the shopping cart
     */
         public void AddItem(Produkt product)
         {
@@ -104,23 +104,15 @@ namespace Webshop_Kolb_Nussdorfer.BL
             {
                var bestellpos = new Bestellposition();
                 bestellpos.Produkt_ID = item.Produkt.Produkt_ID;
-                //bestellpos.Produkt = produkt;
+                bestellpos.Produkt = _dal.Produkt.Where(i => i.Produkt_ID == item.Produkt.Produkt_ID).FirstOrDefault();
                 bestellpos.Menge = item.Menge;
                 bestellposList.Add(bestellpos);
             }
 
-            //Warenkorb löschen
+            //clear shopping cart
             warenkorb.Items = new List<WarenkorbItemViewModel>();
             return bestellposList;
         }
 
-        /*public decimal GetSumme()
-        {
-            decimal subTotal = 0;
-            foreach (WarenkorbItemViewModel item in warenkorb.Items)
-                subTotal += (decimal)item.Produkt.Preis_brutto;
-
-            return subTotal;
-        }*/
     }
 }

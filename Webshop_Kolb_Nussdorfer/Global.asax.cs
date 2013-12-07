@@ -53,7 +53,6 @@ namespace Webshop_Kolb_Nussdorfer
             AreaRegistration.RegisterAllAreas(); 
             RegisterGlobalFilters(GlobalFilters.Filters); 
             RegisterRoutes(RouteTable.Routes);
-            //this.AuthenticateRequest += new EventHandler(MvcApplication_AuthenticateRequest);
         }
 
         void MvcApplication_AuthenticateRequest(object sender, EventArgs e)
@@ -62,11 +61,8 @@ namespace Webshop_Kolb_Nussdorfer
             {
                 IBLUser _blUser=DependencyResolver.Current.GetService<IBLUser>();
                 String[] userRoles = DependencyResolver.Current.GetService<IBLUser>().getUserRoles(HttpContext.Current.User.Identity.Name);
-                //String[] userRoles = { "Admin" };
-                //HttpContext.Current.User = new GenericPrincipal(new GenericIdentity(HttpContext.Current.User.Identity.Name), userRoles);
                 HttpContext.Current.User = new GenericPrincipal(new GenericIdentity(HttpContext.Current.User.Identity.Name), userRoles);
-                Boolean role = HttpContext.Current.User.IsInRole("Admin");
-                
+              
             }
         } 
         
