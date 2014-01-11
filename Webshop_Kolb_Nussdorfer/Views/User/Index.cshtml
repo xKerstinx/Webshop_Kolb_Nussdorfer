@@ -9,7 +9,7 @@
 <script src="~/Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
 <script src="~/Scripts/jquery-ui-1.8.20.min.js" type="text/javascript"></script>
 
-<h2>Index</h2>
+<h2>Userübersicht</h2>
 <p class="fontColorRed">@TempData["Msg"]</p>
 
 
@@ -17,7 +17,7 @@
 {   
     <p>
         Title: @Html.TextBox("SearchString")
-        <input type="submit" value="Filter" /><br />
+        <input type="submit" value="Suche" /><br />
         <br />
     </p> 
 }
@@ -69,19 +69,15 @@
                 @Html.ActionLink("Details", "Details", new { id = item.User_ID }) 
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.User_ID })
+                @Html.ActionLink("Bearbeiten", "Edit", new { id = item.User_ID })
             </td>
             <td>
-                @Html.ActionLink("Delete", "Delete", new { id = item.User_ID })
+                @Html.ActionLink("Löschen", "Delete", new { id = item.User_ID })
             </td>
         </tr>
     }
 
 </table>
-
-<p>
-    @Html.ActionLink("Back to List", "Index") 
-</p>
 
 
 

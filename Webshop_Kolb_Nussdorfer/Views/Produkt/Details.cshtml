@@ -66,6 +66,8 @@
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Bearbeiten", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @if (HttpContext.Current.User.IsInRole("Admin")){
+        @Html.ActionLink("Bearbeiten", "Edit", new { id=Model.Produkt_ID}) 
+     }
     @Html.ActionLink("Zurück zur Übersicht", "Index")
 </p>

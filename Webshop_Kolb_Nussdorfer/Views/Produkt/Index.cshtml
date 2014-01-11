@@ -6,6 +6,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+ @if (!Request.IsAuthenticated)
+ {  
+     <p> Bitte melden Sie sich an, um Produkte zum Warenkorb hinzufügen zu können!  </p>
+ }
 
 <script src="~/Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
 <script src="~/Scripts/jquery-ui-1.8.20.min.js" type="text/javascript"></script>
@@ -48,7 +52,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Preis_brutto)
         </th>
-        <th>In den Warenkorb</th>
+         @if (Request.IsAuthenticated){
+            <th>In den Warenkorb</th>
+         }
         <th>Details</th>
         @if (HttpContext.Current.User.IsInRole("Admin")){
             <th>Bearbeiten</th>
@@ -78,14 +84,15 @@
         <td>
             @Html.DisplayFor(modelItem => item.Preis_brutto)
         </td>
-        <td>
-             @if (Request.IsAuthenticated)
-                    {
-                        @Html.ActionLink("In den Warenkorb", "Order","Warenkorb", new { id=item.Produkt_ID},null)
-             
-                    }
+       
+        @if (Request.IsAuthenticated)
+            {
+                <td>
+                    @Html.ActionLink("In den Warenkorb", "Order","Warenkorb", new { id=item.Produkt_ID},null)
+                </td>
+            }
 
-        </td>
+        
         <td>
             @Html.ActionLink("Details", "Details", new { id=item.Produkt_ID,kurzbezeichnung=item.Kurzbezeichnung }) 
         </td>

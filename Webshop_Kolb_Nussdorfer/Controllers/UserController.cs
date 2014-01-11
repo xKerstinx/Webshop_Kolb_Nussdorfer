@@ -129,7 +129,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
             if (!string.IsNullOrEmpty(term) && term.Length >= 3)
             {
                 var results = _bl.User.Search(term, 0)
-                    .Select(i => new { label = i.Nachname, id = i.User_ID })
+                    .Select(i => new { label = i.Vorname+" "+i.Nachname, id = i.User_ID })
                     .Take(20);
                 return Json(results.ToArray(), JsonRequestBehavior.AllowGet);
             }

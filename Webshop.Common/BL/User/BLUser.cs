@@ -25,13 +25,13 @@ namespace Webshop.Common.BL
 
         public User GetUser(int id)
         {
-            var obj = _dal.User.Single(i => i.User_ID == id); // check access rights 
+            var obj = _dal.User.Single(i => i.User_ID == id);
             return obj;
         }
 
        public User GetUser(string benutzername)
         {
-            var obj = _dal.User.Single(i => i.Benutzername.ToLower() == benutzername.ToLower()); // check access rights 
+            var obj = _dal.User.Single(i => i.Benutzername.ToLower() == benutzername.ToLower());
             return obj;
         }
        
@@ -55,7 +55,7 @@ namespace Webshop.Common.BL
         public IQueryable<User> Search(string search, int startPage)
         {
             return _dal.User // .Where(i => Security Filter) 
-                .Where(i => i.Vorname.Contains(search) || i.Nachname.Contains(search) || i.User_ID.ToString().Contains(search))
+                .Where(i => i.Vorname.Contains(search) || i.Nachname.Contains(search) || (i.Vorname+" "+i.Nachname).Contains(search) || i.User_ID.ToString().Contains(search))
                 .Skip(startPage * Helper.Helper.PageSize)
                 .Take(Helper.Helper.PageSize);
         }
