@@ -89,7 +89,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(RegisterViewModel model)
+        public ActionResult Register(UserViewModel model)
         {
            MembershipCreateStatus createStatus;
             
@@ -99,12 +99,14 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
                     // try to register user
                     var newUser=_bl.Authentication.CreateUser();
                     model.ApplyChanges(newUser, ModelState);
-                    _bl.SaveChanges();
+                    if (ModelState.IsValid)
+                    {
+                        _bl.SaveChanges();
 
-                    createStatus = MembershipCreateStatus.Success;
-                    model.Success = true;
-                    _bl.Authentication.SignIn(model.User.Benutzername, false /* createPersistentCookie */);
-                    return View("RegisterSuccess", model);
+                        createStatus = MembershipCreateStatus.Success;
+                        _bl.Authentication.SignIn(model.Benutzername, false /* createPersistentCookie */);
+                        return View("RegisterSuccess", model);
+                    }
                 }
                 catch (Exception e)
                 {

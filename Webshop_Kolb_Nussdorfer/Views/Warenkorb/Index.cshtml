@@ -40,7 +40,7 @@
                  <td>
                     @Html.DisplayFor(modelItem => modelItem[i].Produkt.Kurzbezeichnung)
                 </td>
-                <td>
+                <td class = "warenkorbInput">
                     @Html.EditorFor(modelItem => modelItem[i].Menge)
                 </td>
                 <td>
@@ -50,7 +50,6 @@
                     @Html.DisplayFor(modelItem => modelItem[i].Gesamtpreis_brutto)
                 </td>
                 <td>
-                    @*@Html.ActionLink("Delete", "Delete", new { Model[i].Produkt.Produkt_ID })*@
                     @Html.HiddenFor(model=> model[i].Produkt.Produkt_ID)
                 </td>
             </tr>
@@ -60,8 +59,6 @@
         <br />
         <input id="update" type="submit" value="Aktualisieren" name="action:Update" />
         <input id="createOrder" type="submit" value="Bestellung abschließen" name="action:CreateOrder" />
-        @*@Html.ActionLink("Aktualisieren", "Update", Model)*@
-        @*@Html.ActionLink("Bestellung abschließen", "CreateOrder")*@
     
     @*http://stackoverflow.com/questions/3735400/html-attributes-for-editorfor-in-asp-net-mvc*@
 

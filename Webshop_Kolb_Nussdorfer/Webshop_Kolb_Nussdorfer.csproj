@@ -181,7 +181,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HttpParamActionAttribute.cs" />
-    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BestellpositionViewModel.cs" />
     <Compile Include="Models\BestellungViewModel.cs" />
     <Compile Include="Models\ProduktViewModel.cs" />
@@ -305,10 +305,9 @@
     <Content Include="Views\Account\ForgotPasswordSuccess.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Warenkorb\Index.cshtml" />
-    <Content Include="Views\Warenkorb\BestellungSuccess.cshtml" />
+    <Content Include="Views\Warenkorb\WarenkorbBestellungSuccess.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Details.cshtml" />
-    <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\Account\RegistrationConfirmation.cshtml" />
     <Content Include="Views\Bestellung\Index.cshtml" />

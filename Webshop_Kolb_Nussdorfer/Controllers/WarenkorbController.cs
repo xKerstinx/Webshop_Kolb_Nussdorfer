@@ -51,7 +51,7 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
         {
             _warenkorb.Update(results);
             Bestellung newOrder=_bl.Bestellung.createOrder(_warenkorb.CreateBestellpositionen());
-            return View("BestellungSuccess", newOrder);
+            return View("WarenkorbBestellungSuccess", newOrder);
         }
     }
 }

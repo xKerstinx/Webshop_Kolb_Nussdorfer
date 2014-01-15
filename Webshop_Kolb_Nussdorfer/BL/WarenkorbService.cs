@@ -70,7 +70,7 @@ namespace Webshop_Kolb_Nussdorfer.BL
         //Changes quantity of item
         public void SetItemQuantity(Produkt product, int quantity)
         {
-            // If we are setting the quantity to 0, remove the item entirely  
+            // If quantity is set to 0, remove the item entirely  
             if (quantity == 0)
             {
                 RemoveItem(product);

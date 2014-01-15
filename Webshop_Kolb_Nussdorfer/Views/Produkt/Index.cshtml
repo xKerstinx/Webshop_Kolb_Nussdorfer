@@ -19,13 +19,13 @@
 
 @if (HttpContext.Current.User.IsInRole("Admin")){
     <p>
-        @Html.ActionLink("Neues Produkt", "Create")
+        @Html.ActionLink("Neues Produkt", "Create","Produkt",null, new { @class = "buttonlinks" })
     </p>
 }
 
 @using (Html.BeginForm()){   
          <p> Artikelbezeichnung: @Html.TextBox("SearchString")   
-         <input type="submit" value="Suche" /><br />  <br />  </p> 
+         <input type="submit" value="Suche" class="searchButton"/><br />  <br />  </p> 
 } 
 
 
@@ -38,18 +38,6 @@
             @Html.DisplayNameFor(model => model.Kurzbezeichnung)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Langbezeichnung)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Steuersatz)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Preis_netto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Zutaten)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Preis_brutto)
         </th>
          @if (Request.IsAuthenticated){
@@ -58,6 +46,7 @@
         <th>Details</th>
         @if (HttpContext.Current.User.IsInRole("Admin")){
             <th>Bearbeiten</th>
+            <th>Löschen</th>
         }
     </tr>
 
@@ -70,19 +59,7 @@
             @Html.DisplayFor(modelItem => item.Kurzbezeichnung)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Langbezeichnung)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Steuersatz)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Preis_netto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Zutaten)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Preis_brutto)
+            &euro; @Html.DisplayFor(modelItem => item.Preis_brutto)
         </td>
        
         @if (Request.IsAuthenticated)
@@ -98,9 +75,9 @@
         </td>
         
        @if (HttpContext.Current.User.IsInRole("Admin")){
-            <td>@Html.ActionLink("Bearbeiten", "Edit", new { id=item.Produkt_ID }) |
-                @Html.ActionLink("Löschen", "Delete", new { id=item.Produkt_ID})
-            </td>
+            <td>@Html.ActionLink("Bearbeiten", "Edit", new { id=item.Produkt_ID }) </td>
+            <td>@Html.ActionLink("Löschen", "Delete", new { id=item.Produkt_ID}) </td>
+            
         }
     </tr>
 }

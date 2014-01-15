@@ -28,9 +28,9 @@ namespace Webshop_Kolb_Nussdorfer
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
              "ProductByName",
-             "P/{id}/{kurzbezeichnung}",
+             "Produkte/{id}/{kurzbezeichnung}",
               new { controller = "Produkt", action = "Details", kurzbezeichnung = UrlParameter.Optional }
-         );
+                );
             routes.MapRoute( "Default", // Route name 
                 "{controller}/{action}/{id}", // URL with parameters 
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults 
@@ -59,8 +59,8 @@ namespace Webshop_Kolb_Nussdorfer
         {
             if (HttpContext.Current.Request.IsAuthenticated)
             {
-                IBLUser _blUser=DependencyResolver.Current.GetService<IBLUser>();
-                String[] userRoles = DependencyResolver.Current.GetService<IBLUser>().getUserRoles(HttpContext.Current.User.Identity.Name);
+                //IBLAuthentication _blAuthentication = DependencyResolver.Current.GetService<IBLAuthentication>();
+                String[] userRoles = DependencyResolver.Current.GetService<IBLAuthentication>().getUserRoles(HttpContext.Current.User.Identity.Name);
                 HttpContext.Current.User = new GenericPrincipal(new GenericIdentity(HttpContext.Current.User.Identity.Name), userRoles);
               
             }

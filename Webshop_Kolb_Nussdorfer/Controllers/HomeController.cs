@@ -23,19 +23,5 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
         {
             return View();
         }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Ihre App-Beschreibungsseite.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Ihre Kontaktseite.";
-
-            return View();
-        }
     }
 }

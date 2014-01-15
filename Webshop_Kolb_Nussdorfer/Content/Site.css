@@ -1,18 +1,17 @@
 ﻿
 html {
-    background-color: #e2e2e2;
+    background-color: #e2e2e2; 
     margin: 15px;
     padding: 0;
 }
 
 body {
     background-color: #fff;
-    border-top: solid 10px #000;
     color: #333;
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
-    margin: 0;
-    padding: 0;
+    margin-bottom: 300px;
+    padding: 15px;
 }
 
 a {
@@ -21,6 +20,14 @@ a {
     padding-left: 3px;
     padding-right: 3px;
     text-decoration: underline;
+
+}
+
+.buttonlinks
+{
+    border: 4px outset;
+    padding: 2px;
+    text-decoration: none;
 }
 
     a:link, a:visited,
@@ -151,33 +158,33 @@ footer {
 
 /* login
 ----------------------------------------------------------*/
-#login {
+#logindisplay {
     display: block;
-    font-size: .85em;
+    font-size: 1em;
     margin: 0 0 10px;
     text-align: right;
 }
 
-    #login a {
-        background-color: #d3dce0;
+    #logindisplay a {
+        
         margin-left: 10px;
         margin-right: 3px;
         padding: 2px 3px;
         text-decoration: none;
     }
 
-    #login a.username {
+    #logindisplay a.username {
         background: none;
         margin: 0;
         padding: 0;
         text-decoration: underline;
     }
 
-    #login ul {
+    #logindisplay ul {
         margin: 0;
     }
 
-    #login li {
+    #logindisplay li {
         display: inline;
         list-style: none;
     }
@@ -188,9 +195,26 @@ footer {
 ul#menu {
     font-size: 1.3em;
     font-weight: 600;
-    margin: 0 0 5px;
-    padding: 0;
+    margin:  5px, 5px, 5px, 1000px;
+    padding: 20px;
     text-align: right;
+    background-color: #f0f000;
+
+    -moz-border-radius-bottomleft:10px;
+	-webkit-border-bottom-left-radius:10px;
+	border-bottom-left-radius:10px;
+	
+	-moz-border-radius-bottomright:10px;
+	-webkit-border-bottom-right-radius:10px;
+	border-bottom-right-radius:10px;
+	
+	-moz-border-radius-topright:10px;
+	-webkit-border-top-right-radius:10px;
+	border-top-right-radius:10px;
+	
+	-moz-border-radius-topleft:10px;
+	-webkit-border-top-left-radius:10px;
+	border-top-left-radius:10px;
 }
 
     ul#menu li {
@@ -315,20 +339,7 @@ article {
     width: 70%;
 }
 
-aside {
-    float: right;
-    width: 25%;
-}
 
-    aside ul {
-        list-style: none;
-        padding: 0;
-    }
-
-        aside ul li {
-            background: url("../Images/bullet.png") no-repeat 0 50%;
-            padding: 2px 0 2px 20px;
-        }
 
 .label {
     font-weight: 700;
@@ -454,7 +465,12 @@ input, textarea {
     font-size: 1.2em;
     margin: 5px 0 6px 0;
     padding: 5px;
-    width: 300px;
+    width: 200px;
+}
+
+td.warenkorbInput
+{
+    width:40px;
 }
 
 textarea {
@@ -478,11 +494,25 @@ textarea {
         background-color: #d3dce0;
         border: 1px solid #787878;
         cursor: pointer;
-        font-size: 1.2em;
+        font-size: 1.1em;
         font-weight: 600;
-        padding: 7px;
+        width: 180px;
+        height: 35px;
+        padding: 2px 20px;
         margin-right: 8px;
-        width: auto;
+    }
+
+    input[type="submit"].searchButton
+    {
+        background-color: #d3dce0;
+        border: 1px solid #787878;
+        cursor: pointer;
+        font-size: 1.1em;
+        font-weight: 600;
+        width: 100px;
+        height: 35px;
+        padding: 2px 20px;
+        margin-right: 8px;
     }
 
     td input[type="submit"],
@@ -550,63 +580,55 @@ input[type="checkbox"].input-validation-error {
 
 /* tables
 ----------------------------------------------------------*/
-table {
+   table{
     border-collapse: collapse;
     border-spacing: 0;
-    margin-top: 0.75em;
-    border: 0 none;
+	
+	margin:10px;
+    padding:0px;
+
+} 
+
+ tr:nth-child(odd){ background-color:#e5e5e5; }
+ tr:nth-child(even)    { background-color:#cccccc; } 
+ td{
+	vertical-align:middle;
+	border:1px solid #b2b2b2;
+	border-width:0px 1px 1px 0px;
+	text-align:left;
+	padding:9px;
+	color:#000000;
+} tr:last-child td{
+	border-width:0px 1px 0px 0px;
+} tr td:last-child{
+	border-width:0px 0px 1px 0px;
+} tr:last-child td:last-child{
+	border-width:0px 0px 0px 0px;
 }
+ tr:first-child td{
+	background:-o-linear-gradient(bottom, #77ea77 5%, #52ea52 100%);	
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #77ea77), color-stop(1, #52ea52) );
+	background:-moz-linear-gradient( center top, #77ea77 5%, #52ea52 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#77ea77", endColorstr="#52ea52");	background: -o-linear-gradient(top,#77ea77,52ea52);
 
-th {
-    font-size: 1.2em;
-    text-align: left;
-    border: none 0px;
-    padding-left: 0;
+	background-color:#77ea77;
+	border:0px solid #b2b2b2;
+	text-align:center;
+	border-width:0px 0px 1px 1px;
+	color:#000000;
 }
+ tr:first-child:hover td{
+	background:-o-linear-gradient(bottom, #77ea77 5%, #52ea52 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #77ea77), color-stop(1, #52ea52) );
+	background:-moz-linear-gradient( center top, #77ea77 5%, #52ea52 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#77ea77", endColorstr="#52ea52");	background: -o-linear-gradient(top,#77ea77,52ea52);
 
-    th a {
-        display: block;
-        position: relative;
-    }
-
-    th a:link, th a:visited, th a:active, th a:hover {
-        color: #333;
-        font-weight: 600;
-        text-decoration: none;
-        padding: 0;
-    }
-
-    th a:hover {
-        color: #000;
-    }
-
-    th.asc a, th.desc a {
-        margin-right: .75em;
-    }
-
-    th.asc a:after, th.desc a:after {
-        display: block;
-        position: absolute;
-        right: 0em;
-        top: 0;
-        font-size: 0.75em;
-    }
-
-    th.asc a:after {
-        content: '▲';
-    }
-
-    th.desc a:after {
-        content: '▼';
-    }
-
-td {
-    padding: 0.25em 2em 0.25em 0em;
-    border: 0 none;
+	background-color:#77ea77;
 }
-
-tr.pager td {
-    padding: 0 0.25em 0 0;
+ tr:first-child td:first-child{
+	border-width:0px 0px 1px 0px;
+}
+ tr:first-child td:last-child{
+	border-width:0px 0px 1px 1px;
 }
 
 
@@ -629,6 +651,11 @@ tr.pager td {
     }
 
     /* login */
+    #logindisplay
+    {
+        text-align: right;
+    }
+
     #login {
         font-size: .85em;
         margin: 0 0 12px;
@@ -662,6 +689,7 @@ tr.pager td {
     /* menu */
     nav {
         margin-bottom: 5px;
+
     }
 
     ul#menu {

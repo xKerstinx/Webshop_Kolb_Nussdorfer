@@ -96,5 +96,16 @@ namespace Webshop.Common.BL
             FormsAuthentication.SignOut();
         }
 
+        public String[] getUserRoles(string benutzername)
+        {
+            var user = _dal.User.FirstOrDefault(i => i.Benutzername.Equals(benutzername));
+            if (user != null)
+            {
+                String[] roles = { user.Usergruppe.Usergruppenbezeichnung };
+                return roles;
+            }
+            return null;
+        }
+
     }
 }

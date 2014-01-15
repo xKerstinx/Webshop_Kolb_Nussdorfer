@@ -12,11 +12,11 @@
 <body>
     <div class="page">
         <div id="header">
-            <div id="title">
-                <h1>Marmeladen-Webshop</h1>
-            </div>
             <div id="logindisplay">
                 @Html.Partial("_LoginPartial")
+            </div>
+            <div id="title">
+                <h1>Marmeladen-Webshop</h1>
             </div>
             <div id="menucontainer">
                 <ul id="menu">
@@ -27,11 +27,8 @@
                     <li>@Html.ActionLink("User", "Index", "User")</li> 
                     <li>@Html.ActionLink("Bestellungen", "Index", "Bestellung") </li>} 
                  
-                    <li>@Html.ActionLink("Produkt", "Index", "Produkt")</li>
-                    @*if (Request.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink("Mein Konto", "Index", "Profile")</li>
-                    }*@
+                    <li>@Html.ActionLink("Produkte", "Index", "Produkt")</li>
+                   
                      @if (Request.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Warenkorb", "Index", "Warenkorb")</li>

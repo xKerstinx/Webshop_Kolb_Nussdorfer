@@ -15,7 +15,7 @@ namespace Webshop.Common.BL
         void DeleteUser(int id);
 
         IQueryable<Webshop.Common.DAL.User> Search(string search, int startPage);
-        String[] getUserRoles(string benutzername);
+        
 
     }
 }

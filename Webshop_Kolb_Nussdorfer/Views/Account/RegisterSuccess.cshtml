@@ -1,4 +1,4 @@
-﻿@model Webshop_Kolb_Nussdorfer.Models.RegisterViewModel
+﻿@model Webshop_Kolb_Nussdorfer.Models.UserViewModel
 
 @{
     ViewBag.Title = "RegisterSuccess";
@@ -8,7 +8,7 @@
 
 <h2>Vielen Dank für Ihre Registrierung!</h2>
     <p>
-        Sie werden in K&uuml;rze eine E-Mail an @Model.User.EMail erhalten. <br />
+        Sie werden in K&uuml;rze eine E-Mail an @Model.EMail erhalten. <br />
         Bitte klicken Sie auf den dort angef&uuml;hrten Link um die Registrierung abzuschlie&szlig;en.
         <br /><p> @Html.ActionLink("www.marmeladenWelt.at/RegistrationConfirmation?415erwq", "RegistrationConfirmation", "Account")</p>
 

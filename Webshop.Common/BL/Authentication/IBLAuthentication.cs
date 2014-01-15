@@ -16,5 +16,6 @@ namespace Webshop.Common.BL
         MembershipCreateStatus ForgotPassword(string username, string email);
         void SignOut();
         void SignIn(string userName, bool createPersistentCookie);
+        String[] getUserRoles(string benutzername);
     }
 }

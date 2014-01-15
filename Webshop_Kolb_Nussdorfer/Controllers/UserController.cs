@@ -64,7 +64,8 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
             if (ModelState.IsValid)
             {
                 var newUser = _bl.User.CreateUser();
-                user.ApplyChanges(newUser);
+                user.ApplyChanges(newUser, ModelState);
+                //user.ApplyPassword(newUser, ModelState);
 
                 if (string.IsNullOrEmpty(user.Passwort))
                 {
@@ -97,10 +98,17 @@ namespace Webshop_Kolb_Nussdorfer.Controllers
             if (ModelState.IsValid)
             {
                 var userToUpdate = _bl.User.GetUser(id);
-                user.ApplyChanges(userToUpdate);
-                _bl.SaveChanges();
+                user.ApplyChanges(userToUpdate, ModelState);
+                //user.ApplyPassword(userToUpdate, ModelState);
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    _bl.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+               // _bl.SaveChanges();
+
+               // return RedirectToAction("Index");
             }
             return View(user);
         }

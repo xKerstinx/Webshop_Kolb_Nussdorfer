@@ -9,7 +9,7 @@
 <script src="~/Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
 <script src="~/Scripts/jquery-ui-1.8.20.min.js" type="text/javascript"></script>
 
-<h2>Userübersicht</h2>
+<h2>User&uuml;bersicht</h2>
 <p class="fontColorRed">@TempData["Msg"]</p>
 
 
@@ -17,7 +17,7 @@
 {   
     <p>
         Title: @Html.TextBox("SearchString")
-        <input type="submit" value="Suche" /><br />
+        <input type="submit" value="Suche" class="searchButton" /><br />
         <br />
     </p> 
 }
@@ -26,7 +26,7 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Usergruppe_ID)
+            @Html.DisplayNameFor(model => model.Usergruppe)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.User_ID)
@@ -50,7 +50,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Usergruppe_ID)
+                @Html.DisplayFor(modelItem => item.Usergruppe)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.User_ID)

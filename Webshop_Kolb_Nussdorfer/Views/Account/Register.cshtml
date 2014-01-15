@@ -1,4 +1,4 @@
-﻿@model Webshop_Kolb_Nussdorfer.Models.RegisterViewModel
+﻿@model Webshop_Kolb_Nussdorfer.Models.UserViewModel
 
 @{
     ViewBag.Title = "Register";
@@ -10,98 +10,98 @@
 
 
 @using (Html.BeginForm()) {
-    @Html.ValidationSummary(true,"Die Registrierung war nicht erfolgreich. Korrigieren Sie die Fehler und wiederholen Sie den Vorgang")
+    @Html.ValidationSummary(false,"Die Registrierung war nicht erfolgreich. Korrigieren Sie die Fehler und wiederholen Sie den Vorgang")
 
     <fieldset>
         <legend>RegisterModel</legend>
-        @Html.Hidden("User.Usergruppe_ID", "2")
+        @Html.Hidden("Usergruppe_ID", "2")
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.User.Benutzername)
+            @Html.LabelFor(model => model.Benutzername)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.User.Benutzername)
-            @Html.ValidationMessageFor(model => model.User.Benutzername)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.User.EMail)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.User.EMail)
-            @Html.ValidationMessageFor(model => model.User.EMail)
+            @Html.EditorFor(model => model.Benutzername)
+            @Html.ValidationMessageFor(model => model.Benutzername)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.User.Vorname)
+            @Html.LabelFor(model => model.EMail)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.User.Vorname)
-            @Html.ValidationMessageFor(model => model.User.Vorname)
+            @Html.EditorFor(model => model.EMail)
+            @Html.ValidationMessageFor(model => model.EMail)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.User.Nachname)
+            @Html.LabelFor(model => model.Vorname)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.User.Nachname)
-            @Html.ValidationMessageFor(model => model.User.Nachname)
+            @Html.EditorFor(model => model.Vorname)
+            @Html.ValidationMessageFor(model => model.Vorname)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.User.Adresse)
+            @Html.LabelFor(model => model.Nachname)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.User.Adresse)
-            @Html.ValidationMessageFor(model => model.User.Adresse)
+            @Html.EditorFor(model => model.Nachname)
+            @Html.ValidationMessageFor(model => model.Nachname)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.User.Ort)
+            @Html.LabelFor(model => model.Adresse)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.User.Ort)
-            @Html.ValidationMessageFor(model => model.User.Ort)
+            @Html.EditorFor(model => model.Adresse)
+            @Html.ValidationMessageFor(model => model.Adresse)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.User.PLZ)
+            @Html.LabelFor(model => model.Ort)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.User.PLZ)
-            @Html.ValidationMessageFor(model => model.User.PLZ)
+            @Html.EditorFor(model => model.Ort)
+            @Html.ValidationMessageFor(model => model.Ort)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.User.Land)
+            @Html.LabelFor(model => model.PLZ)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.User.Land)
-            @Html.ValidationMessageFor(model => model.User.Land)
+            @Html.EditorFor(model => model.PLZ)
+            @Html.ValidationMessageFor(model => model.PLZ)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.User.Telefonnummer)
+            @Html.LabelFor(model => model.Land)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.User.Telefonnummer)
-            @Html.ValidationMessageFor(model => model.User.Telefonnummer)
+            @Html.EditorFor(model => model.Land)
+            @Html.ValidationMessageFor(model => model.Land)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Password)
+            @Html.LabelFor(model => model.Telefonnummer)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Password)
-            @Html.ValidationMessageFor(model => model.Password)
+            @Html.EditorFor(model => model.Telefonnummer)
+            @Html.ValidationMessageFor(model => model.Telefonnummer)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ConfirmPassword)
+            @Html.LabelFor(model => model.Passwort)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ConfirmPassword)
-            @Html.ValidationMessageFor(model => model.ConfirmPassword)
+            @Html.EditorFor(model => model.Passwort)
+            @Html.ValidationMessageFor(model => model.Passwort)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PasswortRetype)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PasswortRetype)
+            @Html.ValidationMessageFor(model => model.PasswortRetype)
         </div>
 
         <p>
